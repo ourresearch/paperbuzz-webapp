@@ -120,6 +120,7 @@ body h2 {
 }
 .page.cite-page .content {
   max-width: 800px;
+  margin: 0 auto;
   padding-top: 100px;
 }
 .page.about {
