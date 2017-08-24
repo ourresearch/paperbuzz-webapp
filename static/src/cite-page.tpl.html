@@ -1,53 +1,62 @@
-<div class="page cite-page" layout="row" layout-align="center center">
+<div class="page cite-page">
 
     <div class="content">
-        <div class="main">
-            <div class="loading"
-                 ng-show="apiResp=='loading'">
-                <span class="label">Building your citation&hellip;</span>
-                <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        <div class="loading"
+             ng-show="apiResp=='loading'">
+            <span class="label">Finding metrics &hellip;</span>
+            <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </div>
+
+
+        <div class="citation animated fadeIn" ng-show="apiResp.doi">
+            <h1>{{ apiResp.crossref_metadata.title }}</h1>
+            <div class="metadata">
+                <div class="first-row">
+                    <span class="author" ng-repeat="author in apiResp.crossref_metadata.author">
+                        {{ author.family }}
+                    </span>
+                </div>
+                <div class="second-row">
+                    <span class="year">{{ apiResp.oadoi.year }}</span>
+                    <span class="journal">{{ apiResp.crossref_metadata["container-title"] }}</span>
+                    <a href="https://doi.org/{{ apiResp.doi }}" class="linkout">(view)</a>
+                </div>
+                <div class="third-row" ng-show="apiResp.oadoi.is_oa">
+
+                    <!-- Green OA -->
+                    <a href="{{ apiResp.oadoi.best_oa_location.url }}"  ng-show="apiResp.oadoi.best_oa_location.host_type=='repository'">
+                        <i class="fa fa-unlock-alt"></i>
+                        <span class="text">
+                            <span class="oa">Open Access</span>
+                            version available
+                        </span>
+                    </a>
+
+                    <!-- Gold/bronze OA -->
+                    <a href="{{ apiResp.oadoi.best_oa_location.url }}" ng-show="apiResp.oadoi.best_oa_location.host_type=='publisher'">
+                        <i class="fa fa-unlock-alt"></i>
+                        <span class="text">
+                            <span class="oa">Open Access</span>
+                            via the publisher
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+            <div class="sources">
+                <div class="source" ng-repeat="source in apiResp.altmetrics_sources">
+                    <span class="name">{{ source.source_id }}: </span>
+                    <span class="count">{{ source.events_count }}</span>
+                </div>
+
+
             </div>
 
-            <div class="error" ng-show="apiResp=='error'">
-                <h2>Sorry!</h2>
-                <div class="text">
-                    We weren't able to figure out a citation for this research product.
-                    We're in active development and hopefully this particular case will
-                    be working soon. Feel free to
-                    <a href="mailto:team@impactstory.org">let us know</a> and we'll
-                    look into it.
-                </div>
-            </div>
-
-            <div class="citation animated fadeIn" ng-show="apiResp.citation">
-
-                <div class="heading" layout="row" layout-align="space-between center">
-                    <div class="label">Citation:</div>
-                    <div class="style">
-                        <span class="ti-label">Style:</span>
-                        <span class="style-name">Harvard</span>
-                        <a href="/" class="change" ng-click="changeStyle()">(change)</a>
-                    </div>
-                </div>
-
-                <div class="text">
-                    {{ apiResp.citation }}
-                </div>
-
-                <div class="controls" layout="row" layout-align="left center">
-                    <md-button ng-click="export()">
-                        <i class="fa fa-download"></i>
-                        Export
-                    </md-button>
-                    <md-button ng-href="mailto:team@impactstory.org">
-                        <i class="fa fa-bullhorn"></i>
-                        Report bug
-                    </md-button>
-                    <md-button ng-href="{{ apiUrl }}">
-                        <i class="fa fa-cogs"></i>
-                        Show in API
-                    </md-button>
-                </div>
+            <div class="item-footer">
+                <a href="{{ apiUrl }}">
+                    <i class="fa fa-cogs"></i>
+                    View in API
+                </a>
             </div>
 
         </div>

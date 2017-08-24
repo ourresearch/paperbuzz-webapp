@@ -56,6 +56,10 @@ angular.module('app').run(function($route,
 
 
 
+
+
+
+
     $rootScope.$on('$routeChangeStart', function(next, current){
     })
     $rootScope.$on('$routeChangeSuccess', function(next, current){
@@ -98,18 +102,20 @@ angular.module('app').controller('AppCtrl', function(
 
     $scope.pageTitle = function(){
         if (!$scope.global.title){
-            $scope.global.title = "credit for all the things!"
+            $scope.global.title = "Open altmetrics for all"
         }
-        return "CiteAs: " + $scope.global.title
+        return "doi-events: " + $scope.global.title
     }
 
 
-    $rootScope.$on('$routeChangeSuccess', function(next, current){
-        $scope.global.template = current.loadedTemplateUrl
-            .replace("/", "-")
-            .replace(".tpl.html", "")
-        $scope.global.title = null
-    })
+
+    // looks like this is using outdated API
+    //$rootScope.$on('$routeChangeSuccess', function(next, current){
+    //    $scope.global.template = current.loadedTemplateUrl
+    //        .replace("/", "-")
+    //        .replace(".tpl.html", "")
+    //    $scope.global.title = null
+    //})
 
     $scope.trustHtml = function(str){
         return $sce.trustAsHtml(str)
@@ -151,7 +157,7 @@ angular.module('citePage', [
 ])
 
     .config(function ($routeProvider) {
-        $routeProvider.when('/cite/:projectId*', {
+        $routeProvider.when('/details/:doi*', {
             templateUrl: "cite-page.tpl.html",
             controller: "CitePageCtrl"
         })
@@ -166,7 +172,9 @@ angular.module('citePage', [
 
 
 
-        var url = "http://api.citeas.org/product/" + $routeParams.projectId
+        var url = "https://doi-events.herokuapp.com/doi/" + $routeParams.doi
+
+        console.log("calling this url: ", url)
         $scope.apiUrl = url
         $scope.apiResp = "loading"
 
@@ -250,7 +258,7 @@ angular.module('landing', [
         console.log("i am the landing page ctrl")
         $scope.submit = function(){
             console.log("submit!", $scope.main.id)
-            $location.path("/cite/" + $scope.main.id)
+            $location.path("/details/" + $scope.main.id)
         }
 
     })
@@ -377,56 +385,65 @@ angular.module("about.tpl.html", []).run(["$templateCache", function($templateCa
 
 angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("cite-page.tpl.html",
-    "<div class=\"page cite-page\" layout=\"row\" layout-align=\"center center\">\n" +
+    "<div class=\"page cite-page\">\n" +
     "\n" +
     "    <div class=\"content\">\n" +
-    "        <div class=\"main\">\n" +
-    "            <div class=\"loading\"\n" +
-    "                 ng-show=\"apiResp=='loading'\">\n" +
-    "                <span class=\"label\">Building your citation&hellip;</span>\n" +
-    "                <md-progress-linear md-mode=\"indeterminate\"></md-progress-linear>\n" +
+    "        <div class=\"loading\"\n" +
+    "             ng-show=\"apiResp=='loading'\">\n" +
+    "            <span class=\"label\">Finding metrics &hellip;</span>\n" +
+    "            <md-progress-linear md-mode=\"indeterminate\"></md-progress-linear>\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
+    "        <div class=\"citation animated fadeIn\" ng-show=\"apiResp.doi\">\n" +
+    "            <h1>{{ apiResp.crossref_metadata.title }}</h1>\n" +
+    "            <div class=\"metadata\">\n" +
+    "                <div class=\"first-row\">\n" +
+    "                    <span class=\"author\" ng-repeat=\"author in apiResp.crossref_metadata.author\">\n" +
+    "                        {{ author.family }}\n" +
+    "                    </span>\n" +
+    "                </div>\n" +
+    "                <div class=\"second-row\">\n" +
+    "                    <span class=\"year\">{{ apiResp.oadoi.year }}</span>\n" +
+    "                    <span class=\"journal\">{{ apiResp.crossref_metadata[\"container-title\"] }}</span>\n" +
+    "                    <a href=\"https://doi.org/{{ apiResp.doi }}\" class=\"linkout\">(view)</a>\n" +
+    "                </div>\n" +
+    "                <div class=\"third-row\" ng-show=\"apiResp.oadoi.is_oa\">\n" +
+    "\n" +
+    "                    <!-- Green OA -->\n" +
+    "                    <a href=\"{{ apiResp.oadoi.best_oa_location.url }}\"  ng-show=\"apiResp.oadoi.best_oa_location.host_type=='repository'\">\n" +
+    "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                        <span class=\"text\">\n" +
+    "                            <span class=\"oa\">Open Access</span>\n" +
+    "                            version available\n" +
+    "                        </span>\n" +
+    "                    </a>\n" +
+    "\n" +
+    "                    <!-- Gold/bronze OA -->\n" +
+    "                    <a href=\"{{ apiResp.oadoi.best_oa_location.url }}\" ng-show=\"apiResp.oadoi.best_oa_location.host_type=='publisher'\">\n" +
+    "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                        <span class=\"text\">\n" +
+    "                            <span class=\"oa\">Open Access</span>\n" +
+    "                            via the publisher\n" +
+    "                        </span>\n" +
+    "                    </a>\n" +
+    "                </div>\n" +
+    "\n" +
+    "            </div>\n" +
+    "            <div class=\"sources\">\n" +
+    "                <div class=\"source\" ng-repeat=\"source in apiResp.altmetrics_sources\">\n" +
+    "                    <span class=\"name\">{{ source.source_id }}: </span>\n" +
+    "                    <span class=\"count\">{{ source.events_count }}</span>\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
     "            </div>\n" +
     "\n" +
-    "            <div class=\"error\" ng-show=\"apiResp=='error'\">\n" +
-    "                <h2>Sorry!</h2>\n" +
-    "                <div class=\"text\">\n" +
-    "                    We weren't able to figure out a citation for this research product.\n" +
-    "                    We're in active development and hopefully this particular case will\n" +
-    "                    be working soon. Feel free to\n" +
-    "                    <a href=\"mailto:team@impactstory.org\">let us know</a> and we'll\n" +
-    "                    look into it.\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "\n" +
-    "            <div class=\"citation animated fadeIn\" ng-show=\"apiResp.citation\">\n" +
-    "\n" +
-    "                <div class=\"heading\" layout=\"row\" layout-align=\"space-between center\">\n" +
-    "                    <div class=\"label\">Citation:</div>\n" +
-    "                    <div class=\"style\">\n" +
-    "                        <span class=\"ti-label\">Style:</span>\n" +
-    "                        <span class=\"style-name\">Harvard</span>\n" +
-    "                        <a href=\"/\" class=\"change\" ng-click=\"changeStyle()\">(change)</a>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <div class=\"text\">\n" +
-    "                    {{ apiResp.citation }}\n" +
-    "                </div>\n" +
-    "\n" +
-    "                <div class=\"controls\" layout=\"row\" layout-align=\"left center\">\n" +
-    "                    <md-button ng-click=\"export()\">\n" +
-    "                        <i class=\"fa fa-download\"></i>\n" +
-    "                        Export\n" +
-    "                    </md-button>\n" +
-    "                    <md-button ng-href=\"mailto:team@impactstory.org\">\n" +
-    "                        <i class=\"fa fa-bullhorn\"></i>\n" +
-    "                        Report bug\n" +
-    "                    </md-button>\n" +
-    "                    <md-button ng-href=\"{{ apiUrl }}\">\n" +
-    "                        <i class=\"fa fa-cogs\"></i>\n" +
-    "                        Show in API\n" +
-    "                    </md-button>\n" +
-    "                </div>\n" +
+    "            <div class=\"item-footer\">\n" +
+    "                <a href=\"{{ apiUrl }}\">\n" +
+    "                    <i class=\"fa fa-cogs\"></i>\n" +
+    "                    View in API\n" +
+    "                </a>\n" +
     "            </div>\n" +
     "\n" +
     "        </div>\n" +
@@ -444,10 +461,9 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "    <div class=\"top-screen\" layout=\"row\" layout-align=\"center center\">\n" +
     "        <div class=\"content\">\n" +
     "            <div class=\"tagline\">\n" +
-    "                <h1>All research products deserve credit.</h1>\n" +
+    "                <h1>Open altmetrics for everyone.</h1>\n" +
     "                <p class=\"subtagline\">\n" +
-    "                    Get the correct citation for diverse research products,\n" +
-    "                    from software and datasets to preprints and articles.\n" +
+    "                    Track online conversations about research papers, using a free and open-source nonprofit tool.\n" +
     "                </p>\n" +
     "            </div>\n" +
     "\n" +
@@ -457,7 +473,7 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "                    <md-input-container md-no-float\n" +
     "                                        class=\"md-block example-selected-{{ main.exampleSelected }}\"\n" +
     "                                        flex-gt-sm=\"\">\n" +
-    "                        <label>Paste a URL or DOI</label>\n" +
+    "                        <label>Paste a DOI here</label>\n" +
     "                        <input ng-model=\"main.id\">\n" +
     "\n" +
     "                        <md-button ng-show=\"main.id\"\n" +

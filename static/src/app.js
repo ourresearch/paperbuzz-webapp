@@ -56,6 +56,10 @@ angular.module('app').run(function($route,
 
 
 
+
+
+
+
     $rootScope.$on('$routeChangeStart', function(next, current){
     })
     $rootScope.$on('$routeChangeSuccess', function(next, current){
@@ -98,18 +102,20 @@ angular.module('app').controller('AppCtrl', function(
 
     $scope.pageTitle = function(){
         if (!$scope.global.title){
-            $scope.global.title = "credit for all the things!"
+            $scope.global.title = "Open altmetrics for all"
         }
-        return "CiteAs: " + $scope.global.title
+        return "doi-events: " + $scope.global.title
     }
 
 
-    $rootScope.$on('$routeChangeSuccess', function(next, current){
-        $scope.global.template = current.loadedTemplateUrl
-            .replace("/", "-")
-            .replace(".tpl.html", "")
-        $scope.global.title = null
-    })
+
+    // looks like this is using outdated API
+    //$rootScope.$on('$routeChangeSuccess', function(next, current){
+    //    $scope.global.template = current.loadedTemplateUrl
+    //        .replace("/", "-")
+    //        .replace(".tpl.html", "")
+    //    $scope.global.title = null
+    //})
 
     $scope.trustHtml = function(str){
         return $sce.trustAsHtml(str)

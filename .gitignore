@@ -82,3 +82,5 @@ static/codekit-config.json
 # for markdown previews
 README_cache
 
+# local environment files (added by heather)
+*.env

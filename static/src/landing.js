@@ -49,7 +49,7 @@ angular.module('landing', [
         console.log("i am the landing page ctrl")
         $scope.submit = function(){
             console.log("submit!", $scope.main.id)
-            $location.path("/cite/" + $scope.main.id)
+            $location.path("/details/" + $scope.main.id)
         }
 
     })

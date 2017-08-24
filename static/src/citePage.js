@@ -4,7 +4,7 @@ angular.module('citePage', [
 ])
 
     .config(function ($routeProvider) {
-        $routeProvider.when('/cite/:projectId*', {
+        $routeProvider.when('/details/:doi*', {
             templateUrl: "cite-page.tpl.html",
             controller: "CitePageCtrl"
         })
@@ -19,7 +19,9 @@ angular.module('citePage', [
 
 
 
-        var url = "http://api.citeas.org/product/" + $routeParams.projectId
+        var url = "https://doi-events.herokuapp.com/doi/" + $routeParams.doi
+
+        console.log("calling this url: ", url)
         $scope.apiUrl = url
         $scope.apiResp = "loading"
 
