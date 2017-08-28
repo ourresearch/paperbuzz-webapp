@@ -148,6 +148,50 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding-top: @navBarHeight;
+    
+    h1 {
+      line-height: 1.2;
+      font-weight: lighter;
+      margin-bottom: 0;
+    }
+    .metadata {
+      font-size: 16px;
+      .journal {
+        font-style: italic;
+      }
+    }
+
+    .metrics {
+      margin-top: 50px;
+      display: flex;
+      @media @mobile {
+        display: block;
+      }
+
+      .sources {
+        padding-right: 80px;
+        .source {
+          text-transform: capitalize;
+          cursor: pointer;
+        }
+      }
+      .events {
+        h2 {
+          .remove {
+            font-size: 14px;
+            cursor: pointer;
+          }
+        }
+        .event {
+          line-height: 1.2;
+          margin-bottom: 10px;
+          .date {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    
   }
 }
 

@@ -42,22 +42,21 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "\n" +
     "\n" +
     "        <div class=\"citation animated fadeIn\" ng-show=\"apiResp.doi\">\n" +
-    "            <h1>{{ apiResp.crossref_metadata.title }}</h1>\n" +
+    "            <h1>{{ apiResp.metadata.title }}</h1>\n" +
     "            <div class=\"metadata\">\n" +
     "                <div class=\"first-row\">\n" +
-    "                    <span class=\"author\" ng-repeat=\"author in apiResp.crossref_metadata.author\">\n" +
-    "                        {{ author.family }}\n" +
-    "                    </span>\n" +
-    "                </div>\n" +
-    "                <div class=\"second-row\">\n" +
-    "                    <span class=\"year\">{{ apiResp.oadoi.year }}</span>\n" +
-    "                    <span class=\"journal\">{{ apiResp.crossref_metadata[\"container-title\"] }}</span>\n" +
+    "                    <span class=\"year\">{{ apiResp.open_access.year }}</span>\n" +
+    "                    <span class=\"author\" ng-repeat=\"author in apiResp.metadata.author\">\n" +
+    "                        {{ author.family }}</span>.\n" +
+    "                    <span class=\"journal\">{{ apiResp.metadata[\"container-title\"] }}</span>\n" +
     "                    <a href=\"https://doi.org/{{ apiResp.doi }}\" class=\"linkout\">(view)</a>\n" +
     "                </div>\n" +
-    "                <div class=\"third-row\" ng-show=\"apiResp.oadoi.is_oa\">\n" +
+    "                <div class=\"second-row\">\n" +
+    "                </div>\n" +
+    "                <div class=\"third-row\" ng-show=\"apiResp.open_access.is_oa\">\n" +
     "\n" +
     "                    <!-- Green OA -->\n" +
-    "                    <a href=\"{{ apiResp.oadoi.best_oa_location.url }}\"  ng-show=\"apiResp.oadoi.best_oa_location.host_type=='repository'\">\n" +
+    "                    <a href=\"{{ apiResp.open_access.best_oa_location.url }}\"  ng-show=\"apiResp.open_access.best_oa_location.host_type=='repository'\">\n" +
     "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                        <span class=\"text\">\n" +
     "                            <span class=\"oa\">Open Access</span>\n" +
@@ -66,7 +65,7 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                    </a>\n" +
     "\n" +
     "                    <!-- Gold/bronze OA -->\n" +
-    "                    <a href=\"{{ apiResp.oadoi.best_oa_location.url }}\" ng-show=\"apiResp.oadoi.best_oa_location.host_type=='publisher'\">\n" +
+    "                    <a href=\"{{ apiResp.open_access.best_oa_location.url }}\" ng-show=\"apiResp.open_access.best_oa_location.host_type=='publisher'\">\n" +
     "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                        <span class=\"text\">\n" +
     "                            <span class=\"oa\">Open Access</span>\n" +
@@ -76,13 +75,29 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                </div>\n" +
     "\n" +
     "            </div>\n" +
-    "            <div class=\"sources\">\n" +
-    "                <div class=\"source\" ng-repeat=\"source in apiResp.altmetrics_sources\">\n" +
-    "                    <span class=\"name\">{{ source.source_id }}: </span>\n" +
-    "                    <span class=\"count\">{{ source.events_count }}</span>\n" +
+    "            <div class=\"metrics\">\n" +
+    "                <div class=\"sources\">\n" +
+    "                    <div class=\"source\" ng-repeat=\"source in apiResp.altmetrics.sources\"\n" +
+    "                            ng-click=\"p.selectedSource = source\">\n" +
+    "                        <span class=\"name\">{{ source.source_id }}: </span>\n" +
+    "                        <span class=\"count\">{{ source.events_count }}</span>\n" +
+    "                    </div>\n" +
     "                </div>\n" +
-    "\n" +
-    "\n" +
+    "                <div class=\"events\">\n" +
+    "                    <h2>\n" +
+    "                        <span class=\"val\">{{ filteredSources.length }}</span>\n" +
+    "                        {{ selectedSource.source_id }} events\n" +
+    "                        <span class=\"remove\" ng-click=\"selectedSource=null\">show all events</span>\n" +
+    "                    </h2>\n" +
+    "                    <div class=\"event\" ng-repeat=\"event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources\">\n" +
+    "                        <div class=\"first-row\">\n" +
+    "                            <a href=\"{{ event.url }}\" class=\"link\">{{ event.url | limitTo: 50 }}...</a>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"second-row\">\n" +
+    "                            <span class=\"date\">{{ event.occurred_ago }}</span>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "\n" +
     "            <div class=\"item-footer\">\n" +

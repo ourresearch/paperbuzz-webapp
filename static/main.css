@@ -123,6 +123,44 @@ body h2 {
   margin: 0 auto;
   padding-top: 100px;
 }
+.page.cite-page .content h1 {
+  line-height: 1.2;
+  font-weight: lighter;
+  margin-bottom: 0;
+}
+.page.cite-page .content .metadata {
+  font-size: 16px;
+}
+.page.cite-page .content .metadata .journal {
+  font-style: italic;
+}
+.page.cite-page .content .metrics {
+  margin-top: 50px;
+  display: flex;
+}
+@media only screen and (max-width: 992px) {
+  .page.cite-page .content .metrics {
+    display: block;
+  }
+}
+.page.cite-page .content .metrics .sources {
+  padding-right: 80px;
+}
+.page.cite-page .content .metrics .sources .source {
+  text-transform: capitalize;
+  cursor: pointer;
+}
+.page.cite-page .content .metrics .events h2 .remove {
+  font-size: 14px;
+  cursor: pointer;
+}
+.page.cite-page .content .metrics .events .event {
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.page.cite-page .content .metrics .events .event .date {
+  font-size: 14px;
+}
 .page.about {
   height: 100vh;
 }

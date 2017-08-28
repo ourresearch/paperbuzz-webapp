@@ -9,22 +9,21 @@
 
 
         <div class="citation animated fadeIn" ng-show="apiResp.doi">
-            <h1>{{ apiResp.crossref_metadata.title }}</h1>
+            <h1>{{ apiResp.metadata.title }}</h1>
             <div class="metadata">
                 <div class="first-row">
-                    <span class="author" ng-repeat="author in apiResp.crossref_metadata.author">
-                        {{ author.family }}
-                    </span>
-                </div>
-                <div class="second-row">
-                    <span class="year">{{ apiResp.oadoi.year }}</span>
-                    <span class="journal">{{ apiResp.crossref_metadata["container-title"] }}</span>
+                    <span class="year">{{ apiResp.open_access.year }}</span>
+                    <span class="author" ng-repeat="author in apiResp.metadata.author">
+                        {{ author.family }}</span>.
+                    <span class="journal">{{ apiResp.metadata["container-title"] }}</span>
                     <a href="https://doi.org/{{ apiResp.doi }}" class="linkout">(view)</a>
                 </div>
-                <div class="third-row" ng-show="apiResp.oadoi.is_oa">
+                <div class="second-row">
+                </div>
+                <div class="third-row" ng-show="apiResp.open_access.is_oa">
 
                     <!-- Green OA -->
-                    <a href="{{ apiResp.oadoi.best_oa_location.url }}"  ng-show="apiResp.oadoi.best_oa_location.host_type=='repository'">
+                    <a href="{{ apiResp.open_access.best_oa_location.url }}"  ng-show="apiResp.open_access.best_oa_location.host_type=='repository'">
                         <i class="fa fa-unlock-alt"></i>
                         <span class="text">
                             <span class="oa">Open Access</span>
@@ -33,7 +32,7 @@
                     </a>
 
                     <!-- Gold/bronze OA -->
-                    <a href="{{ apiResp.oadoi.best_oa_location.url }}" ng-show="apiResp.oadoi.best_oa_location.host_type=='publisher'">
+                    <a href="{{ apiResp.open_access.best_oa_location.url }}" ng-show="apiResp.open_access.best_oa_location.host_type=='publisher'">
                         <i class="fa fa-unlock-alt"></i>
                         <span class="text">
                             <span class="oa">Open Access</span>
@@ -43,13 +42,29 @@
                 </div>
 
             </div>
-            <div class="sources">
-                <div class="source" ng-repeat="source in apiResp.altmetrics_sources">
-                    <span class="name">{{ source.source_id }}: </span>
-                    <span class="count">{{ source.events_count }}</span>
+            <div class="metrics">
+                <div class="sources">
+                    <div class="source" ng-repeat="source in apiResp.altmetrics.sources"
+                            ng-click="p.selectedSource = source">
+                        <span class="name">{{ source.source_id }}: </span>
+                        <span class="count">{{ source.events_count }}</span>
+                    </div>
                 </div>
-
-
+                <div class="events">
+                    <h2>
+                        <span class="val">{{ filteredSources.length }}</span>
+                        {{ selectedSource.source_id }} events
+                        <span class="remove" ng-click="selectedSource=null">show all events</span>
+                    </h2>
+                    <div class="event" ng-repeat="event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources">
+                        <div class="first-row">
+                            <a href="{{ event.url }}" class="link">{{ event.url | limitTo: 50 }}...</a>
+                        </div>
+                        <div class="second-row">
+                            <span class="date">{{ event.occurred_ago }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="item-footer">

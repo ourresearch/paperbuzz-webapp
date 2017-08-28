@@ -24,10 +24,34 @@ angular.module('citePage', [
         console.log("calling this url: ", url)
         $scope.apiUrl = url
         $scope.apiResp = "loading"
+        $scope.p = {}
 
         $http.get(url).success(function(resp){
             console.log("response from api yay", resp)
             $scope.apiResp = resp
+
+            var events = []
+            resp.altmetrics.sources.forEach(function(source){
+                source.events.forEach(function(event){
+                    var myEvent = event
+                    myEvent.source_id = source.source_id
+
+                    var ago = moment(myEvent.occurred_at).fromNow()
+                    //ago = ago.replace(" hours", "hr")
+                    //ago = ago.replace(" days", "day")
+                    //ago = ago.replace(" months", "mo")
+                    //ago = ago.replace(" years", "yr")
+                    myEvent.occurred_ago = ago
+
+
+                    events.push(myEvent)
+
+
+
+                })
+            })
+            $scope.events = events
+
         }).error(function(resp){
             console.log("bad response from api", resp)
             $scope.apiResp = "error"
