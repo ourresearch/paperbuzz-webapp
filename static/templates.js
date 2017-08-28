@@ -86,8 +86,8 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                <div class=\"events\">\n" +
     "                    <h2>\n" +
     "                        <span class=\"val\">{{ filteredSources.length }}</span>\n" +
-    "                        {{ selectedSource.source_id }} events\n" +
-    "                        <span class=\"remove\" ng-click=\"selectedSource=null\">show all events</span>\n" +
+    "                        {{ p.selectedSource.source_id }} events\n" +
+    "                        <span class=\"remove\" ng-show=\"p.selectedSource\" ng-click=\"p.selectedSource=null\">show all events</span>\n" +
     "                    </h2>\n" +
     "                    <div class=\"event\" ng-repeat=\"event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources\">\n" +
     "                        <div class=\"first-row\">\n" +

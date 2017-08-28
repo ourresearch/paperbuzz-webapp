@@ -53,8 +53,8 @@
                 <div class="events">
                     <h2>
                         <span class="val">{{ filteredSources.length }}</span>
-                        {{ selectedSource.source_id }} events
-                        <span class="remove" ng-click="selectedSource=null">show all events</span>
+                        {{ p.selectedSource.source_id }} events
+                        <span class="remove" ng-show="p.selectedSource" ng-click="p.selectedSource=null">show all events</span>
                     </h2>
                     <div class="event" ng-repeat="event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources">
                         <div class="first-row">

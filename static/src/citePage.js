@@ -26,6 +26,8 @@ angular.module('citePage', [
         $scope.apiResp = "loading"
         $scope.p = {}
 
+
+        // @todo handle timeouts, which seem unfortunately frequent
         $http.get(url).success(function(resp){
             console.log("response from api yay", resp)
             $scope.apiResp = resp
