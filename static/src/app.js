@@ -104,7 +104,7 @@ angular.module('app').controller('AppCtrl', function(
         if (!$scope.global.title){
             $scope.global.title = "Open altmetrics for all"
         }
-        return "doi-events: " + $scope.global.title
+        return "paperbuzz: " + $scope.global.title
     }
 
 

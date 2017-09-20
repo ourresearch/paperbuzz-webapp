@@ -104,7 +104,7 @@ angular.module('app').controller('AppCtrl', function(
         if (!$scope.global.title){
             $scope.global.title = "Open altmetrics for all"
         }
-        return "doi-events: " + $scope.global.title
+        return "paperbuzz: " + $scope.global.title
     }
 
 
@@ -172,7 +172,7 @@ angular.module('citePage', [
 
 
 
-        var url = "https://doi-events.herokuapp.com/doi/" + $routeParams.doi
+        var url = "https://paperbuzz-api.herokuapp.com/doi/" + $routeParams.doi
 
         console.log("calling this url: ", url)
         $scope.apiUrl = url
