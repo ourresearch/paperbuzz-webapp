@@ -305,6 +305,12 @@ body h1 {
   color: #333;
   padding: 7px 7px;
   font-size: 22px;
+  line-height: 1;
+}
+@media only screen and (max-width: 992px) {
+  #site-footer .links a {
+    display: block;
+  }
 }
 #site-footer .links a .text {
   display: none;
