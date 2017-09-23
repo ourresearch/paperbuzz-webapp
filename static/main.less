@@ -3,8 +3,8 @@
 @mobile: ~"only screen and (max-width: 992px)";
 
 
-@navBarHeight: 100px;
-
+@navBarHeight: 80px;
+@mainColor: #ffe355;
 html {
   background: #fff;
 }
@@ -39,19 +39,22 @@ body {
   //right: 0;
   //left: 0;
 
-  padding: 0 20px;
+  background: @mainColor;
+  line-height: 1;
+
   @media @mobile {
     padding: 0 5px;
   }
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: @navBarHeight;
   @media @mobile {
     height: @navBarHeight - 20px;
   }
   a.main-logo {
-    dispay: block;
     margin-left: 20px;
+    margin-top: 10px;
     opacity: 1;
     @media @mobile {
       margin: 0 0 0 10px;
@@ -67,15 +70,15 @@ body {
     flex: 1;
   }
   .links {
-    display: flex;
-    height: 100%;
-    align-items: flex-start;
+    //display: flex;
+    //height: 100%;
+    //align-items: flex-start;
     @media @mobile {
       align-items: center;
     }
     a {
-      display: block;
-      color: #999;
+      //display: block;
+      color: #333;
       padding: 20px;
       @media @mobile {
         font-size: 16px;

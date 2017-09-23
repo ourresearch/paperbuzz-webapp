@@ -21,10 +21,12 @@ body h2 {
   margin: 0;
 }
 .nav {
-  padding: 0 20px;
+  background: #ffe355;
+  line-height: 1;
   display: flex;
   align-items: center;
-  height: 100px;
+  justify-content: space-between;
+  height: 80px;
 }
 @media only screen and (max-width: 992px) {
   .nav {
@@ -33,12 +35,12 @@ body h2 {
 }
 @media only screen and (max-width: 992px) {
   .nav {
-    height: 80px;
+    height: 60px;
   }
 }
 .nav a.main-logo {
-  dispay: block;
   margin-left: 20px;
+  margin-top: 10px;
   opacity: 1;
 }
 @media only screen and (max-width: 992px) {
@@ -57,19 +59,13 @@ body h2 {
 .nav .spacer {
   flex: 1;
 }
-.nav .links {
-  display: flex;
-  height: 100%;
-  align-items: flex-start;
-}
 @media only screen and (max-width: 992px) {
   .nav .links {
     align-items: center;
   }
 }
 .nav .links a {
-  display: block;
-  color: #999;
+  color: #333;
   padding: 20px;
 }
 @media only screen and (max-width: 992px) {
@@ -79,7 +75,7 @@ body h2 {
   }
 }
 .page {
-  margin-top: -100px;
+  margin-top: -80px;
 }
 .page.landing .content {
   width: 800px;
@@ -121,7 +117,7 @@ body h2 {
 .page.cite-page .content {
   max-width: 800px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 80px;
 }
 .page.cite-page .content h1 {
   line-height: 1.2;
