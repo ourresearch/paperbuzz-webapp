@@ -21,6 +21,19 @@ angular.module('landing', [
             templateUrl: "about.tpl.html"
         })
     })
+    .config(function ($routeProvider) {
+        $routeProvider.when('/search', {
+            templateUrl: "search.tpl.html",
+            controller: "SearchPageCtrl"
+        })
+    })
+
+    .config(function ($routeProvider) {
+        $routeProvider.when('/api', {
+            templateUrl: "api.tpl.html",
+            controller: "StaticPageCtrl"
+        })
+    })
 
 
 
@@ -51,6 +64,31 @@ angular.module('landing', [
             console.log("submit!", $scope.main.id)
             $location.path("/details/" + $scope.main.id)
         }
+
+    })
+
+
+    .controller("SearchPageCtrl", function ($scope,
+                                             $location,
+                                             $timeout) {
+
+        $scope.main = {}
+
+        console.log("Search Page page ctrl")
+        $scope.submit = function(){
+            console.log("submit!", $scope.main.id)
+            $location.path("/details/" + $scope.main.id)
+        }
+
+    })
+
+
+    .controller("StaticPageCtrl", function ($scope,
+                                             $location,
+                                             $timeout) {
+
+        $scope.main = {}
+        console.log("Static Page ctrl")
 
     })
 
