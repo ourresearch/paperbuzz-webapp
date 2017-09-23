@@ -19,26 +19,19 @@
                     <a href="https://doi.org/{{ apiResp.doi }}" class="linkout">(view)</a>
                 </div>
                 <div class="second-row">
-                </div>
-                <div class="third-row" ng-show="apiResp.open_access.is_oa">
-
-                    <!-- Green OA -->
-                    <a href="{{ apiResp.open_access.best_oa_location.url }}"  ng-show="apiResp.open_access.best_oa_location.host_type=='repository'">
+{#                    <md-button class="md-raised" href="{{ apiResp.open_access.best_oa_location.url }}" target="_blank">#}
                         <i class="fa fa-unlock-alt"></i>
-                        <span class="text">
-                            <span class="oa">Open Access</span>
-                            version available
-                        </span>
-                    </a>
+                        Read paper
+                    </md-button>
+                    <md-button class="md-raised" href="" ng-click="getAlerts()">
+                        <i class="fa fa-envelope-o"></i>
+                        Get alerts
+                    </md-button>
+                    <md-button class="md-raised" href="{{ apiUrl }}" target="_blank">
+                        <i class="fa fa-cogs"></i>
+                        View in API
+                    </md-button>
 
-                    <!-- Gold/bronze OA -->
-                    <a href="{{ apiResp.open_access.best_oa_location.url }}" ng-show="apiResp.open_access.best_oa_location.host_type=='publisher'">
-                        <i class="fa fa-unlock-alt"></i>
-                        <span class="text">
-                            <span class="oa">Open Access</span>
-                            via the publisher
-                        </span>
-                    </a>
                 </div>
 
             </div>
@@ -67,12 +60,6 @@
                 </div>
             </div>
 
-            <div class="item-footer">
-                <a href="{{ apiUrl }}">
-                    <i class="fa fa-cogs"></i>
-                    View in API
-                </a>
-            </div>
 
         </div>
 

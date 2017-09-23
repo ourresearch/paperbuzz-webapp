@@ -83,9 +83,9 @@ body h1 {
   }
 }
 .page {
-  max-width: 725px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 50px;
   padding-bottom: 100px;
 }
 .page.landing {
@@ -202,20 +202,22 @@ body h1 {
   min-height: 100vh;
 }
 .page.cite-page .content {
-  max-width: 800px;
   margin: 0 auto;
-  padding-top: 80px;
 }
 .page.cite-page .content h1 {
   line-height: 1.2;
   font-weight: lighter;
   margin-bottom: 0;
 }
-.page.cite-page .content .metadata {
+.page.cite-page .content .metadata .first-row {
   font-size: 16px;
 }
-.page.cite-page .content .metadata .journal {
+.page.cite-page .content .metadata .first-row .journal {
   font-style: italic;
+}
+.page.cite-page .content .metadata .second-row {
+  margin-top: 10px;
+  margin-left: -3px;
 }
 .page.cite-page .content .metrics {
   margin-top: 100px;

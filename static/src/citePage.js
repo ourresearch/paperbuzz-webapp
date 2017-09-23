@@ -59,11 +59,7 @@ angular.module('citePage', [
             $scope.apiResp = "error"
         })
 
-        $scope.changeStyle = function(){
-            alert("this feature coming later...")
-            return false
-        }
-        $scope.export = function(){
+        $scope.getAlerts = function(){
             alert("this feature coming later...")
             return false
         }

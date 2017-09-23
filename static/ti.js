@@ -212,11 +212,7 @@ angular.module('citePage', [
             $scope.apiResp = "error"
         })
 
-        $scope.changeStyle = function(){
-            alert("this feature coming later...")
-            return false
-        }
-        $scope.export = function(){
+        $scope.getAlerts = function(){
             alert("this feature coming later...")
             return false
         }
@@ -285,8 +281,6 @@ angular.module('landing', [
     .controller("HotPageCtrl", function ($scope,
                                              $location,
                                              $timeout) {
-
-
         console.log("HOTPAGE feel the burn")
 
     })
@@ -1022,26 +1016,19 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                    <a href=\"https://doi.org/{{ apiResp.doi }}\" class=\"linkout\">(view)</a>\n" +
     "                </div>\n" +
     "                <div class=\"second-row\">\n" +
-    "                </div>\n" +
-    "                <div class=\"third-row\" ng-show=\"apiResp.open_access.is_oa\">\n" +
-    "\n" +
-    "                    <!-- Green OA -->\n" +
-    "                    <a href=\"{{ apiResp.open_access.best_oa_location.url }}\"  ng-show=\"apiResp.open_access.best_oa_location.host_type=='repository'\">\n" +
+    "{#                    <md-button class=\"md-raised\" href=\"{{ apiResp.open_access.best_oa_location.url }}\" target=\"_blank\">#}\n" +
     "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
-    "                        <span class=\"text\">\n" +
-    "                            <span class=\"oa\">Open Access</span>\n" +
-    "                            version available\n" +
-    "                        </span>\n" +
-    "                    </a>\n" +
+    "                        Read paper\n" +
+    "                    </md-button>\n" +
+    "                    <md-button class=\"md-raised\" href=\"\" ng-click=\"getAlerts()\">\n" +
+    "                        <i class=\"fa fa-envelope-o\"></i>\n" +
+    "                        Get alerts\n" +
+    "                    </md-button>\n" +
+    "                    <md-button class=\"md-raised\" href=\"{{ apiUrl }}\" target=\"_blank\">\n" +
+    "                        <i class=\"fa fa-cogs\"></i>\n" +
+    "                        View in API\n" +
+    "                    </md-button>\n" +
     "\n" +
-    "                    <!-- Gold/bronze OA -->\n" +
-    "                    <a href=\"{{ apiResp.open_access.best_oa_location.url }}\" ng-show=\"apiResp.open_access.best_oa_location.host_type=='publisher'\">\n" +
-    "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
-    "                        <span class=\"text\">\n" +
-    "                            <span class=\"oa\">Open Access</span>\n" +
-    "                            via the publisher\n" +
-    "                        </span>\n" +
-    "                    </a>\n" +
     "                </div>\n" +
     "\n" +
     "            </div>\n" +
@@ -1070,12 +1057,6 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                </div>\n" +
     "            </div>\n" +
     "\n" +
-    "            <div class=\"item-footer\">\n" +
-    "                <a href=\"{{ apiUrl }}\">\n" +
-    "                    <i class=\"fa fa-cogs\"></i>\n" +
-    "                    View in API\n" +
-    "                </a>\n" +
-    "            </div>\n" +
     "\n" +
     "        </div>\n" +
     "\n" +

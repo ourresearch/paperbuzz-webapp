@@ -50,8 +50,6 @@ angular.module('landing', [
     .controller("HotPageCtrl", function ($scope,
                                              $location,
                                              $timeout) {
-
-
         console.log("HOTPAGE feel the burn")
 
     })
