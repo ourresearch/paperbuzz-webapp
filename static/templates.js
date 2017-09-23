@@ -650,9 +650,67 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"event\" ng-repeat=\"event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources\">\n" +
-    "                        <div class=\"first-row\">\n" +
-    "                            <a href=\"{{ event.url }}\" class=\"link\">{{ event.url | limitTo: 50 }}...</a>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "                        <div class=\"first-row unpaywall\" ng-if=\"event.source_id=='unpaywall_views'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-eye\"></i></span>\n" +
+    "                            <span class=\"verb\">Viewed</span>\n" +
+    "                            by a\n" +
+    "                            <span class=\"uni\" ng-show=\"event.is_college_location\">university</span>\n" +
+    "                            <span class=\"non-uni\" ng-show=\"!event.is_college_location\">non-university</span>\n" +
+    "                            Unpaywall user in\n" +
+    "                            <span class=\"country\">{{ event.country }}</span>.\n" +
     "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"first-row twitter\" ng-if=\"event.source_id=='twitter'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-twitter\"></i></span>\n" +
+    "                            <span class=\"verb\">Mentioned</span> in\n" +
+    "                            <a class=\"verb\" href=\"{{ event.url }}\" target=\"_blank\">a tweet</a>\n" +
+    "                            by\n" +
+    "                            <a href=\"{{ event.author }}\" target=\"_blank\">@{{ extractTwitterName(event.author) }}.</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"first-row web\" ng-if=\"event.source_id=='web'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-table\"></i></span>\n" +
+    "                            <span class=\"verb\">Mentioned</span> on\n" +
+    "                            <a class=\"verb\" href=\"{{ event.url }}\" target=\"_blank\">a webpage.</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "                        <div class=\"first-row datacite\" ng-if=\"event.source_id=='datacite'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-spreadsheet\"></i></span>\n" +
+    "                            <span class=\"verb\">Associated</span> with\n" +
+    "                            <a class=\"verb\" href=\"{{ event.url }}\" target=\"_blank\">a DataCite resource.</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "                        <div class=\"first-row wikipedia\" ng-if=\"event.source_id=='wikipedia'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-wikipedia-w\"></i></span>\n" +
+    "                            <span class=\"verb\">Cited</span> in\n" +
+    "                            <a class=\"verb\" href=\"{{ event.url }}\" target=\"_blank\">a Wikipedia page.</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "                        <div class=\"first-row wordpressdotcom\" ng-if=\"event.source_id=='wordpressdotcom'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-wordpress\"></i></span>\n" +
+    "                            <span class=\"verb\">Mentioned</span> in\n" +
+    "                            <a class=\"verb\" href=\"{{ event.url }}\" target=\"_blank\">a Wordpress.com blog post.</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "                        <div class=\"first-row reddit\" ng-if=\"event.source_id=='reddit'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-reddit\"></i></span>\n" +
+    "                            <span class=\"verb\">Mentioned</span> in\n" +
+    "                            <a href=\"{{ event.url }}\">a Reddit post</a>\n" +
+    "                            on the subreddit\n" +
+    "                            <a href=\"https://www.reddit.com/r/{{ extractSubreddit(event.url) }}\">\"{{ extractSubreddit(event.url) }}.\"</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "                        <div class=\"second-row\">\n" +
     "                            <span class=\"date\">{{ event.occurred_ago }}</span>\n" +
     "                        </div>\n" +

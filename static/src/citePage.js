@@ -75,6 +75,21 @@ angular.module('citePage', [
             }
         }
 
+        $scope.extractTwitterName = function(userUrl){
+            return userUrl.replace("http://www.twitter.com/", "")
+        }
+        $scope.extractSubreddit = function(url){
+            var regex = /reddit\.com\/r\/([^/]+)/
+            var result = regex.exec(url)
+            return result[1] // first submatch
+        }
+
+        $scope.extractWikiPageName = function(wikiUrl){
+            // wait on this for now because not that many wiki pages
+        }
+
+
+
     })
 
 

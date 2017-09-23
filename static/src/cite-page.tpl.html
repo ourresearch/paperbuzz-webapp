@@ -82,9 +82,67 @@
                     </div>
 
                     <div class="event" ng-repeat="event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources">
-                        <div class="first-row">
-                            <a href="{{ event.url }}" class="link">{{ event.url | limitTo: 50 }}...</a>
+
+
+
+                        <div class="first-row unpaywall" ng-if="event.source_id=='unpaywall_views'">
+                            <span class="icon"><i class="fa fa-eye"></i></span>
+                            <span class="verb">Viewed</span>
+                            by a
+                            <span class="uni" ng-show="event.is_college_location">university</span>
+                            <span class="non-uni" ng-show="!event.is_college_location">non-university</span>
+                            Unpaywall user in
+                            <span class="country">{{ event.country }}</span>.
                         </div>
+
+                        <div class="first-row twitter" ng-if="event.source_id=='twitter'">
+                            <span class="icon"><i class="fa fa-twitter"></i></span>
+                            <span class="verb">Mentioned</span> in
+                            <a class="verb" href="{{ event.url }}" target="_blank">a tweet</a>
+                            by
+                            <a href="{{ event.author }}" target="_blank">@{{ extractTwitterName(event.author) }}.</a>
+                        </div>
+
+                        <div class="first-row web" ng-if="event.source_id=='web'">
+                            <span class="icon"><i class="fa fa-table"></i></span>
+                            <span class="verb">Mentioned</span> on
+                            <a class="verb" href="{{ event.url }}" target="_blank">a webpage.</a>
+                        </div>
+
+
+                        <div class="first-row datacite" ng-if="event.source_id=='datacite'">
+                            <span class="icon"><i class="fa fa-spreadsheet"></i></span>
+                            <span class="verb">Associated</span> with
+                            <a class="verb" href="{{ event.url }}" target="_blank">a DataCite resource.</a>
+                        </div>
+
+
+                        <div class="first-row wikipedia" ng-if="event.source_id=='wikipedia'">
+                            <span class="icon"><i class="fa fa-wikipedia-w"></i></span>
+                            <span class="verb">Cited</span> in
+                            <a class="verb" href="{{ event.url }}" target="_blank">a Wikipedia page.</a>
+                        </div>
+
+
+                        <div class="first-row wordpressdotcom" ng-if="event.source_id=='wordpressdotcom'">
+                            <span class="icon"><i class="fa fa-wordpress"></i></span>
+                            <span class="verb">Mentioned</span> in
+                            <a class="verb" href="{{ event.url }}" target="_blank">a Wordpress.com blog post.</a>
+                        </div>
+
+
+                        <div class="first-row reddit" ng-if="event.source_id=='reddit'">
+                            <span class="icon"><i class="fa fa-reddit"></i></span>
+                            <span class="verb">Mentioned</span> in
+                            <a href="{{ event.url }}">a Reddit post</a>
+                            on the subreddit
+                            <a href="https://www.reddit.com/r/{{ extractSubreddit(event.url) }}">"{{ extractSubreddit(event.url) }}."</a>
+                        </div>
+
+
+
+
+
                         <div class="second-row">
                             <span class="date">{{ event.occurred_ago }}</span>
                         </div>
