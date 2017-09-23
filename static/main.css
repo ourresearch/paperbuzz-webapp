@@ -295,3 +295,26 @@ body h1 {
 .page.about .content {
   max-width: 800px;
 }
+#site-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 35px 25px;
+  background: #ffe355;
+}
+#site-footer .links a {
+  color: #333;
+  padding: 7px 7px;
+  font-size: 22px;
+}
+#site-footer .links a .text {
+  display: none;
+}
+#site-footer .links a:hover {
+  text-decoration: none;
+}
+#site-footer .spacer {
+  width: 50px;
+}
+#site-footer .by {
+  font-size: 14px;
+}

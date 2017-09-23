@@ -453,7 +453,7 @@ angular.module("numFormat", [])
 
         }
     });
-angular.module('templates.app', ['about.tpl.html', 'api.tpl.html', 'cite-page.tpl.html', 'hot.tpl.html', 'landing.tpl.html', 'page-not-found.tpl.html', 'search.tpl.html']);
+angular.module('templates.app', ['about.tpl.html', 'api.tpl.html', 'cite-page.tpl.html', 'footer.tpl.html', 'hot.tpl.html', 'landing.tpl.html', 'page-not-found.tpl.html', 'search.tpl.html']);
 
 angular.module("about.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about.tpl.html",
@@ -1180,6 +1180,35 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "\n" +
     "    </div>\n" +
     "\n" +
+    "</div>");
+}]);
+
+angular.module("footer.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("footer.tpl.html",
+    "<div class=\"by\">\n" +
+    "    <div class=\"creators\">\n" +
+    "        Built with <i class=\"fa fa-heart-o\"></i> by\n" +
+    "        <a href=\"http://impactstory.org/about\">Impactstory.</a>\n" +
+    "    </div>\n" +
+    "    <div class=\"funders\">\n" +
+    "        Made possible by a grant from the\n" +
+    "        <a href=\"https://pkp.sfu.ca/\">Public Knowledge Project.</a>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"spacer\"></div>\n" +
+    "<div class=\"links\">\n" +
+    "    <a href=\"mailto:team@impactstory.org\">\n" +
+    "        <i class=\"fa fa-envelope-o\"></i>\n" +
+    "        <span class=\"text\">email</span>\n" +
+    "    </a>\n" +
+    "    <a href=\"http://twitter.com/paperbuzz_org\">\n" +
+    "        <i class=\"fa fa-twitter\"></i>\n" +
+    "        <span class=\"text\">twitter</span>\n" +
+    "    </a>\n" +
+    "    <a href=\"https://github.com/Impactstory/paperbuzz-webapp\">\n" +
+    "        <i class=\"fa fa-github\"></i>\n" +
+    "        <span class=\"text\">github</span>\n" +
+    "    </a>\n" +
     "</div>");
 }]);
 
