@@ -35,22 +35,26 @@ angular.module('landing', [
         })
     })
 
-
-
-
-
     .config(function ($routeProvider) {
-        $routeProvider.when('/page-not-found', {
-            templateUrl: "page-not-found.tpl.html",
-            controller: "PageNotFoundCtrl"
+        $routeProvider.when('/hot', {
+            templateUrl: "hot.tpl.html",
+            controller: "HotPageCtrl"
         })
     })
 
-    .controller("PageNotFoundCtrl", function($scope){
-        console.log("PageNotFound controller is running!")
+
+
+
+
+
+    .controller("HotPageCtrl", function ($scope,
+                                             $location,
+                                             $timeout) {
+
+
+        console.log("HOTPAGE feel the burn")
 
     })
-
 
 
     .controller("LandingPageCtrl", function ($scope,
@@ -92,6 +96,19 @@ angular.module('landing', [
 
     })
 
+
+
+    .config(function ($routeProvider) {
+        $routeProvider.when('/page-not-found', {
+            templateUrl: "page-not-found.tpl.html",
+            controller: "PageNotFoundCtrl"
+        })
+    })
+
+    .controller("PageNotFoundCtrl", function($scope){
+        console.log("PageNotFound controller is running!")
+
+    })
 
 
 

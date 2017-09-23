@@ -270,22 +270,26 @@ angular.module('landing', [
         })
     })
 
-
-
-
-
     .config(function ($routeProvider) {
-        $routeProvider.when('/page-not-found', {
-            templateUrl: "page-not-found.tpl.html",
-            controller: "PageNotFoundCtrl"
+        $routeProvider.when('/hot', {
+            templateUrl: "hot.tpl.html",
+            controller: "HotPageCtrl"
         })
     })
 
-    .controller("PageNotFoundCtrl", function($scope){
-        console.log("PageNotFound controller is running!")
+
+
+
+
+
+    .controller("HotPageCtrl", function ($scope,
+                                             $location,
+                                             $timeout) {
+
+
+        console.log("HOTPAGE feel the burn")
 
     })
-
 
 
     .controller("LandingPageCtrl", function ($scope,
@@ -327,6 +331,19 @@ angular.module('landing', [
 
     })
 
+
+
+    .config(function ($routeProvider) {
+        $routeProvider.when('/page-not-found', {
+            templateUrl: "page-not-found.tpl.html",
+            controller: "PageNotFoundCtrl"
+        })
+    })
+
+    .controller("PageNotFoundCtrl", function($scope){
+        console.log("PageNotFound controller is running!")
+
+    })
 
 
 
@@ -416,7 +433,7 @@ angular.module("numFormat", [])
 
         }
     });
-angular.module('templates.app', ['about.tpl.html', 'api.tpl.html', 'cite-page.tpl.html', 'landing.tpl.html', 'page-not-found.tpl.html', 'search.tpl.html']);
+angular.module('templates.app', ['about.tpl.html', 'api.tpl.html', 'cite-page.tpl.html', 'hot.tpl.html', 'landing.tpl.html', 'page-not-found.tpl.html', 'search.tpl.html']);
 
 angular.module("about.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("about.tpl.html",
@@ -1067,6 +1084,24 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "    </div>\n" +
     "\n" +
     "</div>");
+}]);
+
+angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("hot.tpl.html",
+    "<div class=\"page search\">\n" +
+    "    <div class=\"content\">\n" +
+    "        <div class=\"header\">\n" +
+    "            <h1>What's Hot</h1>\n" +
+    "            <p class=\"subtagline\">\n" +
+    "                OMG FUEGO!!!!\n" +
+    "            </p>\n" +
+    "        </div>\n" +
+    "\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("landing.tpl.html", []).run(["$templateCache", function($templateCache) {
