@@ -185,6 +185,8 @@ angular.module('citePage', [
             console.log("response from api yay", resp)
             $scope.apiResp = resp
 
+            $scope.publicationYear = resp.metadata.created['date-parts'][0][0]
+
             var events = []
             resp.altmetrics.sources.forEach(function(source){
                 source.events.forEach(function(event){
@@ -215,6 +217,15 @@ angular.module('citePage', [
         $scope.getAlerts = function(){
             alert("this feature coming later...")
             return false
+        }
+
+        $scope.selectSource = function(newSource){
+            if ($scope.p.selectedSource){
+                $scope.p.selectedSource = null
+            }
+            else {
+                $scope.p.selectedSource = newSource
+            }
         }
 
     })
@@ -1009,14 +1020,17 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "            <h1>{{ apiResp.metadata.title }}</h1>\n" +
     "            <div class=\"metadata\">\n" +
     "                <div class=\"first-row\">\n" +
-    "                    <span class=\"year\">{{ apiResp.open_access.year }}</span>\n" +
+    "                    <span class=\"year\">{{ publicationYear }}</span>\n" +
     "                    <span class=\"author\" ng-repeat=\"author in apiResp.metadata.author\">\n" +
     "                        {{ author.family }}</span>.\n" +
     "                    <span class=\"journal\">{{ apiResp.metadata[\"container-title\"] }}</span>\n" +
     "                    <a href=\"https://doi.org/{{ apiResp.doi }}\" class=\"linkout\">(view)</a>\n" +
     "                </div>\n" +
     "                <div class=\"second-row\">\n" +
-    "{#                    <md-button class=\"md-raised\" href=\"{{ apiResp.open_access.best_oa_location.url }}\" target=\"_blank\">#}\n" +
+    "                    <md-button class=\"md-raised\"\n" +
+    "                               href=\"{{ apiResp.open_access.best_oa_location.url }}\"\n" +
+    "                               ng-show=\"apiResp.open_access.is_oa\"\n" +
+    "                               target=\"_blank\">\n" +
     "                        <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                        Read paper\n" +
     "                    </md-button>\n" +
@@ -1030,22 +1044,51 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                    </md-button>\n" +
     "\n" +
     "                </div>\n" +
+    "                <div class=\"old-article warning\" ng-show=\"publicationYear < 2017\">\n" +
+    "                    <i class=\"fa fa-exclamation-triangle\"></i>\n" +
+    "                    <span class=\"explanation\">\n" +
+    "                        Paperbuzz data is currently less complete for articles published\n" +
+    "                        before 2017.\n" +
+    "                    </span>\n" +
+    "                </div>\n" +
     "\n" +
     "            </div>\n" +
     "            <div class=\"metrics\">\n" +
     "                <div class=\"sources\">\n" +
-    "                    <div class=\"source\" ng-repeat=\"source in apiResp.altmetrics.sources\"\n" +
-    "                            ng-click=\"p.selectedSource = source\">\n" +
+    "                    <h3>Filter by source</h3>\n" +
+    "                    <div class=\"source selected-{{ p.selectedSource && p.selectedSource == source }}\" ng-repeat=\"source in apiResp.altmetrics.sources\"\n" +
+    "                            ng-click=\"selectSource(source)\">\n" +
     "                        <span class=\"name\">{{ source.source_id }}: </span>\n" +
     "                        <span class=\"count\">{{ source.events_count }}</span>\n" +
     "                    </div>\n" +
     "                </div>\n" +
+    "\n" +
+    "\n" +
     "                <div class=\"events\">\n" +
     "                    <h2>\n" +
-    "                        <span class=\"val\">{{ filteredSources.length }}</span>\n" +
-    "                        {{ p.selectedSource.source_id }} events\n" +
-    "                        <span class=\"remove\" ng-show=\"p.selectedSource\" ng-click=\"p.selectedSource=null\">show all events</span>\n" +
+    "                        <span class=\"val\">{{ filteredSources.length }}</span> events\n" +
     "                    </h2>\n" +
+    "                    <div class=\"filter-info\">\n" +
+    "                        <div class=\"state no-filter\" ng-show=\"!p.selectedSource\">\n" +
+    "                            <span class=\"current\">\n" +
+    "                                Showing all events.\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "                        <div class=\"state filter\" ng-show=\"p.selectedSource\">\n" +
+    "                            <span class=\"current\">\n" +
+    "                                Showing only <span class=\"source\">{{ p.selectedSource.source_id }}</span> events.\n" +
+    "                            </span>\n" +
+    "                            <span class=\"remove\" ng-click=\"p.selectedSource=null\">\n" +
+    "\n" +
+    "                                (remove filter)\n" +
+    "                            </span>\n" +
+    "\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
+    "                    </div>\n" +
+    "\n" +
     "                    <div class=\"event\" ng-repeat=\"event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources\">\n" +
     "                        <div class=\"first-row\">\n" +
     "                            <a href=\"{{ event.url }}\" class=\"link\">{{ event.url | limitTo: 50 }}...</a>\n" +

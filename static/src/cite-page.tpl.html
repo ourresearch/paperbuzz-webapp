@@ -12,14 +12,17 @@
             <h1>{{ apiResp.metadata.title }}</h1>
             <div class="metadata">
                 <div class="first-row">
-                    <span class="year">{{ apiResp.open_access.year }}</span>
+                    <span class="year">{{ publicationYear }}</span>
                     <span class="author" ng-repeat="author in apiResp.metadata.author">
                         {{ author.family }}</span>.
                     <span class="journal">{{ apiResp.metadata["container-title"] }}</span>
                     <a href="https://doi.org/{{ apiResp.doi }}" class="linkout">(view)</a>
                 </div>
                 <div class="second-row">
-{#                    <md-button class="md-raised" href="{{ apiResp.open_access.best_oa_location.url }}" target="_blank">#}
+                    <md-button class="md-raised"
+                               href="{{ apiResp.open_access.best_oa_location.url }}"
+                               ng-show="apiResp.open_access.is_oa"
+                               target="_blank">
                         <i class="fa fa-unlock-alt"></i>
                         Read paper
                     </md-button>
@@ -33,22 +36,51 @@
                     </md-button>
 
                 </div>
+                <div class="old-article warning" ng-show="publicationYear < 2017">
+                    <i class="fa fa-exclamation-triangle"></i>
+                    <span class="explanation">
+                        Paperbuzz data is currently less complete for articles published
+                        before 2017.
+                    </span>
+                </div>
 
             </div>
             <div class="metrics">
                 <div class="sources">
-                    <div class="source" ng-repeat="source in apiResp.altmetrics.sources"
-                            ng-click="p.selectedSource = source">
+                    <h3>Filter by source</h3>
+                    <div class="source selected-{{ p.selectedSource && p.selectedSource == source }}" ng-repeat="source in apiResp.altmetrics.sources"
+                            ng-click="selectSource(source)">
                         <span class="name">{{ source.source_id }}: </span>
                         <span class="count">{{ source.events_count }}</span>
                     </div>
                 </div>
+
+
                 <div class="events">
                     <h2>
-                        <span class="val">{{ filteredSources.length }}</span>
-                        {{ p.selectedSource.source_id }} events
-                        <span class="remove" ng-show="p.selectedSource" ng-click="p.selectedSource=null">show all events</span>
+                        <span class="val">{{ filteredSources.length }}</span> events
                     </h2>
+                    <div class="filter-info">
+                        <div class="state no-filter" ng-show="!p.selectedSource">
+                            <span class="current">
+                                Showing all events.
+                            </span>
+                        </div>
+
+                        <div class="state filter" ng-show="p.selectedSource">
+                            <span class="current">
+                                Showing only <span class="source">{{ p.selectedSource.source_id }}</span> events.
+                            </span>
+                            <span class="remove" ng-click="p.selectedSource=null">
+
+                                (remove filter)
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
                     <div class="event" ng-repeat="event in events | orderBy: '-occurred_at' | filter: {source_id: p.selectedSource.source_id} as filteredSources">
                         <div class="first-row">
                             <a href="{{ event.url }}" class="link">{{ event.url | limitTo: 50 }}...</a>

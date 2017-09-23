@@ -32,6 +32,8 @@ angular.module('citePage', [
             console.log("response from api yay", resp)
             $scope.apiResp = resp
 
+            $scope.publicationYear = resp.metadata.created['date-parts'][0][0]
+
             var events = []
             resp.altmetrics.sources.forEach(function(source){
                 source.events.forEach(function(event){
@@ -62,6 +64,15 @@ angular.module('citePage', [
         $scope.getAlerts = function(){
             alert("this feature coming later...")
             return false
+        }
+
+        $scope.selectSource = function(newSource){
+            if ($scope.p.selectedSource){
+                $scope.p.selectedSource = null
+            }
+            else {
+                $scope.p.selectedSource = newSource
+            }
         }
 
     })

@@ -5,6 +5,10 @@
 
 @navBarHeight: 80px;
 @mainColor: #ffe355;
+
+@warnColorDark: #B71C1C;
+@warnColorLight: #FFCDD2;
+
 html {
   background: #fff;
 }
@@ -97,6 +101,13 @@ body {
     }
   }
 }
+#warning-banner {
+  text-align: center;
+  padding: 5px;
+  background: #333;
+  color: #fff;
+}
+
 
 
 .page {
@@ -275,11 +286,18 @@ body {
         margin-top: 10px;
         margin-left: -3px;
       }
+      .old-article {
+        background: @warnColorLight;
+        padding: 10px 20px;
+        border-radius: 3px;
+        margin: 10px 0;
+        color: @warnColorDark;
+      }
 
     }
 
     .metrics {
-      margin-top: 100px;
+      margin-top: 60px;
       display: flex;
       @media @mobile {
         display: block;
@@ -287,19 +305,60 @@ body {
 
       .sources {
         padding-right: 80px;
+        margin-top: 35px;
+        h3 {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
         .source {
           text-transform: capitalize;
+          outline: none;
           cursor: pointer;
+          padding: 5px;
+          font-size: 16px;
+          &.selected-true {
+            //font-weight: bold;
+          }
+          &.selected-false {
+            text-decoration: line-through;
+            opacity: .1;
+          }
         }
       }
       .events {
+        //flex-grow: 2;
         h2 {
-          margin-top: -49px;
           .remove {
             font-size: 14px;
             cursor: pointer;
           }
         }
+        .filter-info {
+          margin-bottom: 10px;
+          font-weight: 300;
+          .state {
+            font-size: 18px;
+            //display: flex;
+            //justify-content: space-between;
+            .current {
+              .source {
+                font-weight: bold;
+              }
+            }
+            .remove {
+              font-size: 14px;
+              //border: 1px solid #777;
+              border-radius: 3px;
+              padding: 2px 5px;
+              cursor: pointer;
+              text-decoration: underline;
+              &:hover {
+              }
+            }
+          }
+        }
+
+
         .event {
           line-height: 1.2;
           margin-bottom: 10px;
