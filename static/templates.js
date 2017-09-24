@@ -731,6 +731,7 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
 angular.module("footer.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("footer.tpl.html",
     "<div class=\"by\">\n" +
+    "\n" +
     "    <div class=\"creators\">\n" +
     "        Built with <i class=\"fa fa-heart-o\"></i> by\n" +
     "        <a href=\"http://impactstory.org/about\">Impactstory.</a>\n" +
@@ -759,18 +760,57 @@ angular.module("footer.tpl.html", []).run(["$templateCache", function($templateC
 
 angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("hot.tpl.html",
-    "<div class=\"page search\">\n" +
+    "<div class=\"page hot\">\n" +
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
-    "            <h1>What's Hot</h1>\n" +
-    "            <p class=\"subtagline\">\n" +
-    "                OMG FUEGO!!!!\n" +
-    "            </p>\n" +
+    "            <h1>Most buzzworthy papers</h1>\n" +
+    "            <div class=\"edition\">\n" +
+    "                <span class=\"year\">{{ edition.year }},</span>\n" +
+    "                <span class=\"week\">week {{ edition.week }}</span>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "\n" +
-    "    </div>\n" +
+    "        <div class=\"main\">\n" +
+    "            <div class=\"facets\">\n" +
     "\n" +
+    "                <div class=\"facet open\">\n" +
+    "                    <h3>Open Access</h3>\n" +
+    "\n" +
+    "                    <md-checkbox ng-model=\"data.cb1\" aria-label=\"Checkbox 1\">\n" +
+    "                        Only free-to-read\n" +
+    "                    </md-checkbox>\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "                <div class=\"facet audience\">\n" +
+    "                    <h3>Audience</h3>\n" +
+    "\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "                <div class=\"facet topic\">\n" +
+    "                    <h3>Topic</h3>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"results\">\n" +
+    "\n" +
+    "                <pre>{{ papers | json }}</pre>\n" +
+    "\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -781,36 +821,22 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "    <div class=\"top-screen\" layout=\"row\" layout-align=\"center center\">\n" +
     "        <div class=\"content\">\n" +
     "            <div class=\"tagline\">\n" +
-    "                <h1>Open altmetrics for everyone.</h1>\n" +
+    "                <h1>Read the research people are talking about</h1>\n" +
     "                <p class=\"subtagline\">\n" +
-    "                    Track online conversations about research papers, using a free and open-source nonprofit tool.\n" +
+    "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.\n" +
     "                </p>\n" +
     "            </div>\n" +
     "\n" +
     "\n" +
-    "            <div class=\"user-input\">\n" +
-    "                <div class=\"input-row\">\n" +
-    "                    <md-input-container md-no-float\n" +
-    "                                        class=\"md-block example-selected-{{ main.exampleSelected }}\"\n" +
-    "                                        flex-gt-sm=\"\">\n" +
-    "                        <label>Paste a DOI here</label>\n" +
-    "                        <input ng-model=\"main.id\">\n" +
+    "            <div class=\"cta\">\n" +
+    "                <a class=\"main-button\" href=\"/hot\">\n" +
+    "                    See this week's top papers\n" +
+    "                </a>\n" +
     "\n" +
-    "                        <md-button ng-show=\"main.id\"\n" +
-    "                                   ng-click=\"submit()\"\n" +
-    "                                   ng-class=\"{fadeOut: !main.id}\"\n" +
-    "                                   class=\"md-fab md-mini md-primary go animated fadeInRightBig\">\n" +
-    "                            <i class=\"fa fa-arrow-right\"></i>\n" +
-    "                        </md-button>\n" +
     "\n" +
-    "                        <!--\n" +
-    "                        <md-button class=\"md-raised md-primary submit\" type=\"submit\">\n" +
-    "                            Get the citation\n" +
-    "                        </md-button>\n" +
-    "                        -->\n" +
-    "                    </md-input-container>\n" +
-    "                </div>\n" +
     "            </div>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "        </div>\n" +
     "\n" +

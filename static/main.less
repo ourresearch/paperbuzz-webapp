@@ -4,7 +4,9 @@
 
 
 @navBarHeight: 80px;
-@mainColor: #ffe355;
+
+@mainColor: #FFF59D;
+@accent: #2196F3;
 
 @warnColorDark: #B71C1C;
 @warnColorLight: #FFCDD2;
@@ -17,6 +19,7 @@ body {
   font-family: roboto;
   a {
     text-decoration: none;
+    color: @accent;
     &:hover {
       text-decoration: underline;
     }
@@ -51,7 +54,19 @@ body {
   //right: 0;
   //left: 0;
 
+
+  background: repeating-linear-gradient(
+    90deg,
+    @mainColor,
+    @mainColor 100px,
+    darken(@mainColor, 5%) 100px,
+    darken(@mainColor, 5%) 200px
+  );
+
   background: @mainColor;
+
+
+
   line-height: 1;
 
   display: flex;
@@ -131,25 +146,72 @@ body {
   background: @mainColor;
 
   .content {
-    width: 800px;
-    @media @mobile {
-      width: auto;
-    }
+    max-width: 800px;
+    padding: 0 15px;
 
     .tagline {
       font-weight: 300;
       line-height: 1.4;
+      font-size: 50px;
+      @media @mobile {
+        font-size: 35px;
+      }
       h1 {
-        font-size: 50px;
         font-weight: 300;
         margin-bottom: 0;
+        font-size: 100%;
       }
       p.subtagline {
         margin-top: 10px;
-        font-size: 26px;
+        font-size: 50%;
       }
     }
 
+    .cta {
+      display: flex;
+      justify-content: center;
+      a.main-button {
+        cursor: pointer;
+        font-size: 24px;
+        padding: 24px 40px;
+        border-radius: 5px;
+        font-weight: 300;
+        
+
+        background: @accent;
+        color: #fff;
+
+        //background: none;
+        //border: 3px solid #fff;
+        //color: #fff;
+
+        transition: all 0.15s ease;
+        &:hover {
+          transform: scale(1.03125);
+          text-decoration: none;
+        }
+
+        .small {
+          font-size: 66%;
+          margin-top: 3px;
+          display: block;
+          text-align: center;
+        }
+
+        @media @mobile {
+          padding: 14px 20px;
+          font-size: 16px;
+        }
+
+      }
+    }
+
+
+
+
+
+
+    /// move this section to the /search page later
     .user-input {
       margin-top: 70px;
       .input-row {
@@ -255,6 +317,29 @@ body {
 
       }
     }
+  }
+}
+
+
+
+.page.hot {
+  .content {
+    .header {
+      
+    }
+    
+    .main {
+      display: flex;
+      
+      .facets {
+        max-width: 300px;
+      }
+      
+      .results {
+        
+      }
+    }
+    
   }
 }
 

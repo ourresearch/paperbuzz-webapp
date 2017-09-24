@@ -32,7 +32,7 @@ angular.module('citePage', [
             console.log("response from api yay", resp)
             $scope.apiResp = resp
 
-            $scope.publicationYear = resp.metadata.created['date-parts'][0][0]
+            $scope.publicationYear = resp.metadata.issued['date-parts'][0][0]
 
             var events = []
             resp.altmetrics.sources.forEach(function(source){

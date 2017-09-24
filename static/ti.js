@@ -1,3 +1,6 @@
+var global  = {}
+
+
 angular.module('app', [
 
     // external libs
@@ -102,10 +105,12 @@ angular.module('app').controller('AppCtrl', function(
 
     $scope.pageTitle = function(){
         if (!$scope.global.title){
-            $scope.global.title = "Open altmetrics for all"
+            $scope.global.title = "The most buzzworthy research"
         }
-        return "paperbuzz: " + $scope.global.title
+        return "Paperbuzz: " + $scope.global.title
     }
+
+
 
 
 
@@ -185,7 +190,7 @@ angular.module('citePage', [
             console.log("response from api yay", resp)
             $scope.apiResp = resp
 
-            $scope.publicationYear = resp.metadata.created['date-parts'][0][0]
+            $scope.publicationYear = resp.metadata.issued['date-parts'][0][0]
 
             var events = []
             resp.altmetrics.sources.forEach(function(source){
@@ -293,7 +298,7 @@ angular.module('landing', [
     })
 
     .config(function ($routeProvider) {
-        $routeProvider.when('/hot', {
+        $routeProvider.when('/hot/:topic?', {
             templateUrl: "hot.tpl.html",
             controller: "HotPageCtrl"
         })
@@ -305,9 +310,74 @@ angular.module('landing', [
 
 
     .controller("HotPageCtrl", function ($scope,
+                                         $routeParams,
+                                         $http,
                                              $location,
                                              $timeout) {
-        console.log("HOTPAGE feel the burn")
+
+
+        loadHotData()
+
+
+        function selectPapers(topic, audience, is_oa){
+
+            // find the first papers facet that matches
+            // all the supplied filters.
+
+            // uses the global hotnessData variable initialized in app.js,
+            // and filled from an API call upon app boot.
+            return global.hotData.list.find(function(group){
+
+
+                // test to see if this group is a match for the
+                // set of filters we've been given.
+                var matches = [
+                    group.filter_discipline === topic,
+                    group.filter_audience === audience,
+                    group.filter_open === is_oa
+                ]
+
+                // all of the filter conditions matched.
+                // returning true means that we'll end up using the
+                // papers in this group.
+                return matches.indexOf(false) < 0; // no false, all true.
+
+            })
+        }
+
+
+        // loads from cache if possible. if cache empty, loads
+        // from server and fills cache.
+        function loadHotData(){
+            if (global.hotData){
+                $scope.papers = selectPapers(null, null, null)
+            }
+            else {
+                $http.get("https://api.paperbuzz.org/v0/hot/2017/week-37")
+                    .success(function(resp){
+                        console.log("got response back from server", resp)
+                        global.hotData = resp
+
+                        // this time it will get the data from the cache.
+                        loadHotData()
+                    })
+
+            }
+        }
+
+
+
+
+
+
+
+
+        $scope.edition = {
+            year: 2017,
+            week: 38
+        }
+
+
 
     })
 
@@ -317,6 +387,7 @@ angular.module('landing', [
                                              $timeout) {
 
         $scope.main = {}
+        $scope.global.pageName = "landing"
 
         console.log("i am the landing page ctrl")
         $scope.submit = function(){
@@ -1186,6 +1257,7 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
 angular.module("footer.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("footer.tpl.html",
     "<div class=\"by\">\n" +
+    "\n" +
     "    <div class=\"creators\">\n" +
     "        Built with <i class=\"fa fa-heart-o\"></i> by\n" +
     "        <a href=\"http://impactstory.org/about\">Impactstory.</a>\n" +
@@ -1214,18 +1286,57 @@ angular.module("footer.tpl.html", []).run(["$templateCache", function($templateC
 
 angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("hot.tpl.html",
-    "<div class=\"page search\">\n" +
+    "<div class=\"page hot\">\n" +
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
-    "            <h1>What's Hot</h1>\n" +
-    "            <p class=\"subtagline\">\n" +
-    "                OMG FUEGO!!!!\n" +
-    "            </p>\n" +
+    "            <h1>Most buzzworthy papers</h1>\n" +
+    "            <div class=\"edition\">\n" +
+    "                <span class=\"year\">{{ edition.year }},</span>\n" +
+    "                <span class=\"week\">week {{ edition.week }}</span>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "\n" +
-    "    </div>\n" +
+    "        <div class=\"main\">\n" +
+    "            <div class=\"facets\">\n" +
     "\n" +
+    "                <div class=\"facet open\">\n" +
+    "                    <h3>Open Access</h3>\n" +
+    "\n" +
+    "                    <md-checkbox ng-model=\"data.cb1\" aria-label=\"Checkbox 1\">\n" +
+    "                        Only free-to-read\n" +
+    "                    </md-checkbox>\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "                <div class=\"facet audience\">\n" +
+    "                    <h3>Audience</h3>\n" +
+    "\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "                <div class=\"facet topic\">\n" +
+    "                    <h3>Topic</h3>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"results\">\n" +
+    "\n" +
+    "                <pre>{{ papers | json }}</pre>\n" +
+    "\n" +
+    "\n" +
+    "            </div>\n" +
+    "\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -1236,36 +1347,22 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "    <div class=\"top-screen\" layout=\"row\" layout-align=\"center center\">\n" +
     "        <div class=\"content\">\n" +
     "            <div class=\"tagline\">\n" +
-    "                <h1>Open altmetrics for everyone.</h1>\n" +
+    "                <h1>Read the research people are talking about</h1>\n" +
     "                <p class=\"subtagline\">\n" +
-    "                    Track online conversations about research papers, using a free and open-source nonprofit tool.\n" +
+    "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.\n" +
     "                </p>\n" +
     "            </div>\n" +
     "\n" +
     "\n" +
-    "            <div class=\"user-input\">\n" +
-    "                <div class=\"input-row\">\n" +
-    "                    <md-input-container md-no-float\n" +
-    "                                        class=\"md-block example-selected-{{ main.exampleSelected }}\"\n" +
-    "                                        flex-gt-sm=\"\">\n" +
-    "                        <label>Paste a DOI here</label>\n" +
-    "                        <input ng-model=\"main.id\">\n" +
+    "            <div class=\"cta\">\n" +
+    "                <a class=\"main-button\" href=\"/hot\">\n" +
+    "                    See this week's top papers\n" +
+    "                </a>\n" +
     "\n" +
-    "                        <md-button ng-show=\"main.id\"\n" +
-    "                                   ng-click=\"submit()\"\n" +
-    "                                   ng-class=\"{fadeOut: !main.id}\"\n" +
-    "                                   class=\"md-fab md-mini md-primary go animated fadeInRightBig\">\n" +
-    "                            <i class=\"fa fa-arrow-right\"></i>\n" +
-    "                        </md-button>\n" +
     "\n" +
-    "                        <!--\n" +
-    "                        <md-button class=\"md-raised md-primary submit\" type=\"submit\">\n" +
-    "                            Get the citation\n" +
-    "                        </md-button>\n" +
-    "                        -->\n" +
-    "                    </md-input-container>\n" +
-    "                </div>\n" +
     "            </div>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "        </div>\n" +
     "\n" +

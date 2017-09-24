@@ -1,13 +1,52 @@
-<div class="page search">
+<div class="page hot">
     <div class="content">
         <div class="header">
-            <h1>What's Hot</h1>
-            <p class="subtagline">
-                OMG FUEGO!!!!
-            </p>
+            <h1>Most buzzworthy papers</h1>
+            <div class="edition">
+                <span class="year">{{ edition.year }},</span>
+                <span class="week">week {{ edition.week }}</span>
+            </div>
         </div>
 
 
-    </div>
+        <div class="main">
+            <div class="facets">
 
+                <div class="facet open">
+                    <h3>Open Access</h3>
+
+                    <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+                        Only free-to-read
+                    </md-checkbox>
+
+                </div>
+
+
+                <div class="facet audience">
+                    <h3>Audience</h3>
+
+
+                </div>
+
+
+                <div class="facet topic">
+                    <h3>Topic</h3>
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="results">
+
+                <pre>{{ papers | json }}</pre>
+
+
+            </div>
+
+        </div>
+    </div>
 </div>

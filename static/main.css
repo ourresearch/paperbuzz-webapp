@@ -12,6 +12,7 @@ body {
 }
 body a {
   text-decoration: none;
+  color: #2196F3;
 }
 body a:hover {
   text-decoration: underline;
@@ -29,7 +30,8 @@ body h1 {
   margin: 0;
 }
 .nav {
-  background: #ffe355;
+  background: repeating-linear-gradient(90deg, #FFF59D, #FFF59D 100px, #fff284 100px, #fff284 200px);
+  background: #FFF59D;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -102,28 +104,60 @@ body h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffe355;
+  background: #FFF59D;
 }
 .page.landing .content {
-  width: 800px;
-}
-@media only screen and (max-width: 992px) {
-  .page.landing .content {
-    width: auto;
-  }
+  max-width: 800px;
+  padding: 0 15px;
 }
 .page.landing .content .tagline {
   font-weight: 300;
   line-height: 1.4;
+  font-size: 50px;
+}
+@media only screen and (max-width: 992px) {
+  .page.landing .content .tagline {
+    font-size: 35px;
+  }
 }
 .page.landing .content .tagline h1 {
-  font-size: 50px;
   font-weight: 300;
   margin-bottom: 0;
+  font-size: 100%;
 }
 .page.landing .content .tagline p.subtagline {
   margin-top: 10px;
-  font-size: 26px;
+  font-size: 50%;
+}
+.page.landing .content .cta {
+  display: flex;
+  justify-content: center;
+}
+.page.landing .content .cta a.main-button {
+  cursor: pointer;
+  font-size: 24px;
+  padding: 24px 40px;
+  border-radius: 5px;
+  font-weight: 300;
+  background: #2196F3;
+  color: #fff;
+  transition: all 0.15s ease;
+}
+.page.landing .content .cta a.main-button:hover {
+  transform: scale(1.03125);
+  text-decoration: none;
+}
+.page.landing .content .cta a.main-button .small {
+  font-size: 66%;
+  margin-top: 3px;
+  display: block;
+  text-align: center;
+}
+@media only screen and (max-width: 992px) {
+  .page.landing .content .cta a.main-button {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
 }
 .page.landing .content .user-input {
   margin-top: 70px;
@@ -203,6 +237,12 @@ body h1 {
 .page.api table.api-responses tr td.notes ul {
   padding: 0 0 0 20px;
   margin: 0;
+}
+.page.hot .content .main {
+  display: flex;
+}
+.page.hot .content .main .facets {
+  max-width: 300px;
 }
 .page.cite-page {
   min-height: 100vh;
@@ -299,7 +339,7 @@ body h1 {
   display: flex;
   justify-content: space-between;
   padding: 35px 25px;
-  background: #ffe355;
+  background: #FFF59D;
 }
 #site-footer .links a {
   color: #333;

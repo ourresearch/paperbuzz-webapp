@@ -1,3 +1,6 @@
+var global  = {}
+
+
 angular.module('app', [
 
     // external libs
@@ -102,10 +105,12 @@ angular.module('app').controller('AppCtrl', function(
 
     $scope.pageTitle = function(){
         if (!$scope.global.title){
-            $scope.global.title = "Open altmetrics for all"
+            $scope.global.title = "The most buzzworthy research"
         }
-        return "paperbuzz: " + $scope.global.title
+        return "Paperbuzz: " + $scope.global.title
     }
+
+
 
 
 

@@ -2,36 +2,22 @@
     <div class="top-screen" layout="row" layout-align="center center">
         <div class="content">
             <div class="tagline">
-                <h1>Open altmetrics for everyone.</h1>
+                <h1>Read the research people are talking about</h1>
                 <p class="subtagline">
-                    Track online conversations about research papers, using a free and open-source nonprofit tool.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
                 </p>
             </div>
 
 
-            <div class="user-input">
-                <div class="input-row">
-                    <md-input-container md-no-float
-                                        class="md-block example-selected-{{ main.exampleSelected }}"
-                                        flex-gt-sm="">
-                        <label>Paste a DOI here</label>
-                        <input ng-model="main.id">
+            <div class="cta">
+                <a class="main-button" href="/hot">
+                    See this week's top papers
+                </a>
 
-                        <md-button ng-show="main.id"
-                                   ng-click="submit()"
-                                   ng-class="{fadeOut: !main.id}"
-                                   class="md-fab md-mini md-primary go animated fadeInRightBig">
-                            <i class="fa fa-arrow-right"></i>
-                        </md-button>
 
-                        <!--
-                        <md-button class="md-raised md-primary submit" type="submit">
-                            Get the citation
-                        </md-button>
-                        -->
-                    </md-input-container>
-                </div>
             </div>
+
+
 
         </div>
 
