@@ -249,13 +249,27 @@ body h1 {
   display: flex;
   flex-wrap: wrap;
   padding-top: 30px;
-  margin: 10px;
 }
 .page.hot .content .main .results .card {
+  margin: 10px;
   border: 1px solid #ddd;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   max-width: 350px;
+}
+.page.hot .content .main .results .card .filters {
+  display: flex;
+  justify-content: space-between;
+  background: #555;
+  color: #fff;
+  font-size: 14px;
+  padding: 8px;
+}
+.page.hot .content .main .results .card .filters .sort-score {
+  font-weight: bold;
+}
+.page.hot .content .main .results .card .filters .filter {
+  padding: 0 2px;
 }
 .page.hot .content .main .results .card .card-content {
   padding: 15px;
@@ -270,6 +284,9 @@ body h1 {
 .page.hot .content .main .results .card .card-content .third-row {
   font-style: italic;
   font-size: 12px;
+}
+.page.hot .content .main .results .card .card-content .abstract {
+  padding-top: 10px;
 }
 .page.cite-page {
   min-height: 100vh;

@@ -59,6 +59,21 @@ angular.module('landing', [
         var userFilters = getUserFilters()
         $scope.paperFilter = paperFilter
         $scope.userFilters = userFilters
+        $scope.makeUrlSafe = makeUrlSafe
+        $scope.issue = {
+            year: 2017,
+            week: 38
+        }
+
+        $scope.u = {
+            //topic: "sword"
+        }
+
+
+
+
+
+
 
         function getFromUrl(paramName){
             var ret = $routeParams[paramName]
@@ -73,7 +88,7 @@ angular.module('landing', [
             var ret = []
             possibleFilters.forEach(function(filterName){
                 var urlVal = getFromUrl(filterName)
-                if (urlVal){
+                if (urlVal && urlVal != "all"){
                     ret.push({
                         name: filterName,
                         value: urlVal
@@ -147,24 +162,21 @@ angular.module('landing', [
             }
         }
 
+        function makeUrlSafe(s){
+            if (s){
+                return s.replace(/\s/g, "-")
+            }
+        }
+
 
         function getTopics(){
-            var ret = []
+            var ret = {}
             global.hotPapers.forEach(function(paper){
-                var topicName = paper.filters.topic
-                var topic = {
-                    name: topicName,
-                    urlName: topicName
-                }
-
-                if (topic.urlName) {
-                    topic.urlName = topicName.replace(/\s/g, "-")
-                }
-
-                ret.push(topic)
+                ret[paper.filters.topic] = true
             })
-            return ret
+            return Object.keys(ret)
         }
+
 
 
 

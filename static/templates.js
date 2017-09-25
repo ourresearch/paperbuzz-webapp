@@ -764,23 +764,39 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
     "            <h1>Most buzzworthy papers</h1>\n" +
-    "            <div class=\"edition\">\n" +
-    "                <span class=\"year\">{{ edition.year }},</span>\n" +
-    "                <span class=\"week\">week {{ edition.week }}</span>\n" +
+    "            <div class=\"issue\">\n" +
+    "                <span class=\"year\">{{ issue.year }},</span>\n" +
+    "                <span class=\"week\">week {{ issue.week }}</span>\n" +
     "            </div>\n" +
     "            <div class=\"controls\">\n" +
+    "\n" +
     "                <div class=\"topics\">\n" +
     "\n" +
+    "\n" +
+    "                    <!--\n" +
+    "\n" +
+    "                    <div layout=\"row\" layout-align=\"space-between center\">\n" +
+    "                        <span>What is your favorite weapon?</span>\n" +
+    "                        <md-select ng-model=\"u.topic\" placeholder=\"Filter by topic\" class=\"md-no-underline\">\n" +
+    "                            <md-option value=\"{{ topic }}\" ng-repeat=\"topic in topics\">topic</md-option>\n" +
+    "                        </md-select>\n" +
+    "                    </div>\n" +
+    "                    -->\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "                    <md-menu>\n" +
-    "                        <span class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
-    "                            Explore\n" +
-    "                            <span class=\"other\" ng-show=\"selectedTopicName\">other</span>\n" +
-    "                            topics\n" +
-    "                        </span>\n" +
+    "                        <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
+    "                            Topic\n" +
+    "                            <span class=\"active\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
+    "                        </md-button>\n" +
     "\n" +
     "                        <md-menu-content width=\"4\">\n" +
-    "                            <md-menu-item ng-repeat=\"myTopic in topics\">\n" +
-    "                                <a href=\"hot/{{ myTopic.urlName }}\">{{ myTopic.name }}</a>\n" +
+    "                            <md-menu-item ng-repeat=\"topic in topics\">\n" +
+    "                                <md-button href=\"hot/{{ makeUrlSafe(topic) }}\">\n" +
+    "                                    {{ topic }}\n" +
+    "                                </md-button>\n" +
     "                            </md-menu-item>\n" +
     "                        </md-menu-content>\n" +
     "                    </md-menu>\n" +
@@ -829,8 +845,17 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            {{ paper.sort_score }}\n" +
     "                        </span>\n" +
     "                        <span class=\"filters-by-name\">\n" +
-    "                            <span class=\"topic\">\n" +
+    "                            <span class=\"topic filter\">\n" +
     "                                {{ paper.filters.topic }}\n" +
+    "                            </span>\n" +
+    "                            <span class=\"open filter\" ng-show=\"paper.filters.topic\">\n" +
+    "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                            </span>\n" +
+    "                            <span class=\"academic filter\" ng-show=\"paper.filters.audience=='academic'\">\n" +
+    "                                <i class=\"fa fa-university\"></i>\n" +
+    "                            </span>\n" +
+    "                            <span class=\"public filter\" ng-show=\"paper.filters.audience=='public'\">\n" +
+    "                                <i class=\"fa fa-home\"></i>\n" +
     "                            </span>\n" +
     "                        </span>\n" +
     "                    </div>\n" +
@@ -855,7 +880,8 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </span>\n" +
     "                        </div>\n" +
     "                        <div class=\"abstract\">\n" +
-    "                            {{ paper.metadata.abstract }}\n" +
+    "                            {{ paper.metadata.abstract | limitTo: 400 }}\n" +
+    "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
     "                        </div>\n" +
     "\n" +
     "                    </div>\n" +

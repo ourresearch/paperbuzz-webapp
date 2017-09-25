@@ -2,23 +2,39 @@
     <div class="content">
         <div class="header">
             <h1>Most buzzworthy papers</h1>
-            <div class="edition">
-                <span class="year">{{ edition.year }},</span>
-                <span class="week">week {{ edition.week }}</span>
+            <div class="issue">
+                <span class="year">{{ issue.year }},</span>
+                <span class="week">week {{ issue.week }}</span>
             </div>
             <div class="controls">
+
                 <div class="topics">
 
+
+                    <!--
+
+                    <div layout="row" layout-align="space-between center">
+                        <span>What is your favorite weapon?</span>
+                        <md-select ng-model="u.topic" placeholder="Filter by topic" class="md-no-underline">
+                            <md-option value="{{ topic }}" ng-repeat="topic in topics">topic</md-option>
+                        </md-select>
+                    </div>
+                    -->
+
+
+
+
                     <md-menu>
-                        <span class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
-                            Explore
-                            <span class="other" ng-show="selectedTopicName">other</span>
-                            topics
-                        </span>
+                        <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
+                            Topic
+                            <span class="active" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
+                        </md-button>
 
                         <md-menu-content width="4">
-                            <md-menu-item ng-repeat="myTopic in topics">
-                                <a href="hot/{{ myTopic.urlName }}">{{ myTopic.name }}</a>
+                            <md-menu-item ng-repeat="topic in topics">
+                                <md-button href="hot/{{ makeUrlSafe(topic) }}">
+                                    {{ topic }}
+                                </md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
@@ -67,8 +83,17 @@
                             {{ paper.sort_score }}
                         </span>
                         <span class="filters-by-name">
-                            <span class="topic">
+                            <span class="topic filter">
                                 {{ paper.filters.topic }}
+                            </span>
+                            <span class="open filter" ng-show="paper.filters.topic">
+                                <i class="fa fa-unlock-alt"></i>
+                            </span>
+                            <span class="academic filter" ng-show="paper.filters.audience=='academic'">
+                                <i class="fa fa-university"></i>
+                            </span>
+                            <span class="public filter" ng-show="paper.filters.audience=='public'">
+                                <i class="fa fa-home"></i>
                             </span>
                         </span>
                     </div>
@@ -93,7 +118,8 @@
                             </span>
                         </div>
                         <div class="abstract">
-                            {{ paper.metadata.abstract }}
+                            {{ paper.metadata.abstract | limitTo: 400 }}
+                            <span class="dots" ng-show="paper.metadata.abstract.length > 400">&hellip;</span>
                         </div>
 
                     </div>

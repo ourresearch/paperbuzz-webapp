@@ -340,13 +340,25 @@ body {
         display: flex;
         flex-wrap: wrap;
         padding-top: 30px;
-        margin: 10px;
         .card {
+          margin: 10px;
           border: 1px solid #ddd;
           box-shadow: 1px 2px 3px 0px rgba(0,0,0,.1);
           border-radius: 3px;
           max-width: 350px;
           .filters {
+            display: flex;
+            justify-content: space-between;
+            background: #555;
+            color: #fff;
+            font-size: 14px;
+            padding: 8px;
+            .sort-score {
+              font-weight: bold;
+            }
+            .filter {
+              padding: 0 2px;
+            }
 
           }
 
@@ -366,7 +378,7 @@ body {
               font-size: 12px;
             }
             .abstract {
-
+              padding-top: 10px;
             }
 
           }
