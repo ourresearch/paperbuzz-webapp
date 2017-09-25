@@ -61,28 +61,43 @@
             </div>
 
             <div class="results">
-                <div class="paper" ng-repeat="paper in papers">
-                    <div class="first-row">
-                        <span class="title">{{ paper.metadata.title }}</span>
-                    </div>
-                    <div class="second-row">
-                        <span class="author" ng-repeat="author in paper.metadata.journal_authors">
-                            <span class="has-orcid-false" ng-show="!author.ORCID">
-                                {{ author.family }}<span class="comma" ng-show="!$last">,</span>
+                <div class="card" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
+                    <div class="filters">
+                        <span class="sort-score">
+                            {{ paper.sort_score }}
+                        </span>
+                        <span class="filters-by-name">
+                            <span class="topic">
+                                {{ paper.filters.topic }}
                             </span>
-                            <a class="has-orcid-true" href="{{ author.ORCID }}" ng-show="author.ORCID">
-                                {{ author.family }}<span class="comma" ng-show="!$last">,</span>
-                            </a>
                         </span>
                     </div>
-                    <div class="third-row">
-                        <span class="journal">
-                            {{ paper.metadata.journal_name }}
-                        </span>
+
+                    <div class="card-content">
+                        <div class="first-row">
+                            <span class="title">{{ paper.metadata.title }}</span>
+                        </div>
+                        <div class="second-row">
+                            <span class="author" ng-repeat="author in paper.metadata.journal_authors">
+                                <span class="has-orcid-false" ng-show="!author.ORCID">
+                                    {{ author.family }}<span class="comma" ng-show="!$last">,</span>
+                                </span>
+                                <a class="has-orcid-true" href="{{ author.ORCID }}" ng-show="author.ORCID">
+                                    {{ author.family }}<span class="comma" ng-show="!$last">,</span>
+                                </a>
+                            </span>
+                        </div>
+                        <div class="third-row">
+                            <span class="journal">
+                                {{ paper.metadata.journal_name }}
+                            </span>
+                        </div>
+                        <div class="abstract">
+                            {{ paper.metadata.abstract }}
+                        </div>
+
                     </div>
-                    <div class="abstract">
-                        {{ paper.metadata.abstract }}
-                    </div>
+
 
                 </div>
 

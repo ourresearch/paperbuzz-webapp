@@ -317,7 +317,55 @@ angular.module('landing', [
                                              $timeout) {
 
 
-        loadHotData()
+        loadHotPapers()
+        var userFilters = getUserFilters()
+        $scope.paperFilter = paperFilter
+        $scope.userFilters = userFilters
+
+        function getFromUrl(paramName){
+            var ret = $routeParams[paramName]
+            if (ret) {
+                ret = cleanUrlParams(ret)
+            }
+            return ret
+        }
+
+        function getUserFilters(){
+            var possibleFilters = ["audience", "open", "topic"]
+            var ret = []
+            possibleFilters.forEach(function(filterName){
+                var urlVal = getFromUrl(filterName)
+                if (urlVal){
+                    ret.push({
+                        name: filterName,
+                        value: urlVal
+                    })
+                }
+            })
+            console.log("got user filters:", ret)
+            return ret
+        }
+
+
+
+
+        function paperFilter(paper){
+
+            // test each of the possible user filters
+            // this will give us an array of all the passes/fails
+            // of each filter the user has set.
+            var matches = userFilters.map(function(userFilter){
+                if (paper.filters[userFilter.name] == userFilter.value) {
+                    return true
+                }
+                return false
+            })
+
+            // succeed if there are no False results
+            return matches.indexOf(false) == -1
+        }
+
+
 
 
         function selectPapers(topic, audience, is_oa){
@@ -329,7 +377,7 @@ angular.module('landing', [
 
             // uses the global hotnessData variable initialized in app.js,
             // and filled from an API call upon app boot.
-            var selectedGroup = global.hotData.list.find(function(group){
+            var selectedGroup = global.hotPapers.list.find(function(group){
 
 
                 // test to see if this group is a match for the
@@ -361,23 +409,11 @@ angular.module('landing', [
             }
         }
 
-        function hackApiResp(resp){
-            var newGroups = resp.list.map(function(group){
-                group.results = [
-                    group.results[0],
-                    group.results[1],
-                    group.results[2]
-                ]
-                return group
-            })
-            resp.list = newGroups
-            return resp
-        }
 
         function getTopics(){
             var ret = []
-            global.hotData.list.forEach(function(topicGroup){
-                var topicName = topicGroup.filter_discipline
+            global.hotPapers.forEach(function(paper){
+                var topicName = paper.filters.topic
                 var topic = {
                     name: topicName,
                     urlName: topicName
@@ -396,36 +432,20 @@ angular.module('landing', [
 
         // loads from cache if possible. if cache empty, loads
         // from server and fills cache.
-        function loadHotData(){
-            if (global.hotData){
-                var topic = cleanUrlParams($routeParams.topic)
-                var papers = selectPapers(topic, null, null)
-
-                if (!papers) {
-                    $location.url("/hot")
-                }
-                else {
-                    // this is the one place where things get put in the scope.
-
-                    $scope.papers = papers
-                    $scope.topics = getTopics()
-                    $scope.selectedTopicName = topic
-                    $scope.edition = {
-                        year: 2017,
-                        week: 38
-                    }
-
-                }
+        function loadHotPapers(){
+            if (global.hotPapers){
+                $scope.papers = global.hotPapers
+                $scope.topics = getTopics()
 
             }
             else {
                 $http.get("https://api.paperbuzz.org/v0/hot/2017/week-37")
                     .success(function(resp){
                         console.log("got response back from server", resp)
-                        global.hotData = hackApiResp(resp)
+                        global.hotPapers = resp.list
 
                         // this time it will get the data from the cache.
-                        loadHotData()
+                        loadHotPapers()
                     })
 
             }
@@ -1413,28 +1433,43 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "            </div>\n" +
     "\n" +
     "            <div class=\"results\">\n" +
-    "                <div class=\"paper\" ng-repeat=\"paper in papers\">\n" +
-    "                    <div class=\"first-row\">\n" +
-    "                        <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"second-row\">\n" +
-    "                        <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
-    "                            <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
-    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                <div class=\"card\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
+    "                    <div class=\"filters\">\n" +
+    "                        <span class=\"sort-score\">\n" +
+    "                            {{ paper.sort_score }}\n" +
+    "                        </span>\n" +
+    "                        <span class=\"filters-by-name\">\n" +
+    "                            <span class=\"topic\">\n" +
+    "                                {{ paper.filters.topic }}\n" +
     "                            </span>\n" +
-    "                            <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
-    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
-    "                            </a>\n" +
     "                        </span>\n" +
     "                    </div>\n" +
-    "                    <div class=\"third-row\">\n" +
-    "                        <span class=\"journal\">\n" +
-    "                            {{ paper.metadata.journal_name }}\n" +
-    "                        </span>\n" +
+    "\n" +
+    "                    <div class=\"card-content\">\n" +
+    "                        <div class=\"first-row\">\n" +
+    "                            <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"second-row\">\n" +
+    "                            <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
+    "                                <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
+    "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                                </span>\n" +
+    "                                <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
+    "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                                </a>\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"third-row\">\n" +
+    "                            <span class=\"journal\">\n" +
+    "                                {{ paper.metadata.journal_name }}\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"abstract\">\n" +
+    "                            {{ paper.metadata.abstract }}\n" +
+    "                        </div>\n" +
+    "\n" +
     "                    </div>\n" +
-    "                    <div class=\"abstract\">\n" +
-    "                        {{ paper.metadata.abstract }}\n" +
-    "                    </div>\n" +
+    "\n" +
     "\n" +
     "                </div>\n" +
     "\n" +

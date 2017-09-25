@@ -823,28 +823,43 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "            </div>\n" +
     "\n" +
     "            <div class=\"results\">\n" +
-    "                <div class=\"paper\" ng-repeat=\"paper in papers\">\n" +
-    "                    <div class=\"first-row\">\n" +
-    "                        <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"second-row\">\n" +
-    "                        <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
-    "                            <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
-    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                <div class=\"card\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
+    "                    <div class=\"filters\">\n" +
+    "                        <span class=\"sort-score\">\n" +
+    "                            {{ paper.sort_score }}\n" +
+    "                        </span>\n" +
+    "                        <span class=\"filters-by-name\">\n" +
+    "                            <span class=\"topic\">\n" +
+    "                                {{ paper.filters.topic }}\n" +
     "                            </span>\n" +
-    "                            <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
-    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
-    "                            </a>\n" +
     "                        </span>\n" +
     "                    </div>\n" +
-    "                    <div class=\"third-row\">\n" +
-    "                        <span class=\"journal\">\n" +
-    "                            {{ paper.metadata.journal_name }}\n" +
-    "                        </span>\n" +
+    "\n" +
+    "                    <div class=\"card-content\">\n" +
+    "                        <div class=\"first-row\">\n" +
+    "                            <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"second-row\">\n" +
+    "                            <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
+    "                                <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
+    "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                                </span>\n" +
+    "                                <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
+    "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                                </a>\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"third-row\">\n" +
+    "                            <span class=\"journal\">\n" +
+    "                                {{ paper.metadata.journal_name }}\n" +
+    "                            </span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"abstract\">\n" +
+    "                            {{ paper.metadata.abstract }}\n" +
+    "                        </div>\n" +
+    "\n" +
     "                    </div>\n" +
-    "                    <div class=\"abstract\">\n" +
-    "                        {{ paper.metadata.abstract }}\n" +
-    "                    </div>\n" +
+    "\n" +
     "\n" +
     "                </div>\n" +
     "\n" +

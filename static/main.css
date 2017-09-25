@@ -244,27 +244,30 @@ body h1 {
 }
 .page.hot .content .main .facets {
   display: none;
-  max-width: 300px;
 }
 .page.hot .content .main .results {
   display: flex;
+  flex-wrap: wrap;
   padding-top: 30px;
-}
-.page.hot .content .main .results .paper {
-  padding: 15px;
   margin: 10px;
+}
+.page.hot .content .main .results .card {
   border: 1px solid #ddd;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
+  max-width: 350px;
 }
-.page.hot .content .main .results .paper .first-row .title {
+.page.hot .content .main .results .card .card-content {
+  padding: 15px;
+}
+.page.hot .content .main .results .card .card-content .first-row .title {
   font-size: 24px;
   font-weight: 300;
 }
-.page.hot .content .main .results .paper .second-row {
+.page.hot .content .main .results .card .card-content .second-row {
   font-size: 12px;
 }
-.page.hot .content .main .results .paper .third-row {
+.page.hot .content .main .results .card .card-content .third-row {
   font-style: italic;
   font-size: 12px;
 }
