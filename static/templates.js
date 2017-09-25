@@ -768,6 +768,26 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                <span class=\"year\">{{ edition.year }},</span>\n" +
     "                <span class=\"week\">week {{ edition.week }}</span>\n" +
     "            </div>\n" +
+    "            <div class=\"controls\">\n" +
+    "                <div class=\"topics\">\n" +
+    "\n" +
+    "                    <md-menu>\n" +
+    "                        <span class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
+    "                            Explore\n" +
+    "                            <span class=\"other\" ng-show=\"selectedTopicName\">other</span>\n" +
+    "                            topics\n" +
+    "                        </span>\n" +
+    "\n" +
+    "                        <md-menu-content width=\"4\">\n" +
+    "                            <md-menu-item ng-repeat=\"myTopic in topics\">\n" +
+    "                                <a href=\"hot/{{ myTopic.urlName }}\">{{ myTopic.name }}</a>\n" +
+    "                            </md-menu-item>\n" +
+    "                        </md-menu-content>\n" +
+    "                    </md-menu>\n" +
+    "\n" +
+    "\n" +
+    "                </div>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "\n" +
     "\n" +
@@ -803,8 +823,32 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "            </div>\n" +
     "\n" +
     "            <div class=\"results\">\n" +
+    "                <div class=\"paper\" ng-repeat=\"paper in papers\">\n" +
+    "                    <div class=\"first-row\">\n" +
+    "                        <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"second-row\">\n" +
+    "                        <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
+    "                            <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
+    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                            </span>\n" +
+    "                            <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
+    "                                {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
+    "                            </a>\n" +
+    "                        </span>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"third-row\">\n" +
+    "                        <span class=\"journal\">\n" +
+    "                            {{ paper.metadata.journal_name }}\n" +
+    "                        </span>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"abstract\">\n" +
+    "                        {{ paper.metadata.abstract }}\n" +
+    "                    </div>\n" +
     "\n" +
-    "                <pre>{{ papers | json }}</pre>\n" +
+    "                </div>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "\n" +
     "            </div>\n" +

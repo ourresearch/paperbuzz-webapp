@@ -8,7 +8,7 @@ body {
   height: auto;
   background: #fff;
   line-height: 1.3;
-  font-size: 18px;
+  font-size: 16px;
 }
 body a {
   text-decoration: none;
@@ -238,11 +238,35 @@ body h1 {
   padding: 0 0 0 20px;
   margin: 0;
 }
-.page.hot .content .main {
-  display: flex;
+.page.hot {
+  min-height: 100vh;
+  max-width: 1300px;
 }
 .page.hot .content .main .facets {
+  display: none;
   max-width: 300px;
+}
+.page.hot .content .main .results {
+  display: flex;
+  padding-top: 30px;
+}
+.page.hot .content .main .results .paper {
+  padding: 15px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+.page.hot .content .main .results .paper .first-row .title {
+  font-size: 24px;
+  font-weight: 300;
+}
+.page.hot .content .main .results .paper .second-row {
+  font-size: 12px;
+}
+.page.hot .content .main .results .paper .third-row {
+  font-style: italic;
+  font-size: 12px;
 }
 .page.cite-page {
   min-height: 100vh;

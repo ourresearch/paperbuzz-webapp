@@ -49,6 +49,7 @@ angular.module('landing', [
 
     .controller("HotPageCtrl", function ($scope,
                                          $routeParams,
+                                         $mdDialog,
                                          $http,
                                              $location,
                                              $timeout) {
@@ -62,17 +63,19 @@ angular.module('landing', [
             // find the first papers facet that matches
             // all the supplied filters.
 
+            console.log("selecting papers", topic)
+
             // uses the global hotnessData variable initialized in app.js,
             // and filled from an API call upon app boot.
-            return global.hotData.list.find(function(group){
+            var selectedGroup = global.hotData.list.find(function(group){
 
 
                 // test to see if this group is a match for the
                 // set of filters we've been given.
                 var matches = [
-                    group.filter_discipline === topic,
-                    group.filter_audience === audience,
-                    group.filter_open === is_oa
+                    group.filter_discipline == topic,
+                    group.filter_audience == audience,
+                    group.filter_open == is_oa
                 ]
 
                 // all of the filter conditions matched.
@@ -81,20 +84,83 @@ angular.module('landing', [
                 return matches.indexOf(false) < 0; // no false, all true.
 
             })
+            if (!selectedGroup){
+                return null
+            }
+            else {
+                return selectedGroup.results
+            }
         }
+
+
+        function cleanUrlParams(s){
+            if (s){
+                return s.replace(/-/g, " ")
+            }
+        }
+
+        function hackApiResp(resp){
+            var newGroups = resp.list.map(function(group){
+                group.results = [
+                    group.results[0],
+                    group.results[1],
+                    group.results[2]
+                ]
+                return group
+            })
+            resp.list = newGroups
+            return resp
+        }
+
+        function getTopics(){
+            var ret = []
+            global.hotData.list.forEach(function(topicGroup){
+                var topicName = topicGroup.filter_discipline
+                var topic = {
+                    name: topicName,
+                    urlName: topicName
+                }
+
+                if (topic.urlName) {
+                    topic.urlName = topicName.replace(/\s/g, "-")
+                }
+
+                ret.push(topic)
+            })
+            return ret
+        }
+
 
 
         // loads from cache if possible. if cache empty, loads
         // from server and fills cache.
         function loadHotData(){
             if (global.hotData){
-                $scope.papers = selectPapers(null, null, null)
+                var topic = cleanUrlParams($routeParams.topic)
+                var papers = selectPapers(topic, null, null)
+
+                if (!papers) {
+                    $location.url("/hot")
+                }
+                else {
+                    // this is the one place where things get put in the scope.
+
+                    $scope.papers = papers
+                    $scope.topics = getTopics()
+                    $scope.selectedTopicName = topic
+                    $scope.edition = {
+                        year: 2017,
+                        week: 38
+                    }
+
+                }
+
             }
             else {
                 $http.get("https://api.paperbuzz.org/v0/hot/2017/week-37")
                     .success(function(resp){
                         console.log("got response back from server", resp)
-                        global.hotData = resp
+                        global.hotData = hackApiResp(resp)
 
                         // this time it will get the data from the cache.
                         loadHotData()
@@ -105,15 +171,13 @@ angular.module('landing', [
 
 
 
-
-
-
-
-
-        $scope.edition = {
-            year: 2017,
-            week: 38
+        var originatorEv;
+        $scope.openMenu = function($mdOpenMenu, ev){
+            originatorEv = ev;
+            console.log("open menu")
+            $mdOpenMenu(ev);
         }
+
 
 
 

@@ -6,6 +6,26 @@
                 <span class="year">{{ edition.year }},</span>
                 <span class="week">week {{ edition.week }}</span>
             </div>
+            <div class="controls">
+                <div class="topics">
+
+                    <md-menu>
+                        <span class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
+                            Explore
+                            <span class="other" ng-show="selectedTopicName">other</span>
+                            topics
+                        </span>
+
+                        <md-menu-content width="4">
+                            <md-menu-item ng-repeat="myTopic in topics">
+                                <a href="hot/{{ myTopic.urlName }}">{{ myTopic.name }}</a>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
+
+                </div>
+            </div>
         </div>
 
 
@@ -41,8 +61,32 @@
             </div>
 
             <div class="results">
+                <div class="paper" ng-repeat="paper in papers">
+                    <div class="first-row">
+                        <span class="title">{{ paper.metadata.title }}</span>
+                    </div>
+                    <div class="second-row">
+                        <span class="author" ng-repeat="author in paper.metadata.journal_authors">
+                            <span class="has-orcid-false" ng-show="!author.ORCID">
+                                {{ author.family }}<span class="comma" ng-show="!$last">,</span>
+                            </span>
+                            <a class="has-orcid-true" href="{{ author.ORCID }}" ng-show="author.ORCID">
+                                {{ author.family }}<span class="comma" ng-show="!$last">,</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="third-row">
+                        <span class="journal">
+                            {{ paper.metadata.journal_name }}
+                        </span>
+                    </div>
+                    <div class="abstract">
+                        {{ paper.metadata.abstract }}
+                    </div>
 
-                <pre>{{ papers | json }}</pre>
+                </div>
+
+
 
 
             </div>
