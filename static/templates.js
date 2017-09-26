@@ -896,13 +896,18 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
     "                        </div>\n" +
     "                        <div class=\"second-row\">\n" +
-    "                            <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors\">\n" +
+    "                            <span class=\"author\" ng-repeat=\"author in paper.metadata.journal_authors | limitTo: 8\">\n" +
     "                                <span class=\"has-orcid-false\" ng-show=\"!author.ORCID\">\n" +
     "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
     "                                </span>\n" +
     "                                <a class=\"has-orcid-true\" href=\"{{ author.ORCID }}\" ng-show=\"author.ORCID\">\n" +
     "                                    {{ author.family }}<span class=\"comma\" ng-show=\"!$last\">,</span>\n" +
     "                                </a>\n" +
+    "                            </span>\n" +
+    "                            <span class=\"author et-al\" ng-show=\"paper.metadata.journal_authors.length > 8\">\n" +
+    "                                <span class=\"has-orcid-false\">\n" +
+    "                                     et al.\n" +
+    "                                </span>\n" +
     "                            </span>\n" +
     "                        </div>\n" +
     "                        <div class=\"third-row\">\n" +
@@ -911,7 +916,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </span>\n" +
     "                        </div>\n" +
     "                        <div class=\"abstract\">\n" +
-    "                            {{ paper.metadata.abstract | limitTo: 400 }}\n" +
+    "                            {{ paper.metadata.abstract | limitTo: 300 }}\n" +
     "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
     "                        </div>\n" +
     "\n" +
@@ -921,7 +926,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                        <div class=\"buttons\">\n" +
     "                            <md-button class=\"md-raised md-primary\"\n" +
     "                                       target=\"_blank\"\n" +
-    "                                       href=\"{{ paper.open_access.best_open_location }}\"\n" +
+    "                                       href=\"{{ paper.open_access.best_open_location.url }}\"\n" +
     "                                       ng-show=\"paper.filters.open\">\n" +
     "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                                Read\n" +
@@ -933,7 +938,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                                <i class=\"fa fa-lock\"></i>\n" +
     "                                View\n" +
     "                            </md-button>\n" +
-    "                            <md-button class=\"md-raised\" href=\"https://twitter.com/intent/tweet?url=https://impactstory.org/u/{{ person.d.orcid_id }}&text=I learned about the online impact of my research on @Impactstory:\">\n" +
+    "                            <md-button class=\"md-raised\" href=\"https://twitter.com/intent/tweet?url=https://doi.org/{{ paper.doi }}&text={{ paper.metadata.title }}\">\n" +
     "                                <i class=\"fa fa-twitter\"></i>\n" +
     "                                Share\n" +
     "                            </md-button>\n" +

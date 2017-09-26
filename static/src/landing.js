@@ -225,7 +225,6 @@ angular.module('landing', [
         var originatorEv;
         $scope.openMenu = function($mdOpenMenu, ev){
             originatorEv = ev;
-            console.log("open menu")
             $mdOpenMenu(ev);
         }
 

@@ -32,7 +32,7 @@ angular.module('app').config(function ($routeProvider,
                                        $locationProvider) {
     $locationProvider.html5Mode(true);
     $mdThemingProvider.theme('default')
-        .primaryPalette('deep-orange')
+        .primaryPalette('blue')
         .accentPalette("blue")
 
 
