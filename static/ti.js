@@ -1433,8 +1433,9 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "                    <md-menu>\n" +
     "                        <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
-    "                            Topic\n" +
+    "                            Topic:\n" +
     "                            <span class=\"active\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
+    "                            <span class=\"active\" ng-show=\"!userFilters.topic\">everything</span>\n" +
     "                        </md-button>\n" +
     "\n" +
     "                        <md-menu-content width=\"4\">\n" +

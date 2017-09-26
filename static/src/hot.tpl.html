@@ -26,8 +26,9 @@
 
                     <md-menu>
                         <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
-                            Topic
+                            Topic:
                             <span class="active" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
+                            <span class="active" ng-show="!userFilters.topic">everything</span>
                         </md-button>
 
                         <md-menu-content width="4">
