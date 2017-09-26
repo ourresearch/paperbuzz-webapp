@@ -33,14 +33,19 @@
                     <md-menu-content width="4">
                         <md-menu-item>
                             <md-button ng-click="setFilter('topic', null)">
-                                Everything
+                                <div class="option">
+                                    <i class="fa fa-circle-o"></i>
+                                    Everything
+                                </div>
                             </md-button>
                         </md-menu-item>
 
                         <md-menu-item ng-repeat="topic in topics">
                             <md-button ng-click="setFilter('topic', topic)" class="topic-option {{ makeUrlSafe(topic) }}">
-                                <i class="fa fa-circle"></i>
-                                {{ topic }}
+                                <div class="option">
+                                    <i class="fa fa-circle"></i>
+                                    {{ topic }}
+                                </div>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
@@ -52,20 +57,29 @@
                 <md-menu>
                     <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
                         Audience:
-                        <span class="active" ng-show="userFilters.audience">mostly non-academic</span>
+                        <span class="active" ng-show="userFilters.audience">
+                            <i class="fa fa-home"></i>
+                            mostly non-academic
+                        </span>
                         <span class="active" ng-show="!userFilters.audience">everyone</span>
                     </md-button>
 
                     <md-menu-content width="4">
                         <md-menu-item>
                             <md-button ng-click="setFilter('audience', null)">
-                                Everyone
+                                <div class="option">
+                                    <i class="fa fa-circle-o"></i>
+                                    everyone
+                                </div>
                             </md-button>
                         </md-menu-item>
 
                         <md-menu-item>
                             <md-button ng-click="setFilter('audience', 'public')">
-                                mostly non-academic
+                                <div class="option">
+                                    <i class="fa fa-home"></i>
+                                    mostly non-academic
+                                </div>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
@@ -76,20 +90,29 @@
                 <md-menu>
                     <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
                         Availability:
-                        <span class="active" ng-show="userFilters.open">free only</span>
+                        <span class="active" ng-show="userFilters.open">
+                            <i class="fa fa-unlock-alt"></i>
+                            Open Access only
+                        </span>
                         <span class="active" ng-show="!userFilters.open">any</span>
                     </md-button>
 
                     <md-menu-content width="4">
                         <md-menu-item>
                             <md-button ng-click="setFilter('open', null)">
-                                any
+                                <div class="option">
+                                    <i class="fa fa-circle-o"></i>
+                                    any
+                                </div>
                             </md-button>
                         </md-menu-item>
 
                         <md-menu-item>
                             <md-button ng-click="setFilter('open', 'true')">
-                                free only
+                                <div class="option">
+                                    <i class="fa fa-unlock-alt"></i>
+                                    Open Access only
+                                </div>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
@@ -106,7 +129,10 @@
                 <div class="card {{ makeUrlSafe(paper.filters.topic) }}" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
                     <div class="card-header">
                         <span class="sort-score">
-                            {{ paper.sort_score }}
+                            <img src="static/img/paperbuzz-icon-sm.png" alt="">
+                            <span class="num">
+                                {{ paper.sort_score }}
+                            </span>
                         </span>
                         <span class="filters-by-name">
                             <span class="topic filter {{ makeUrlSafe(paper.filters.topic) }}">

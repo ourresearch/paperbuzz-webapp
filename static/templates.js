@@ -795,14 +795,19 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                    <md-menu-content width=\"4\">\n" +
     "                        <md-menu-item>\n" +
     "                            <md-button ng-click=\"setFilter('topic', null)\">\n" +
-    "                                Everything\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-circle-o\"></i>\n" +
+    "                                    Everything\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "\n" +
     "                        <md-menu-item ng-repeat=\"topic in topics\">\n" +
     "                            <md-button ng-click=\"setFilter('topic', topic)\" class=\"topic-option {{ makeUrlSafe(topic) }}\">\n" +
-    "                                <i class=\"fa fa-circle\"></i>\n" +
-    "                                {{ topic }}\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-circle\"></i>\n" +
+    "                                    {{ topic }}\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "                    </md-menu-content>\n" +
@@ -814,20 +819,29 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                <md-menu>\n" +
     "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
     "                        Audience:\n" +
-    "                        <span class=\"active\" ng-show=\"userFilters.audience\">mostly non-academic</span>\n" +
+    "                        <span class=\"active\" ng-show=\"userFilters.audience\">\n" +
+    "                            <i class=\"fa fa-home\"></i>\n" +
+    "                            mostly non-academic\n" +
+    "                        </span>\n" +
     "                        <span class=\"active\" ng-show=\"!userFilters.audience\">everyone</span>\n" +
     "                    </md-button>\n" +
     "\n" +
     "                    <md-menu-content width=\"4\">\n" +
     "                        <md-menu-item>\n" +
     "                            <md-button ng-click=\"setFilter('audience', null)\">\n" +
-    "                                Everyone\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-circle-o\"></i>\n" +
+    "                                    everyone\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "\n" +
     "                        <md-menu-item>\n" +
     "                            <md-button ng-click=\"setFilter('audience', 'public')\">\n" +
-    "                                mostly non-academic\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-home\"></i>\n" +
+    "                                    mostly non-academic\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "                    </md-menu-content>\n" +
@@ -838,20 +852,29 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                <md-menu>\n" +
     "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
     "                        Availability:\n" +
-    "                        <span class=\"active\" ng-show=\"userFilters.open\">free only</span>\n" +
+    "                        <span class=\"active\" ng-show=\"userFilters.open\">\n" +
+    "                            <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                            Open Access only\n" +
+    "                        </span>\n" +
     "                        <span class=\"active\" ng-show=\"!userFilters.open\">any</span>\n" +
     "                    </md-button>\n" +
     "\n" +
     "                    <md-menu-content width=\"4\">\n" +
     "                        <md-menu-item>\n" +
     "                            <md-button ng-click=\"setFilter('open', null)\">\n" +
-    "                                any\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-circle-o\"></i>\n" +
+    "                                    any\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "\n" +
     "                        <md-menu-item>\n" +
     "                            <md-button ng-click=\"setFilter('open', 'true')\">\n" +
-    "                                free only\n" +
+    "                                <div class=\"option\">\n" +
+    "                                    <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                                    Open Access only\n" +
+    "                                </div>\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
     "                    </md-menu-content>\n" +
@@ -868,7 +891,10 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                <div class=\"card {{ makeUrlSafe(paper.filters.topic) }}\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
     "                    <div class=\"card-header\">\n" +
     "                        <span class=\"sort-score\">\n" +
-    "                            {{ paper.sort_score }}\n" +
+    "                            <img src=\"static/img/paperbuzz-icon-sm.png\" alt=\"\">\n" +
+    "                            <span class=\"num\">\n" +
+    "                                {{ paper.sort_score }}\n" +
+    "                            </span>\n" +
     "                        </span>\n" +
     "                        <span class=\"filters-by-name\">\n" +
     "                            <span class=\"topic filter {{ makeUrlSafe(paper.filters.topic) }}\">\n" +

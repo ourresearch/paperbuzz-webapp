@@ -172,6 +172,7 @@ angular.module('landing', [
 
         function cleanUrlParams(s){
             var ret
+
             if (s){
                 ret = s.replace(/-/g, " ")
                 if (ret === "true") {
@@ -182,6 +183,13 @@ angular.module('landing', [
         }
 
         function makeUrlSafe(s){
+            if (!s){
+                return ""
+            }
+
+            if (s === true){
+                return "true"
+            }
             if (s){
                 return s.replace(/\s/g, "-")
             }

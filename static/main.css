@@ -245,9 +245,6 @@ body h1 {
 .topic-option {
   font-weight: bold;
 }
-.topic-option i.fa {
-  display: none;
-}
 .topic-option.society {
   color: #e41a1c;
 }
@@ -346,6 +343,10 @@ body h1 {
 }
 .page.hot .content .main .results .card .card-header .sort-score {
   font-weight: bold;
+}
+.page.hot .content .main .results .card .card-header .sort-score img {
+  vertical-align: -6px;
+  margin-right: 3px;
 }
 .page.hot .content .main .results .card .card-header .filter {
   padding: 0 2px;
