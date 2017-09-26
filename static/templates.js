@@ -861,7 +861,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
     "                        </div>\n" +
     "                        <div class=\"card-footer\">\n" +
-    "                            <a href=\"http://{{ paper.doi }}\">{{ paper.doi }}</a>\n" +
+    "                            <a href=\"http://doi.org/{{ paper.doi }}\">{{ paper.doi }}</a>\n" +
     "                        </div>\n" +
     "\n" +
     "                    </div>\n" +

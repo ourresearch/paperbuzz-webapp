@@ -288,6 +288,9 @@ body h1 {
 .page.hot .content .main .results .card .card-content .abstract {
   padding-top: 10px;
 }
+.page.hot .content .main .results .card .card-content .card-footer {
+  font-size: 12px;
+}
 .page.cite-page {
   min-height: 100vh;
 }
