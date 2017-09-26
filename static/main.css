@@ -243,7 +243,7 @@ body h1 {
   margin: 0;
 }
 .topic-option {
-  font-weight: bold !important;
+  font-weight: bold;
 }
 .topic-option i.fa {
   display: none;
@@ -284,6 +284,9 @@ body h1 {
 }
 .page.hot .content .header .controls .md-menu button .active {
   text-transform: lowercase !important;
+}
+.page.hot .content .header .controls .topic-menu .topic-option {
+  font-weight: normal;
 }
 .page.hot .content .main .results {
   display: flex;
