@@ -1476,7 +1476,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            <span class=\"public filter\" ng-show=\"paper.filters.audience=='public'\">\n" +
     "                                <i class=\"fa fa-home\"></i>\n" +
     "                                <span class=\"ratio\">\n" +
-    "                                    {{ filters.public_percent }}\n" +
+    "                                    {{ paper.filters.public_percent }}%\n" +
     "                                </span>\n" +
     "                            </span>\n" +
     "                        </span>\n" +
