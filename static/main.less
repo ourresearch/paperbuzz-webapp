@@ -369,8 +369,13 @@ body {
   min-height: 100vh;
   max-width: 1300px;
 
+  h1 {
+    font-size: 50px;
+  }
+
   .content {
     .header {
+      border-bottom: 1px solid #999;
       .controls {
         margin-left: -10px;
         .md-menu {
@@ -455,16 +460,26 @@ body {
             flex: 3;
 
             .photo {
+              margin-bottom: 10px;
               img {
                 max-width: 320px;
+                width: 320px;
+                /* position: absolute; */
+                /* clip: rect(0px,366px,50px,0px); */
+                /* max-height: 150px; */
+                object-fit: cover;
+                height: 180px;
+
               }
             }
 
 
             .first-row {
+              margin-bottom: 5px;
               .title {
-                font-size: 22px;
+                font-size: 20px;
                 font-weight: bold;
+                line-height: 1.1;
               }
             }
             .second-row {

@@ -279,6 +279,12 @@ body h1 {
   min-height: 100vh;
   max-width: 1300px;
 }
+.page.hot h1 {
+  font-size: 50px;
+}
+.page.hot .content .header {
+  border-bottom: 1px solid #999;
+}
 .page.hot .content .header .controls {
   margin-left: -10px;
 }
@@ -348,12 +354,25 @@ body h1 {
   padding: 15px;
   flex: 3;
 }
+.page.hot .content .main .results .card .card-content .photo {
+  margin-bottom: 10px;
+}
 .page.hot .content .main .results .card .card-content .photo img {
   max-width: 320px;
+  width: 320px;
+  /* position: absolute; */
+  /* clip: rect(0px,366px,50px,0px); */
+  /* max-height: 150px; */
+  object-fit: cover;
+  height: 180px;
+}
+.page.hot .content .main .results .card .card-content .first-row {
+  margin-bottom: 5px;
 }
 .page.hot .content .main .results .card .card-content .first-row .title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
+  line-height: 1.1;
 }
 .page.hot .content .main .results .card .card-content .second-row {
   font-size: 12px;

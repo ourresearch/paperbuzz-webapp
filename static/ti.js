@@ -1560,7 +1560,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </span>\n" +
     "                        </div>\n" +
     "                        <div class=\"abstract\">\n" +
-    "                            {{ paper.metadata.abstract | limitTo: 200 }}\n" +
+    "                            {{ paper.metadata.abstract | limitTo: 250 }}\n" +
     "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
     "                        </div>\n" +
     "\n" +
