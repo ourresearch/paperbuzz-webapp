@@ -1470,7 +1470,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            <span class=\"topic filter\">\n" +
     "                                {{ paper.filters.topic }}\n" +
     "                            </span>\n" +
-    "                            <span class=\"open filter\" ng-show=\"paper.filters.topic\">\n" +
+    "                            <span class=\"open filter\" ng-show=\"paper.filters.open\">\n" +
     "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                            </span>\n" +
     "                            <span class=\"academic filter\" ng-show=\"paper.filters.audience=='academic'\">\n" +
