@@ -19,7 +19,7 @@ angular.module('citePage', [
 
 
 
-        var url = "https://paperbuzz-api.herokuapp.com/doi/" + $routeParams.doi
+        var url = "https://api.paperbuzz.org/v0/doi/" + $routeParams.doi
 
         console.log("calling this url: ", url)
         $scope.apiUrl = url

@@ -8,46 +8,93 @@
             </div>
             <div class="controls">
 
-                <div class="topics">
 
 
-                    <!--
+                <!--
 
-                    <div layout="row" layout-align="space-between center">
-                        <span>What is your favorite weapon?</span>
-                        <md-select ng-model="u.topic" placeholder="Filter by topic" class="md-no-underline">
-                            <md-option value="{{ topic }}" ng-repeat="topic in topics">topic</md-option>
-                        </md-select>
-                    </div>
-                    -->
-
-
-
-
-                    <md-menu>
-                        <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
-                            Topic:
-                            <span class="active" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
-                            <span class="active" ng-show="!userFilters.topic">everything</span>
-                        </md-button>
-
-                        <md-menu-content width="4">
-                            <md-menu-item>
-                                <md-button ng-click="setFilter('topic', null)">
-                                    Everything
-                                </md-button>
-                            </md-menu-item>
-                            
-                            <md-menu-item ng-repeat="topic in topics">
-                                <md-button ng-click="setFilter('topic', topic)">
-                                    {{ topic }}
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-
-
+                <div layout="row" layout-align="space-between center">
+                    <span>What is your favorite weapon?</span>
+                    <md-select ng-model="u.topic" placeholder="Filter by topic" class="md-no-underline">
+                        <md-option value="{{ topic }}" ng-repeat="topic in topics">topic</md-option>
+                    </md-select>
                 </div>
+                -->
+
+
+
+                <!-- Topic filter -->
+                <md-menu>
+                    <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
+                        Topic:
+                        <span class="active" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
+                        <span class="active" ng-show="!userFilters.topic">everything</span>
+                    </md-button>
+
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="setFilter('topic', null)">
+                                Everything
+                            </md-button>
+                        </md-menu-item>
+
+                        <md-menu-item ng-repeat="topic in topics">
+                            <md-button ng-click="setFilter('topic', topic)">
+                                {{ topic }}
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+
+
+                <!-- Audience filter -->
+                <md-menu>
+                    <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
+                        Audience:
+                        <span class="active" ng-show="userFilters.audience">mostly non-academic</span>
+                        <span class="active" ng-show="!userFilters.audience">everyone</span>
+                    </md-button>
+
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="setFilter('audience', null)">
+                                Everyone
+                            </md-button>
+                        </md-menu-item>
+
+                        <md-menu-item>
+                            <md-button ng-click="setFilter('audience', 'public')">
+                                mostly non-academic
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+
+                <!-- Audience filter -->
+                <md-menu>
+                    <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
+                        Availability:
+                        <span class="active" ng-show="userFilters.open">free only</span>
+                        <span class="active" ng-show="!userFilters.open">any</span>
+                    </md-button>
+
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <md-button ng-click="setFilter('open', null)">
+                                any
+                            </md-button>
+                        </md-menu-item>
+
+                        <md-menu-item>
+                            <md-button ng-click="setFilter('open', 'true')">
+                                free only
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
+
             </div>
         </div>
 

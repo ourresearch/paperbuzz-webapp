@@ -83,7 +83,7 @@ angular.module('landing', [
             // do not write a param string if the value is null, like "topic=null"
             var paramStrings = objToPairs(newFilters).map(function(kv){
                 if (kv[1]){
-                    return kv[0] + "=" + kv[1]
+                    return kv[0] + "=" + makeUrlSafe(kv[1])
                 }
             })
 

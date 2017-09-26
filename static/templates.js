@@ -770,46 +770,93 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "            </div>\n" +
     "            <div class=\"controls\">\n" +
     "\n" +
-    "                <div class=\"topics\">\n" +
     "\n" +
     "\n" +
-    "                    <!--\n" +
+    "                <!--\n" +
     "\n" +
-    "                    <div layout=\"row\" layout-align=\"space-between center\">\n" +
-    "                        <span>What is your favorite weapon?</span>\n" +
-    "                        <md-select ng-model=\"u.topic\" placeholder=\"Filter by topic\" class=\"md-no-underline\">\n" +
-    "                            <md-option value=\"{{ topic }}\" ng-repeat=\"topic in topics\">topic</md-option>\n" +
-    "                        </md-select>\n" +
-    "                    </div>\n" +
-    "                    -->\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "                    <md-menu>\n" +
-    "                        <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
-    "                            Topic:\n" +
-    "                            <span class=\"active\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
-    "                            <span class=\"active\" ng-show=\"!userFilters.topic\">everything</span>\n" +
-    "                        </md-button>\n" +
-    "\n" +
-    "                        <md-menu-content width=\"4\">\n" +
-    "                            <md-menu-item>\n" +
-    "                                <md-button ng-click=\"setFilter('topic', null)\">\n" +
-    "                                    Everything\n" +
-    "                                </md-button>\n" +
-    "                            </md-menu-item>\n" +
-    "                            \n" +
-    "                            <md-menu-item ng-repeat=\"topic in topics\">\n" +
-    "                                <md-button ng-click=\"setFilter('topic', topic)\">\n" +
-    "                                    {{ topic }}\n" +
-    "                                </md-button>\n" +
-    "                            </md-menu-item>\n" +
-    "                        </md-menu-content>\n" +
-    "                    </md-menu>\n" +
-    "\n" +
-    "\n" +
+    "                <div layout=\"row\" layout-align=\"space-between center\">\n" +
+    "                    <span>What is your favorite weapon?</span>\n" +
+    "                    <md-select ng-model=\"u.topic\" placeholder=\"Filter by topic\" class=\"md-no-underline\">\n" +
+    "                        <md-option value=\"{{ topic }}\" ng-repeat=\"topic in topics\">topic</md-option>\n" +
+    "                    </md-select>\n" +
     "                </div>\n" +
+    "                -->\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "                <!-- Topic filter -->\n" +
+    "                <md-menu>\n" +
+    "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
+    "                        Topic:\n" +
+    "                        <span class=\"active\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
+    "                        <span class=\"active\" ng-show=\"!userFilters.topic\">everything</span>\n" +
+    "                    </md-button>\n" +
+    "\n" +
+    "                    <md-menu-content width=\"4\">\n" +
+    "                        <md-menu-item>\n" +
+    "                            <md-button ng-click=\"setFilter('topic', null)\">\n" +
+    "                                Everything\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "\n" +
+    "                        <md-menu-item ng-repeat=\"topic in topics\">\n" +
+    "                            <md-button ng-click=\"setFilter('topic', topic)\">\n" +
+    "                                {{ topic }}\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "                    </md-menu-content>\n" +
+    "                </md-menu>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "                <!-- Audience filter -->\n" +
+    "                <md-menu>\n" +
+    "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
+    "                        Audience:\n" +
+    "                        <span class=\"active\" ng-show=\"userFilters.audience\">mostly non-academic</span>\n" +
+    "                        <span class=\"active\" ng-show=\"!userFilters.audience\">everyone</span>\n" +
+    "                    </md-button>\n" +
+    "\n" +
+    "                    <md-menu-content width=\"4\">\n" +
+    "                        <md-menu-item>\n" +
+    "                            <md-button ng-click=\"setFilter('audience', null)\">\n" +
+    "                                Everyone\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "\n" +
+    "                        <md-menu-item>\n" +
+    "                            <md-button ng-click=\"setFilter('audience', 'public')\">\n" +
+    "                                mostly non-academic\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "                    </md-menu-content>\n" +
+    "                </md-menu>\n" +
+    "\n" +
+    "\n" +
+    "                <!-- Audience filter -->\n" +
+    "                <md-menu>\n" +
+    "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
+    "                        Availability:\n" +
+    "                        <span class=\"active\" ng-show=\"userFilters.open\">free only</span>\n" +
+    "                        <span class=\"active\" ng-show=\"!userFilters.open\">any</span>\n" +
+    "                    </md-button>\n" +
+    "\n" +
+    "                    <md-menu-content width=\"4\">\n" +
+    "                        <md-menu-item>\n" +
+    "                            <md-button ng-click=\"setFilter('open', null)\">\n" +
+    "                                any\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "\n" +
+    "                        <md-menu-item>\n" +
+    "                            <md-button ng-click=\"setFilter('open', 'true')\">\n" +
+    "                                free only\n" +
+    "                            </md-button>\n" +
+    "                        </md-menu-item>\n" +
+    "                    </md-menu-content>\n" +
+    "                </md-menu>\n" +
+    "\n" +
+    "\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +

@@ -242,6 +242,12 @@ body h1 {
   min-height: 100vh;
   max-width: 1300px;
 }
+.page.hot .content .header .controls {
+  margin-left: -10px;
+}
+.page.hot .content .header .controls .md-menu button .active {
+  text-transform: lowercase !important;
+}
 .page.hot .content .main .facets {
   display: none;
 }
@@ -251,7 +257,7 @@ body h1 {
   padding-top: 30px;
 }
 .page.hot .content .main .results .card {
-  margin: 10px;
+  margin: 10px 20px 0 0;
   border: 1px solid #ddd;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
