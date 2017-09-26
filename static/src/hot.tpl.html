@@ -164,9 +164,16 @@
                                 <i class="fa fa-unlock-alt"></i>
                                 Read
                             </md-button>
-                            <md-button class="md-raised" ng-show="!paper.filters.open">
+                            <md-button class="md-raised"
+                                       target="_blank"
+                                       href="http://doi.org/{{ paper.doi }}"
+                                       ng-show="!paper.filters.open">
                                 <i class="fa fa-lock"></i>
                                 View
+                            </md-button>
+                            <md-button class="md-raised" href="https://twitter.com/intent/tweet?url=https://impactstory.org/u/{{ person.d.orcid_id }}&text=I learned about the online impact of my research on @Impactstory:">
+                                <i class="fa fa-twitter"></i>
+                                Share
                             </md-button>
                         </div>
                         <div class="bottom-row">

@@ -304,8 +304,8 @@ body h1 {
   padding: 10px;
 }
 .page.hot .content .main .results .card .card-footer .bottom-row {
-  text-align: right;
   font-size: 12px;
+  margin-left: 10px;
 }
 .page.cite-page {
   min-height: 100vh;

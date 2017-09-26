@@ -926,9 +926,16 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                                Read\n" +
     "                            </md-button>\n" +
-    "                            <md-button class=\"md-raised\" ng-show=\"!paper.filters.open\">\n" +
+    "                            <md-button class=\"md-raised\"\n" +
+    "                                       target=\"_blank\"\n" +
+    "                                       href=\"http://doi.org/{{ paper.doi }}\"\n" +
+    "                                       ng-show=\"!paper.filters.open\">\n" +
     "                                <i class=\"fa fa-lock\"></i>\n" +
     "                                View\n" +
+    "                            </md-button>\n" +
+    "                            <md-button class=\"md-raised\" href=\"https://twitter.com/intent/tweet?url=https://impactstory.org/u/{{ person.d.orcid_id }}&text=I learned about the online impact of my research on @Impactstory:\">\n" +
+    "                                <i class=\"fa fa-twitter\"></i>\n" +
+    "                                Share\n" +
     "                            </md-button>\n" +
     "                        </div>\n" +
     "                        <div class=\"bottom-row\">\n" +
