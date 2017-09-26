@@ -68,6 +68,10 @@ angular.module('landing', [
             week: 38
         }
 
+        $scope.subscribe = function(){
+            alert("This feature coming soon. You'll get emails on new papers that fit your selected set of filters.")
+        }
+
 
 
 

@@ -274,22 +274,36 @@ body h1 {
 }
 .page.hot {
   min-height: 100vh;
-  max-width: 1300px;
+  max-width: 1180px;
 }
 .page.hot h1 {
   font-size: 50px;
+}
+.page.hot .issue {
+  font-size: 12px;
+  margin-left: 5px;
 }
 .page.hot .content .header {
   border-bottom: 1px solid #999;
 }
 .page.hot .content .header .controls {
   margin-left: -10px;
+  display: flex;
+}
+.page.hot .content .header .controls .md-menu {
+  padding: 0;
 }
 .page.hot .content .header .controls .md-menu button .active {
   text-transform: lowercase !important;
 }
 .page.hot .content .header .controls .topic-menu .topic-option {
   font-weight: normal;
+}
+.page.hot .content .header .controls .spacer {
+  flex: 3;
+}
+.page.hot .content .header .controls .subscribe-button {
+  height: 30px;
 }
 .page.hot .content .main .results {
   display: flex;
@@ -389,14 +403,24 @@ body h1 {
   font-size: 12px;
 }
 .page.hot .content .main .results .card .card-footer {
-  padding: 10px;
+  padding: 5px;
 }
 .page.hot .content .main .results .card .card-footer .bottom-row {
+  border-top: 1px solid #ddd;
   font-size: 12px;
   margin-left: 10px;
+  display: flex;
+  padding: 7px 0;
+}
+.page.hot .content .main .results .card .card-footer .bottom-row .spacer {
+  flex: 3;
 }
 .page.hot .content .main .results .card .card-footer .bottom-row a {
   color: #999;
+}
+.page.hot .content .main .results .card .card-footer .bottom-row a img {
+  vertical-align: -6px;
+  opacity: .5;
 }
 .page.cite-page {
   min-height: 100vh;

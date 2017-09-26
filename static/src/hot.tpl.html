@@ -2,9 +2,10 @@
     <div class="content">
         <div class="header">
             <h1>Buzzing this week</h1>
+
             <div class="issue">
-                <span class="year">{{ issue.year }},</span>
-                <span class="week">week {{ issue.week }}</span>
+                <span class="week">Week {{ issue.week }},</span>
+                <span class="year">{{ issue.year }}</span>
             </div>
             <div class="controls">
 
@@ -118,6 +119,13 @@
                     </md-menu-content>
                 </md-menu>
 
+                <div class="spacer"></div>
+
+
+                <md-button class="subscribe-button md-primary" ng-click="subscribe()">
+                        <i class="fa fa-envelope-o"></i>
+                        Subscribe
+                </md-button>
 
             </div>
         </div>
@@ -206,6 +214,13 @@
                             </md-button>
                         </div>
                         <div class="bottom-row">
+                            <span class="score-details">
+                                <a href="details/{{ paper.doi }}" class="">
+                                    <img src="static/img/paperbuzz-icon-sm.png" alt="">
+                                    score details
+                                </a>
+                            </span>
+                            <div class="spacer"></div>
                             <a href="http://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>
                         </div>
 

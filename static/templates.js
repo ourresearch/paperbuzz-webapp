@@ -764,9 +764,10 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
     "            <h1>Buzzing this week</h1>\n" +
+    "\n" +
     "            <div class=\"issue\">\n" +
-    "                <span class=\"year\">{{ issue.year }},</span>\n" +
-    "                <span class=\"week\">week {{ issue.week }}</span>\n" +
+    "                <span class=\"week\">Week {{ issue.week }},</span>\n" +
+    "                <span class=\"year\">{{ issue.year }}</span>\n" +
     "            </div>\n" +
     "            <div class=\"controls\">\n" +
     "\n" +
@@ -880,6 +881,13 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                    </md-menu-content>\n" +
     "                </md-menu>\n" +
     "\n" +
+    "                <div class=\"spacer\"></div>\n" +
+    "\n" +
+    "\n" +
+    "                <md-button class=\"subscribe-button md-primary\" ng-click=\"subscribe()\">\n" +
+    "                        <i class=\"fa fa-envelope-o\"></i>\n" +
+    "                        Subscribe\n" +
+    "                </md-button>\n" +
     "\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -968,6 +976,13 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </md-button>\n" +
     "                        </div>\n" +
     "                        <div class=\"bottom-row\">\n" +
+    "                            <span class=\"score-details\">\n" +
+    "                                <a href=\"details/{{ paper.doi }}\" class=\"\">\n" +
+    "                                    <img src=\"static/img/paperbuzz-icon-sm.png\" alt=\"\">\n" +
+    "                                    score details\n" +
+    "                                </a>\n" +
+    "                            </span>\n" +
+    "                            <div class=\"spacer\"></div>\n" +
     "                            <a href=\"http://doi.org/{{ paper.doi }}\">{{ paper.doi }}</a>\n" +
     "                        </div>\n" +
     "\n" +

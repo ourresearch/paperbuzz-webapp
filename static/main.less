@@ -364,10 +364,14 @@ body {
 
 .page.hot {
   min-height: 100vh;
-  max-width: 1300px;
+  max-width: 1180px;
 
   h1 {
     font-size: 50px;
+  }
+  .issue {
+    font-size: 12px;
+    margin-left: 5px;
   }
 
   .content {
@@ -375,7 +379,9 @@ body {
       border-bottom: 1px solid #999;
       .controls {
         margin-left: -10px;
+        display:flex;
         .md-menu {
+          padding: 0;
           button {
             .active {
               text-transform: lowercase !important;
@@ -393,7 +399,15 @@ body {
           }
 
 
-        }        
+        }
+
+        .spacer {
+          flex: 3;
+        }
+
+        .subscribe-button {
+          height: 30px;
+        }
         
         
         
@@ -500,14 +514,26 @@ body {
           }
 
           .card-footer {
-            padding: 10px;
+            padding: 5px;
             //text-align: right;
             .bottom-row {
+              border-top: 1px solid #ddd;
               //text-align: right;
               font-size: 12px;
               margin-left: 10px;
+              display:flex;
+              padding: 7px 0;
+              .spacer {
+                flex: 3
+              }
+
+
               a {
                 color: #999;
+                img {
+                  vertical-align: -6px;
+                  opacity: .5;
+                }
               }
             }
           }
