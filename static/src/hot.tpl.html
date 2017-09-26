@@ -31,8 +31,14 @@
                         </md-button>
 
                         <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ng-click="setFilter('topic', null)">
+                                    Everything
+                                </md-button>
+                            </md-menu-item>
+                            
                             <md-menu-item ng-repeat="topic in topics">
-                                <md-button href="hot/{{ makeUrlSafe(topic) }}">
+                                <md-button ng-click="setFilter('topic', topic)">
                                     {{ topic }}
                                 </md-button>
                             </md-menu-item>
@@ -46,35 +52,6 @@
 
 
         <div class="main">
-            <div class="facets">
-
-                <div class="facet open">
-                    <h3>Open Access</h3>
-
-                    <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
-                        Only free-to-read
-                    </md-checkbox>
-
-                </div>
-
-
-                <div class="facet audience">
-                    <h3>Audience</h3>
-
-
-                </div>
-
-
-                <div class="facet topic">
-                    <h3>Topic</h3>
-
-
-
-                </div>
-
-
-
-            </div>
 
             <div class="results">
                 <div class="card" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
@@ -120,6 +97,9 @@
                         <div class="abstract">
                             {{ paper.metadata.abstract | limitTo: 400 }}
                             <span class="dots" ng-show="paper.metadata.abstract.length > 400">&hellip;</span>
+                        </div>
+                        <div class="card-footer">
+                            <a href="http://{{ paper.doi }}">{{ paper.doi }}</a>
                         </div>
 
                     </div>

@@ -60,6 +60,9 @@ angular.module('landing', [
         $scope.paperFilter = paperFilter
         $scope.userFilters = userFilters
         $scope.makeUrlSafe = makeUrlSafe
+        $scope.setFilter = setFilter
+
+
         $scope.issue = {
             year: 2017,
             week: 38
@@ -68,6 +71,50 @@ angular.module('landing', [
         $scope.u = {
             //topic: "sword"
         }
+
+
+
+
+        function setFilter(newFilterName, newFilterVal){
+            var currentFilters = getUserFilters()
+            var myNewFilter = {}
+            myNewFilter[newFilterName] = newFilterVal
+
+            // make the new set of filters by overwriting
+            var newFilters = Object.assign({}, currentFilters, myNewFilter)
+
+            // make into strings like "topic=health"
+            // do not write a param string if the value is null, like "topic=null"
+            var paramStrings = objToPairs(newFilters).map(function(kv){
+                if (kv[1]){
+                    return kv[0] + "=" + kv[1]
+                }
+            })
+
+            // remove nulls from the array
+            paramStrings = paramStrings.filter(Boolean)
+
+            // finish making the array into a URL param string
+            var allParams = paramStrings.join("&")
+            if (allParams){
+                allParams = "?" + allParams
+            }
+
+            console.log("all params", allParams)
+            $location.url("hot" + allParams)
+
+        }
+
+        // return object as key-value pairs
+        function objToPairs(obj){
+            return Object.keys(obj).map(function(k){
+                return [k, obj[k]]
+            })
+        }
+
+
+
+
 
 
 
@@ -85,14 +132,11 @@ angular.module('landing', [
 
         function getUserFilters(){
             var possibleFilters = ["audience", "open", "topic"]
-            var ret = []
+            var ret = {}
             possibleFilters.forEach(function(filterName){
-                var urlVal = getFromUrl(filterName)
-                if (urlVal && urlVal != "all"){
-                    ret.push({
-                        name: filterName,
-                        value: urlVal
-                    })
+                var userVal = getFromUrl(filterName)
+                if (userVal){
+                    ret[filterName] = userVal
                 }
             })
             console.log("got user filters:", ret)
@@ -103,63 +147,42 @@ angular.module('landing', [
 
 
         function paperFilter(paper){
+            var userFilterNames = Object.keys(userFilters)
 
             // test each of the possible user filters
             // this will give us an array of all the passes/fails
             // of each filter the user has set.
-            var matches = userFilters.map(function(userFilter){
-                if (paper.filters[userFilter.name] == userFilter.value) {
+            var filterMatches = userFilterNames.map(function(userFilterName){
+                var userVal = userFilters[userFilterName]
+                var paperVal = paper.filters[userFilterName]
+
+                if (userVal == paperVal) {
                     return true
                 }
-                return false
+
+                else {
+                    return false
+                }
             })
+
+
 
             // succeed if there are no False results
-            return matches.indexOf(false) == -1
+            return filterMatches.indexOf(false) == -1
         }
 
 
-
-
-        function selectPapers(topic, audience, is_oa){
-
-            // find the first papers facet that matches
-            // all the supplied filters.
-
-            console.log("selecting papers", topic)
-
-            // uses the global hotnessData variable initialized in app.js,
-            // and filled from an API call upon app boot.
-            var selectedGroup = global.hotPapers.list.find(function(group){
-
-
-                // test to see if this group is a match for the
-                // set of filters we've been given.
-                var matches = [
-                    group.filter_discipline == topic,
-                    group.filter_audience == audience,
-                    group.filter_open == is_oa
-                ]
-
-                // all of the filter conditions matched.
-                // returning true means that we'll end up using the
-                // papers in this group.
-                return matches.indexOf(false) < 0; // no false, all true.
-
-            })
-            if (!selectedGroup){
-                return null
-            }
-            else {
-                return selectedGroup.results
-            }
-        }
 
 
         function cleanUrlParams(s){
+            var ret
             if (s){
-                return s.replace(/-/g, " ")
+                ret = s.replace(/-/g, " ")
+                if (ret === "true") {
+                    ret = true
+                }
             }
+            return ret
         }
 
         function makeUrlSafe(s){

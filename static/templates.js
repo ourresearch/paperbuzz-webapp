@@ -793,8 +793,14 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                        </md-button>\n" +
     "\n" +
     "                        <md-menu-content width=\"4\">\n" +
+    "                            <md-menu-item>\n" +
+    "                                <md-button ng-click=\"setFilter('topic', null)\">\n" +
+    "                                    Everything\n" +
+    "                                </md-button>\n" +
+    "                            </md-menu-item>\n" +
+    "                            \n" +
     "                            <md-menu-item ng-repeat=\"topic in topics\">\n" +
-    "                                <md-button href=\"hot/{{ makeUrlSafe(topic) }}\">\n" +
+    "                                <md-button ng-click=\"setFilter('topic', topic)\">\n" +
     "                                    {{ topic }}\n" +
     "                                </md-button>\n" +
     "                            </md-menu-item>\n" +
@@ -808,35 +814,6 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "        <div class=\"main\">\n" +
-    "            <div class=\"facets\">\n" +
-    "\n" +
-    "                <div class=\"facet open\">\n" +
-    "                    <h3>Open Access</h3>\n" +
-    "\n" +
-    "                    <md-checkbox ng-model=\"data.cb1\" aria-label=\"Checkbox 1\">\n" +
-    "                        Only free-to-read\n" +
-    "                    </md-checkbox>\n" +
-    "\n" +
-    "                </div>\n" +
-    "\n" +
-    "\n" +
-    "                <div class=\"facet audience\">\n" +
-    "                    <h3>Audience</h3>\n" +
-    "\n" +
-    "\n" +
-    "                </div>\n" +
-    "\n" +
-    "\n" +
-    "                <div class=\"facet topic\">\n" +
-    "                    <h3>Topic</h3>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "                </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "            </div>\n" +
     "\n" +
     "            <div class=\"results\">\n" +
     "                <div class=\"card\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
@@ -882,6 +859,9 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                        <div class=\"abstract\">\n" +
     "                            {{ paper.metadata.abstract | limitTo: 400 }}\n" +
     "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"card-footer\">\n" +
+    "                            <a href=\"http://{{ paper.doi }}\">{{ paper.doi }}</a>\n" +
     "                        </div>\n" +
     "\n" +
     "                    </div>\n" +
