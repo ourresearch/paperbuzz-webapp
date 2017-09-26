@@ -68,10 +68,6 @@ angular.module('landing', [
             week: 38
         }
 
-        $scope.u = {
-            //topic: "sword"
-        }
-
 
 
 

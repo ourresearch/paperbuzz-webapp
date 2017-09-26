@@ -330,10 +330,6 @@ angular.module('landing', [
             week: 38
         }
 
-        $scope.u = {
-            //topic: "sword"
-        }
-
 
 
 
@@ -1479,6 +1475,9 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </span>\n" +
     "                            <span class=\"public filter\" ng-show=\"paper.filters.audience=='public'\">\n" +
     "                                <i class=\"fa fa-home\"></i>\n" +
+    "                                <span class=\"ratio\">\n" +
+    "                                    {{ filters.public_percent }}\n" +
+    "                                </span>\n" +
     "                            </span>\n" +
     "                        </span>\n" +
     "                    </div>\n" +
