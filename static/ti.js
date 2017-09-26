@@ -1404,7 +1404,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "<div class=\"page hot\">\n" +
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
-    "            <h1>Most buzzworthy papers</h1>\n" +
+    "            <h1>Buzzing this week</h1>\n" +
     "            <div class=\"issue\">\n" +
     "                <span class=\"year\">{{ issue.year }},</span>\n" +
     "                <span class=\"week\">week {{ issue.week }}</span>\n" +
@@ -1506,7 +1506,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "            <div class=\"results\">\n" +
     "                <div class=\"card\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
-    "                    <div class=\"filters\">\n" +
+    "                    <div class=\"card-header\">\n" +
     "                        <span class=\"sort-score\">\n" +
     "                            {{ paper.sort_score }}\n" +
     "                        </span>\n" +
@@ -1530,6 +1530,9 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                    </div>\n" +
     "\n" +
     "                    <div class=\"card-content\">\n" +
+    "                        <div class=\"photo\">\n" +
+    "                            <img src=\"{{ paper.photo }}\" alt=\"\">\n" +
+    "                        </div>\n" +
     "                        <div class=\"first-row\">\n" +
     "                            <span class=\"title\">{{ paper.metadata.title }}</span>\n" +
     "                        </div>\n" +
@@ -1552,9 +1555,28 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            {{ paper.metadata.abstract | limitTo: 400 }}\n" +
     "                            <span class=\"dots\" ng-show=\"paper.metadata.abstract.length > 400\">&hellip;</span>\n" +
     "                        </div>\n" +
-    "                        <div class=\"card-footer\">\n" +
+    "\n" +
+    "                    </div>\n" +
+    "\n" +
+    "                    <div class=\"card-footer\">\n" +
+    "                        <div class=\"buttons\">\n" +
+    "                            <md-button class=\"md-raised md-primary\"\n" +
+    "                                       target=\"_blank\"\n" +
+    "                                       href=\"{{ paper.open_access.best_open_location }}\"\n" +
+    "                                       ng-show=\"paper.filters.open\">\n" +
+    "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
+    "                                Read\n" +
+    "                            </md-button>\n" +
+    "                            <md-button class=\"md-raised\" ng-show=\"!paper.filters.open\">\n" +
+    "                                <i class=\"fa fa-lock\"></i>\n" +
+    "                                View\n" +
+    "                            </md-button>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"bottom-row\">\n" +
     "                            <a href=\"http://doi.org/{{ paper.doi }}\">{{ paper.doi }}</a>\n" +
     "                        </div>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "                    </div>\n" +
     "\n" +

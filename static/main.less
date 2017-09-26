@@ -238,6 +238,10 @@ body {
   }
 }
 
+.page.search {
+  // do this
+}
+
 .page.api {
   h2.anchor, h3.anchor {
       padding-top: 20px;
@@ -341,9 +345,6 @@ body {
     }
     
     .main {
-      .facets {
-        display:none;
-      }
 
       .results {
         display: flex;
@@ -355,7 +356,10 @@ body {
           box-shadow: 1px 2px 3px 0px rgba(0,0,0,.1);
           border-radius: 3px;
           max-width: 350px;
-          .filters {
+          display: flex;
+          flex-direction: column;
+
+          .card-header {
             display: flex;
             justify-content: space-between;
             background: #555;
@@ -373,10 +377,19 @@ body {
 
           .card-content {
             padding: 15px;
+            flex: 3;
+
+            .photo {
+              img {
+                max-width: 320px;
+              }
+            }
+
+
             .first-row {
               .title {
-                font-size: 24px;
-                font-weight: 300;
+                font-size: 22px;
+                font-weight: bold;
               }
             }
             .second-row {
@@ -393,6 +406,16 @@ body {
               font-size: 12px;
             }
 
+          }
+
+          .card-footer {
+            padding: 10px;
+            .bottom-row {
+              text-align: right;
+              font-size: 12px;
+              a {
+              }
+            }
           }
 
         }

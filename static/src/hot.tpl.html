@@ -1,7 +1,7 @@
 <div class="page hot">
     <div class="content">
         <div class="header">
-            <h1>Most buzzworthy papers</h1>
+            <h1>Buzzing this week</h1>
             <div class="issue">
                 <span class="year">{{ issue.year }},</span>
                 <span class="week">week {{ issue.week }}</span>
@@ -103,7 +103,7 @@
 
             <div class="results">
                 <div class="card" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
-                    <div class="filters">
+                    <div class="card-header">
                         <span class="sort-score">
                             {{ paper.sort_score }}
                         </span>
@@ -127,6 +127,9 @@
                     </div>
 
                     <div class="card-content">
+                        <div class="photo">
+                            <img src="{{ paper.photo }}" alt="">
+                        </div>
                         <div class="first-row">
                             <span class="title">{{ paper.metadata.title }}</span>
                         </div>
@@ -149,9 +152,28 @@
                             {{ paper.metadata.abstract | limitTo: 400 }}
                             <span class="dots" ng-show="paper.metadata.abstract.length > 400">&hellip;</span>
                         </div>
-                        <div class="card-footer">
+
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="buttons">
+                            <md-button class="md-raised md-primary"
+                                       target="_blank"
+                                       href="{{ paper.open_access.best_open_location }}"
+                                       ng-show="paper.filters.open">
+                                <i class="fa fa-unlock-alt"></i>
+                                Read
+                            </md-button>
+                            <md-button class="md-raised" ng-show="!paper.filters.open">
+                                <i class="fa fa-lock"></i>
+                                View
+                            </md-button>
+                        </div>
+                        <div class="bottom-row">
                             <a href="http://doi.org/{{ paper.doi }}">{{ paper.doi }}</a>
                         </div>
+
+
 
                     </div>
 
