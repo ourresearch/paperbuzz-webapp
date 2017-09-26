@@ -1431,11 +1431,11 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "                <!-- Topic filter -->\n" +
-    "                <md-menu>\n" +
+    "                <md-menu class=\"topic-menu\">\n" +
     "                    <md-button class=\"other-topics\" ng-click=\"openMenu($mdOpenMenu, $event)\">\n" +
     "                        Topic:\n" +
-    "                        <span class=\"active\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
-    "                        <span class=\"active\" ng-show=\"!userFilters.topic\">everything</span>\n" +
+    "                        <span class=\"active topic-option {{ makeUrlSafe(userFilters.topic) }}\" ng-show=\"userFilters.topic\">{{ userFilters.topic }}</span>\n" +
+    "                        <span class=\"active topic-option\" ng-show=\"!userFilters.topic\">everything</span>\n" +
     "                    </md-button>\n" +
     "\n" +
     "                    <md-menu-content width=\"4\">\n" +
@@ -1446,7 +1446,8 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                        </md-menu-item>\n" +
     "\n" +
     "                        <md-menu-item ng-repeat=\"topic in topics\">\n" +
-    "                            <md-button ng-click=\"setFilter('topic', topic)\">\n" +
+    "                            <md-button ng-click=\"setFilter('topic', topic)\" class=\"topic-option {{ makeUrlSafe(topic) }}\">\n" +
+    "                                <i class=\"fa fa-circle\"></i>\n" +
     "                                {{ topic }}\n" +
     "                            </md-button>\n" +
     "                        </md-menu-item>\n" +
@@ -1510,13 +1511,13 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "        <div class=\"main\">\n" +
     "\n" +
     "            <div class=\"results\">\n" +
-    "                <div class=\"card\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
+    "                <div class=\"card {{ makeUrlSafe(paper.filters.topic) }}\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
     "                    <div class=\"card-header\">\n" +
     "                        <span class=\"sort-score\">\n" +
     "                            {{ paper.sort_score }}\n" +
     "                        </span>\n" +
     "                        <span class=\"filters-by-name\">\n" +
-    "                            <span class=\"topic filter\">\n" +
+    "                            <span class=\"topic filter {{ makeUrlSafe(paper.filters.topic) }}\">\n" +
     "                                {{ paper.filters.topic }}\n" +
     "                            </span>\n" +
     "                            <span class=\"open filter\" ng-show=\"paper.filters.open\">\n" +
@@ -1527,9 +1528,6 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                            </span>\n" +
     "                            <span class=\"public filter\" ng-show=\"paper.filters.audience=='public'\">\n" +
     "                                <i class=\"fa fa-home\"></i>\n" +
-    "                                <span class=\"ratio\">\n" +
-    "                                    {{ paper.filters.public_percent }}%\n" +
-    "                                </span>\n" +
     "                            </span>\n" +
     "                        </span>\n" +
     "                    </div>\n" +

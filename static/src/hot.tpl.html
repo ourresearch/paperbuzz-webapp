@@ -23,11 +23,11 @@
 
 
                 <!-- Topic filter -->
-                <md-menu>
+                <md-menu class="topic-menu">
                     <md-button class="other-topics" ng-click="openMenu($mdOpenMenu, $event)">
                         Topic:
-                        <span class="active" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
-                        <span class="active" ng-show="!userFilters.topic">everything</span>
+                        <span class="active topic-option {{ makeUrlSafe(userFilters.topic) }}" ng-show="userFilters.topic">{{ userFilters.topic }}</span>
+                        <span class="active topic-option" ng-show="!userFilters.topic">everything</span>
                     </md-button>
 
                     <md-menu-content width="4">
@@ -38,7 +38,8 @@
                         </md-menu-item>
 
                         <md-menu-item ng-repeat="topic in topics">
-                            <md-button ng-click="setFilter('topic', topic)">
+                            <md-button ng-click="setFilter('topic', topic)" class="topic-option {{ makeUrlSafe(topic) }}">
+                                <i class="fa fa-circle"></i>
                                 {{ topic }}
                             </md-button>
                         </md-menu-item>
@@ -102,13 +103,13 @@
         <div class="main">
 
             <div class="results">
-                <div class="card" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
+                <div class="card {{ makeUrlSafe(paper.filters.topic) }}" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
                     <div class="card-header">
                         <span class="sort-score">
                             {{ paper.sort_score }}
                         </span>
                         <span class="filters-by-name">
-                            <span class="topic filter">
+                            <span class="topic filter {{ makeUrlSafe(paper.filters.topic) }}">
                                 {{ paper.filters.topic }}
                             </span>
                             <span class="open filter" ng-show="paper.filters.open">
@@ -119,9 +120,6 @@
                             </span>
                             <span class="public filter" ng-show="paper.filters.audience=='public'">
                                 <i class="fa fa-home"></i>
-                                <span class="ratio">
-                                    {{ paper.filters.public_percent }}%
-                                </span>
                             </span>
                         </span>
                     </div>

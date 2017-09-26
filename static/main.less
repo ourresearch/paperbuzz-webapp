@@ -11,6 +11,25 @@
 @warnColorDark: #B71C1C;
 @warnColorLight: #FFCDD2;
 
+
+@society: #e41a1c;
+@health: #377eb8;
+@life-science: #ff7f00;
+
+
+@environment: #4daf4a;
+@scholarly-communication: #984ea3;
+@technology: #999999;
+
+
+@physics-and-astronomy: #a65628;
+@brain-and-mind: #f781bf;
+@arts-and-humanities: #ffff33;
+
+
+
+
+
 html {
   background: #fff;
   &.menu-open-true {
@@ -328,6 +347,22 @@ body {
   }
 }
 
+.topic-option {
+  i.fa {
+    display:none;
+  }
+  font-weight: bold !important;
+  &.society {color: @society;}
+  &.health {color: @health;}
+  &.life-science {color: @life-science;}
+  &.scholarly-communication {color: @scholarly-communication;}
+  &.technology {color: @technology;}
+  &.environment {color: @environment;}
+  &.physics-and-astronomy {color: @physics-and-astronomy;}
+  &.brain-and-mind {color: @brain-and-mind;}
+  &.arts-and-humanities {color: @arts-and-humanities;}
+
+}
 
 
 .page.hot {
@@ -345,6 +380,18 @@ body {
             }
           }
         }
+        
+        .topic-menu {
+
+          .topic-option {
+
+          }
+
+
+        }        
+        
+        
+        
       }
     }
     
@@ -356,7 +403,23 @@ body {
         padding-top: 30px;
         .card {
           margin: 30px 20px 0 0;
-          border: 1px solid #ddd;
+          border: 1px solid #999;
+          border-top-width: 9px;
+          
+          &.society {border-top-color: @society;}
+          &.health {border-top-color: @health;}
+          &.life-science {border-top-color: @life-science;}
+          &.scholarly-communication {border-top-color: @scholarly-communication;}
+          &.technology {border-top-color: @technology;}
+          &.environment {border-top-color: @environment;}
+          &.physics-and-astronomy {border-top-color: @physics-and-astronomy;}
+          &.brain-and-mind {border-top-color: @brain-and-mind;}
+          &.arts-and-humanities {border-top-color: @arts-and-humanities;}
+          
+
+          
+          
+          
           box-shadow: 1px 2px 3px 0px rgba(0,0,0,.1);
           border-radius: 3px;
           max-width: 350px;
@@ -370,6 +433,11 @@ body {
             color: #fff;
             font-size: 14px;
             padding: 8px;
+            .topic {
+                
+
+            }
+            
             .sort-score {
               font-weight: bold;
             }

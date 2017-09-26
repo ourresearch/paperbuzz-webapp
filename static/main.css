@@ -242,6 +242,39 @@ body h1 {
   padding: 0 0 0 20px;
   margin: 0;
 }
+.topic-option {
+  font-weight: bold !important;
+}
+.topic-option i.fa {
+  display: none;
+}
+.topic-option.society {
+  color: #e41a1c;
+}
+.topic-option.health {
+  color: #377eb8;
+}
+.topic-option.life-science {
+  color: #ff7f00;
+}
+.topic-option.scholarly-communication {
+  color: #984ea3;
+}
+.topic-option.technology {
+  color: #999999;
+}
+.topic-option.environment {
+  color: #4daf4a;
+}
+.topic-option.physics-and-astronomy {
+  color: #a65628;
+}
+.topic-option.brain-and-mind {
+  color: #f781bf;
+}
+.topic-option.arts-and-humanities {
+  color: #ffff33;
+}
 .page.hot {
   min-height: 100vh;
   max-width: 1300px;
@@ -259,12 +292,40 @@ body h1 {
 }
 .page.hot .content .main .results .card {
   margin: 30px 20px 0 0;
-  border: 1px solid #ddd;
+  border: 1px solid #999;
+  border-top-width: 9px;
   box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   max-width: 350px;
   display: flex;
   flex-direction: column;
+}
+.page.hot .content .main .results .card.society {
+  border-top-color: #e41a1c;
+}
+.page.hot .content .main .results .card.health {
+  border-top-color: #377eb8;
+}
+.page.hot .content .main .results .card.life-science {
+  border-top-color: #ff7f00;
+}
+.page.hot .content .main .results .card.scholarly-communication {
+  border-top-color: #984ea3;
+}
+.page.hot .content .main .results .card.technology {
+  border-top-color: #999999;
+}
+.page.hot .content .main .results .card.environment {
+  border-top-color: #4daf4a;
+}
+.page.hot .content .main .results .card.physics-and-astronomy {
+  border-top-color: #a65628;
+}
+.page.hot .content .main .results .card.brain-and-mind {
+  border-top-color: #f781bf;
+}
+.page.hot .content .main .results .card.arts-and-humanities {
+  border-top-color: #ffff33;
 }
 .page.hot .content .main .results .card .card-header {
   display: flex;
