@@ -60,9 +60,6 @@ angular.module('app').run(function($route,
 
 
 
-
-
-
     $rootScope.$on('$routeChangeStart', function(next, current){
     })
     $rootScope.$on('$routeChangeSuccess', function(next, current){
@@ -110,6 +107,15 @@ angular.module('app').controller('AppCtrl', function(
         return "Paperbuzz: " + $scope.global.title
     }
 
+
+
+    $scope.$on('$mdMenuClose', function(ev, element) {
+        $scope.global.menuOpen = false
+    });
+
+    $scope.$on('$mdMenuOpen', function(ev, element) {
+        $scope.global.menuOpen = true
+    });
 
 
 

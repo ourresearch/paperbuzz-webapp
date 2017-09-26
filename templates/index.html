@@ -1,5 +1,9 @@
 {% raw %}<!doctype html>
-<html ng-app="app" ng-controller="AppCtrl" lang="en" xmlns="http://www.w3.org/1999/html">
+<html ng-app="app"
+      ng-controller="AppCtrl"
+      lang="en"
+      class="menu-open-{{ global.menuOpen }}"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <base href="/"> <!-- needed for html5 pretty urls -->
     <meta charset="utf-8">
@@ -27,6 +31,7 @@
 
     <div class="spacer"></div>
     <div class="links">
+
 
         <a href="hot">
             <i class="fa fa-fire"></i>
