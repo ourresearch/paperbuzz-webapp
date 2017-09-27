@@ -513,6 +513,10 @@ body h1 {
 .page.about .content {
   max-width: 800px;
 }
+.page.search {
+  min-height: 50vh;
+  padding-top: 100px;
+}
 #site-footer {
   display: flex;
   justify-content: space-between;

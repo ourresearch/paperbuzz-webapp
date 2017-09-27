@@ -1616,7 +1616,7 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "                        <div class=\"buttons\">\n" +
     "                            <md-button class=\"md-raised md-primary\"\n" +
     "                                       target=\"_blank\"\n" +
-    "                                       href=\"{{ paper.open_access.best_open_location.url }}\"\n" +
+    "                                       href=\"{{ paper.open_access.best_oa_location.url }}\"\n" +
     "                                       ng-show=\"paper.filters.open\">\n" +
     "                                <i class=\"fa fa-unlock-alt\"></i>\n" +
     "                                Read\n" +
@@ -1729,7 +1729,8 @@ angular.module("search.tpl.html", []).run(["$templateCache", function($templateC
     "                        <md-button ng-show=\"main.id\"\n" +
     "                                   ng-click=\"submit()\"\n" +
     "                                   ng-class=\"{fadeOut: !main.id}\"\n" +
-    "                                   class=\"md-fab md-mini md-primary go animated fadeInRightBig\">\n" +
+    "                                   class=\" md-primary md-raised go animated fadeInRightBig\">\n" +
+    "                            Find this article\n" +
     "                            <i class=\"fa fa-arrow-right\"></i>\n" +
     "                        </md-button>\n" +
     "\n" +
