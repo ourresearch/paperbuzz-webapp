@@ -692,8 +692,9 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "<div class=\"page api\">\n" +
     "    <h1>API Version 0</h1>\n" +
     "    <div class=\"version-good\">\n" +
-    "        This API will be replaced by a new version when we launch\n" +
-    "        in late 2017.\n" +
+    "        <i class=\"fa fa-flask\"></i>\n" +
+    "        <strong>Early version:</strong> Be prepared for breaking changes when\n" +
+    "        we officially launch in 2017.\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"toc\">\n" +
@@ -701,16 +702,17 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "        <li>\n" +
     "            <a href=\"#endpoints\">Endpoints</a>\n" +
     "            <ul>\n" +
-    "                <li><a href=\"#get-base\">GET /v2</a></li>\n" +
-    "                <li><a href=\"#get-doi\">GET /v2/:doi</a></li>\n" +
+    "                <li><a href=\"#get-base\">GET /v0</a></li>\n" +
+    "                <li><a href=\"#get-doi\">GET /v0/:doi</a></li>\n" +
+    "                <li><a href=\"#get-hotpapers\">GET /v0/hot/:year/:week</a></li>\n" +
     "            </ul>\n" +
     "        </li>\n" +
     "        <li>\n" +
     "            <a href=\"#response-objects\">Response objects</a>\n" +
     "            <ul>\n" +
-    "                <li><a href=\"#api-status-object\">API Status object</a></li>\n" +
-    "                <li><a href=\"#oa-location-object\">OA Location object</a></li>\n" +
+    "                <li><a href=\"#api-status-object\">ApiStatus object</a></li>\n" +
     "                <li><a href=\"#doi-object\">DOI object</a></li>\n" +
+    "                <li><a href=\"#hotpaper-object\">HotPaper object</a></li>\n" +
     "            </ul>\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -720,7 +722,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "    <h2 class=\"anchor\"  id=\"limits\">Limits and authentication</h2>\n" +
     "    <p>\n" +
-    "        The REST API gives anyone free, programmatic access to all of oaDOI's data.\n" +
+    "        The REST API gives anyone free, programmatic access to all of our data.\n" +
     "        There's no rate limit, but if you need more than 100k calls/day you\n" +
     "        may want to download the datasets instead.\n" +
     "    </p>\n" +
@@ -733,7 +735,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "    <p>\n" +
     "        If you're using the API, we recommend you subscribe to the\n" +
-    "        <a href=\"https://groups.google.com/forum/#!forum/oadoi-users\">mailing list</a> in order\n" +
+    "        <a href=\"https://groups.google.com/forum/#!forum/paperbuzz-users\">mailing list</a> in order\n" +
     "        to stay up-to-date when there are changes or new features.\n" +
     "    </p>\n" +
     "\n" +
@@ -766,7 +768,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                    Example\n" +
     "                </td>\n" +
     "                <td class=\"v\">\n" +
-    "                    <a href=\"https://api.oadoi.org?email=test@example.com\">https://api.oadoi.org?email=test@example.com</a>\n" +
+    "                    <a href=\"https://api.paperbuzz.org/v0/?email=test@example.com\">https://api.paperbuzz.org/v0/?email=test@example.com</a>\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "        </table>\n" +
@@ -789,7 +791,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                    Description\n" +
     "                </td>\n" +
     "                <td class=\"v\">\n" +
-    "                    Gets OA status and bibliographic info for an given DOI-assigned resource.\n" +
+    "                    Gets attention metrics, metadata, and open access status for a given DOI.\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "            <tr>\n" +
@@ -813,7 +815,53 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                    Example\n" +
     "                </td>\n" +
     "                <td class=\"v\">\n" +
-    "                    <a href=\"https://api.oadoi.org/10.1038/nature12373?email=test@example.com\">https://api.oadoi.org/10.1038/nature12373?email=test@example.com</a>\n" +
+    "                    <a href=\"https://api.paperbuzz.org/v0/doi/10.1038/nature12373?email=test@example.com\">https://api.paperbuzz.org/v0/doi/10.1038/nature12373?email=test@example.com</a>\n" +
+    "                </td>\n" +
+    "            </tr>\n" +
+    "        </table>\n" +
+    "\n" +
+    "    </div>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "    <div class=\"endpoint\" id=\"get-hotpapers\">\n" +
+    "        <code class=\"endpoint\">GET /v0/hot/:year/:week</code>\n" +
+    "        <table class=\"endpoint\">\n" +
+    "            <tr>\n" +
+    "                <td class=\"k\">\n" +
+    "                    Description\n" +
+    "                </td>\n" +
+    "                <td class=\"v\">\n" +
+    "                    Gets a list of the papers with the most online attention in a given week.\n" +
+    "                </td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td class=\"k\">\n" +
+    "                    Accepts\n" +
+    "                </td>\n" +
+    "                <td class=\"v\">\n" +
+    "                    A valid DOI.\n" +
+    "                </td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td class=\"k\">\n" +
+    "                    Returns\n" +
+    "                </td>\n" +
+    "                <td class=\"v\">\n" +
+    "                    <a href=\"#hotpaper-object\">HotPaper object</a>\n" +
+    "                </td>\n" +
+    "            </tr>\n" +
+    "            <tr>\n" +
+    "                <td class=\"k\">\n" +
+    "                    Example\n" +
+    "                </td>\n" +
+    "                <td class=\"v\">\n" +
+    "                    <a href=\"http://api.paperbuzz.org/v0/hot/2017/week-37\">http://api.paperbuzz.org/v0/hot/2017/week-37</a>\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "        </table>\n" +
@@ -838,8 +886,11 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "    --------------------------------------------------------------------------->\n" +
     "\n" +
     "    <h2 class=\"anchor\"  id=\"response-objects\">Response objects</h2>\n" +
-    "    <p>The API returns three different types of response objects. Really two, since more users won't ever need the API Status object, which just defines the root of the API. The OA Location object describes a place we found an OA copy of an article. There are one or more of these associated with DOI object, which describes a given DOI-assigned resource.</p>\n" +
     "\n" +
+    "    <p>We're currently writing documentation for these objects.</p>\n" +
+    "    <!--\n" +
+    "    <p>The API returns three different types of response objects. Really two, since more users won't ever need the API Status object, which just defines the root of the API. The OA Location object describes a place we found an OA copy of an article. There are one or more of these associated with DOI object, which describes a given DOI-assigned resource.</p>\n" +
+    "    -->\n" +
     "\n" +
     "    <h3 class=\"anchor\" id=\"api-status-object\">API Status object</h3>\n" +
     "    <table class=\"api-responses\">\n" +
@@ -874,180 +925,19 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                Version string.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                Example: <code>2.0.1</code>\n" +
+    "                Example: <code>0.0.1</code>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "    </table>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "    <h3 class=\"anchor\" id=\"oa-location-object\">OA Location object</h3>\n" +
-    "    <p>The OA Location object describes particular location where we found a given OA article. The same article is often available from multiple locations. There may be differences in format, version, and license from one location to another, even if it's the same article in all cases.</p>\n" +
-    "    <table class=\"api-responses\">\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">evidence</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                How we found this OA location.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                <p>\n" +
-    "                    Used for debugging. Don’t depend on the exact contents of this for anything, because values are subject to change without warning. Example values:\n" +
-    "\n" +
-    "                </p>\n" +
-    "                <ul>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>oa journal (via journal title in doaj)</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            We found the name of the journal that publishes this article in the DOAJ database.\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>oa repository (via pmcid lookup)</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            We found this article in an index of PubMed Central articles.\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                </ul>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">host_type</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                The type of host that serves this OA location.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                <p>\n" +
-    "                    There are two possible values:\n" +
-    "                </p>\n" +
-    "                <ul>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>publisher</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            means the this location is served by the article’s publisher (in practice, this means it is hosted on the same domain the DOI resolves to).\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>repository</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            means this location is served by an Open Access repository.\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                </ul>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">license</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                The license under which this copy is published.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                <p>We return several types of licenses:</p>\n" +
-    "                <ul>\n" +
-    "                    <li>\n" +
-    "                        Creative Commons licenses are uniformly abbreviated and lowercased. Example: <code>cc-by-nc</code>\n" +
-    "                    </li>\n" +
-    "                    <li>\n" +
-    "                        Publisher-specific licenses are normalized using this format: <code>acs-specific: authorchoice/editors choice usage agreement</code>\n" +
-    "                    </li>\n" +
-    "                    <li>\n" +
-    "                        When we have evidence that an OA license of <em>some</em> kind was used, but it’s not reported directly on the webpage at this location, this field returns <code>implied-oa</code>\n" +
-    "                    </li>\n" +
-    "                </ul>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">updated</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Time when the data for this location was last updated.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                Returned as an <a href=\"https://xkcd.com/1179/\">ISO8601-formatted</a> timestamp. Example: <code>2017-08-17T23:43:27.753663</code>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">url</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                The URL where you can find this OA copy.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                <p>\n" +
-    "                    Although this URL points to fulltext of <em>some</em> kind, there is (for now) no format normalization...it could be PDF, HTML, or even Word or TeX.\n" +
-    "                </p>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">versions</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                The content version accessible at this location.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                <p>\n" +
-    "                    We use the <a href=\"https://wiki.surfnet.nl/display/DRIVERguidelines/DRIVER-VERSION+Mappings\">DRIVER Guidelines v2.0 VERSION standard</a> to define  versions of a given article; see those docs for complete definitions of terms. Here's the basic idea, though, for the three version types we support:\n" +
-    "                </p>\n" +
-    "                <ul>\n" +
-    "                    <li><code>submittedVersion</code> is not yet peer-reviewed.</li>\n" +
-    "                    <li><code>acceptedVersion</code> is peer-reviewed, but lacks publisher-specific formatting.</li>\n" +
-    "                    <li><code>publishedVersion</code> is the version of record.</li>\n" +
-    "                </ul>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "    </table>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "\n" +
     "\n" +
     "\n" +
     "\n" +
     "\n" +
     "    <h3 class=\"anchor\" id=\"doi-object\">DOI object</h3>\n" +
-    "    <p>The DOI object describes a given DOI-assigned resource. It contains metadata about the resource itself, as well as information about its OA status.</p>\n" +
+    "    <p>Documentation coming soon.</p>\n" +
     "\n" +
+    "    <!--\n" +
     "    <table class=\"api-responses\">\n" +
     "\n" +
     "        <tr>\n" +
@@ -1215,7 +1105,55 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "    </table>\n" +
+    "    -->\n" +
     "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "    <h3 class=\"anchor\" id=\"hotpaper-object\">API Status object</h3>\n" +
+    "    <p>Documentation coming soon.</p>\n" +
+    "\n" +
+    "    <!--\n" +
+    "    <table class=\"api-responses\">\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">documentation_url</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Where you can find documentation for this version.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">msg</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Relevant messages.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">version</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Version string.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Example: <code>0.0.1</code>\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "    </table>\n" +
+    "    -->\n" +
     "\n" +
     "\n" +
     "\n" +
