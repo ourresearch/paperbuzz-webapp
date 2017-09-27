@@ -1230,7 +1230,7 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "        <div class=\"loading\"\n" +
     "             ng-show=\"apiResp=='loading'\">\n" +
     "            <span class=\"label\">Finding metrics &hellip;</span>\n" +
-    "            <md-progress-linear md-mode=\"indeterminate\"></md-progress-linear>\n" +
+    "            <md-progress-circular md-mode=\"indeterminate\"></md-progress-circular>\n" +
     "        </div>\n" +
     "\n" +
     "\n" +
@@ -1428,7 +1428,9 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "<div class=\"page hot\">\n" +
     "    <div class=\"content\">\n" +
     "        <div class=\"header\">\n" +
-    "            <h1>Buzzing this week</h1>\n" +
+    "            <h1>\n" +
+    "                Buzzing this week\n" +
+    "            </h1>\n" +
     "\n" +
     "            <div class=\"issue\">\n" +
     "                <span class=\"week\">Week {{ issue.week }},</span>\n" +
@@ -1560,7 +1562,13 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "        <div class=\"main\">\n" +
     "\n" +
-    "            <div class=\"results\">\n" +
+    "            <div class=\"loading\"\n" +
+    "                 ng-show=\"!papers\">\n" +
+    "                <span class=\"label\">Loading &hellip;</span>\n" +
+    "                <md-progress-circular md-mode=\"indeterminate\"></md-progress-circular>\n" +
+    "            </div>\n" +
+    "\n" +
+    "            <div class=\"results\" ng-show=\"papers\">\n" +
     "                <div class=\"card {{ makeUrlSafe(paper.filters.topic) }}\" ng-repeat=\"paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers\">\n" +
     "                    <div class=\"card-header\">\n" +
     "                        <span class=\"sort-score\">\n" +
@@ -1657,10 +1665,6 @@ angular.module("hot.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "                </div>\n" +
-    "\n" +
-    "\n" +
-    "\n" +
-    "\n" +
     "            </div>\n" +
     "\n" +
     "        </div>\n" +

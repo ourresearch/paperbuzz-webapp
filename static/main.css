@@ -33,6 +33,14 @@ body h1 {
   font-weight: 300;
   margin: 0;
 }
+div.loading {
+  width: 200px;
+  margin: 100px auto 0;
+  text-align: center;
+}
+div.loading span.label {
+  display: none;
+}
 .nav {
   background: repeating-linear-gradient(90deg, #FFF59D, #FFF59D 100px, #fff284 100px, #fff284 200px);
   background: #FFF59D;

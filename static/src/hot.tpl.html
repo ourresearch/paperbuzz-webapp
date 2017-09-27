@@ -1,7 +1,9 @@
 <div class="page hot">
     <div class="content">
         <div class="header">
-            <h1>Buzzing this week</h1>
+            <h1>
+                Buzzing this week
+            </h1>
 
             <div class="issue">
                 <span class="week">Week {{ issue.week }},</span>
@@ -133,7 +135,13 @@
 
         <div class="main">
 
-            <div class="results">
+            <div class="loading"
+                 ng-show="!papers">
+                <span class="label">Loading &hellip;</span>
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+
+            <div class="results" ng-show="papers">
                 <div class="card {{ makeUrlSafe(paper.filters.topic) }}" ng-repeat="paper in papers | orderBy: '-sort_score' | filter: paperFilter as filteredPapers">
                     <div class="card-header">
                         <span class="sort-score">
@@ -230,10 +238,6 @@
 
 
                 </div>
-
-
-
-
             </div>
 
         </div>
