@@ -1677,7 +1677,8 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "            <div class=\"tagline\">\n" +
     "                <h1>Read the research people are talking about</h1>\n" +
     "                <p class=\"subtagline\">\n" +
-    "                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.\n" +
+    "                    Paperbuzz is a free and open way to track the online buzz around\n" +
+    "                    scholarly articles.\n" +
     "                </p>\n" +
     "            </div>\n" +
     "\n" +
