@@ -1366,6 +1366,13 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                        </div>\n" +
     "\n" +
     "\n" +
+    "                        <div class=\"first-row reddit-links\" ng-if=\"event.source_id=='reddit-links'\">\n" +
+    "                            <span class=\"icon\"><i class=\"fa fa-reddit\"></i></span>\n" +
+    "                            <span class=\"verb\">Mentioned</span> in\n" +
+    "                            <a href=\"{{ event.url }}\">a Reddit link</a>\n" +
+    "                        </div>\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "\n" +
     "\n" +
