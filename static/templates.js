@@ -54,7 +54,8 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "            <ul>\n" +
     "                <li><a href=\"#api-status-object\">ApiStatus object</a></li>\n" +
     "                <li><a href=\"#doi-object\">DOI object</a></li>\n" +
-    "                <li><a href=\"#hotpaper-object\">HotPaper object</a></li>\n" +
+    "                <li><a href=\"#altmetricssource-object\">AltmetricsSource object</a></li>\n" +
+    "                <li><a href=\"#event-object\">Event object</a></li>\n" +
     "            </ul>\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -171,6 +172,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
+    "    <!--\n" +
     "    <div class=\"endpoint\" id=\"get-hotpapers\">\n" +
     "        <code class=\"endpoint\">GET /v0/hot/:year/:week</code>\n" +
     "        <table class=\"endpoint\">\n" +
@@ -209,6 +211,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "        </table>\n" +
     "\n" +
     "    </div>\n" +
+    "    -->\n" +
     "\n" +
     "\n" +
     "\n" +
@@ -227,14 +230,14 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "    --------------------------------------------------------------------------->\n" +
     "\n" +
-    "    <h2 class=\"anchor\"  id=\"response-objects\">Response objects</h2>\n" +
+    "    <h2 class=\"anchor\"  id=\"response-objects\">2. Response objects</h2>\n" +
     "\n" +
     "    <p>We're currently writing documentation for these objects.</p>\n" +
     "    <!--\n" +
     "    <p>The API returns three different types of response objects. Really two, since more users won't ever need the API Status object, which just defines the root of the API. The OA Location object describes a place we found an OA copy of an article. There are one or more of these associated with DOI object, which describes a given DOI-assigned resource.</p>\n" +
     "    -->\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"api-status-object\">API Status object</h3>\n" +
+    "    <h3 class=\"anchor\" id=\"api-status-object\">2.1 API Status object</h3>\n" +
     "    <table class=\"api-responses\">\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
@@ -276,54 +279,39 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"doi-object\">DOI object</h3>\n" +
-    "    <p>Documentation coming soon.</p>\n" +
-    "\n" +
-    "    <!--\n" +
-    "    <table class=\"api-responses\">\n" +
+    "    <h3 class=\"anchor\" id=\"doi-object\">2.2 DOI object</h3>\n" +
+    "    <p>This is the main response object for the API, used for reporting the altmetrics\n" +
+    "        and other information about a given DOI.\n" +
+    "    </p>\n" +
+    "<table class=\"api-responses\">\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">best_oa_location</span>\n" +
-    "                <span class=\"type\">Object|null</span>\n" +
+    "                <span class=\"name\">altmetrics_sources</span>\n" +
+    "                <span class=\"type\">List</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                The best <a href=\"#oa-location-object\">OA Location</a> object we could find for this DOI.\n" +
+    "                List of AltmetricsSource objects.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
     "                <p>\n" +
-    "                    The \"best\" location is determined using an algorithm that prioritizes publisher-hosted content first (eg Hybrid or Gold), then prioritizes versions closer to the version of record (<code>PublishedVersion</code> over <code>AcceptedVersion</code>), then more authoritative repositories (PubMed Central over CiteSeerX).\n" +
-    "                </p>\n" +
-    "                <p>\n" +
-    "                    Returns <code>null</code> if we couldn't find any OA Locations.\n" +
+    "                    Empty list if there are no online impact events for this article.\n" +
     "                </p>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">data_standard</span>\n" +
-    "                <span class=\"type\">Integer</span>\n" +
+    "                <span class=\"name\">crossref_event_data_url</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                Indicates the data collection approaches used for this resource.\n" +
+    "                URL you can use to query the Crossref Event Data API for this article.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                <p>Possible values</p>\n" +
-    "                <ul>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>1</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            First-generation hybrid detection. Uses only data from the Crossref API to determine hybrid status. Does a good job for Elsevier articles and a few other publishers, but most publishers are not checked for hybrid.\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                    <li>\n" +
-    "                        <span class=\"value\"><code>2</code></span>\n" +
-    "                        <span class=\"notes\">\n" +
-    "                            Second-generation hybrid detection. Uses additional sources, checks all publishers for hybrid. Gets about 10x as much hybrid. <code>data_standard==2</code> is the version used in the paper we wrote about oaDOI.\n" +
-    "                        </span>\n" +
-    "                    </li>\n" +
-    "                </ul>\n" +
+    "                <p>This is the query we used to obtain all the altmetrics data in a given\n" +
+    "                    response. So this URL  can be used as part of a provenance chain for the data.\n" +
+    "                </p>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
@@ -339,115 +327,120 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                This is always lowercase.\n" +
     "            </td>\n" +
     "        </tr>\n" +
-    "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">is_oa</span>\n" +
-    "                <span class=\"type\">Boolean</span>\n" +
+    "                <span class=\"name\">metadata</span>\n" +
+    "                <span class=\"type\">Object</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                <code>True</code> if there is an OA copy of this resource.\n" +
+    "                DOI metadata as reported by the Crossref  API.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                Convenience attribute; returns <code>true</code> when <code>best_oa_location</code> is not <code>null</code>.\n" +
+    "                Includes title, authors, and so on. The response format is the same as\n" +
+    "                what the Crossref API returns, so see the\n" +
+    "                <a href=\"https://github.com/CrossRef/rest-api-doc\">Crossref API docs</a>\n" +
+    "                for details.\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">journal_is_oa</span>\n" +
-    "                <span class=\"type\">Boolean</span>\n" +
+    "                <span class=\"name\">open_access</span>\n" +
+    "                <span class=\"type\">Object</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                Is this resource published in a completely OA journal\n" +
+    "                Open Access information as reported by the\n" +
+    "                <a href=\"https://oadoi.org\">oaDOI</a>\n" +
+    "                API.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                Useful for most definitions of Gold OA. Currently this is based entirely on inclusion in the <a\n" +
-    "                    href=\"http://doaj.org\">DOAJ,</a> but eventually may use additional ways of identifying all-OA journals.\n" +
+    "                Reports any locations where the article can legally be read\n" +
+    "                free of charge. The response format is the same what the oaDOI API\n" +
+    "                returns, so see the\n" +
+    "                <a href=\"https://oadoi.org/api/v2\">oaDOI API docs</a>\n" +
+    "                for more details.\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">journal_issns</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Any ISSNs assigned to the journal publishing this resource.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                Separate ISSNs are sometimes assigned to print and electronic versions of the same journal. If there are multiple ISSNs, they are separated by commas. Example: <code>1232-1203,1532-6203</code>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
+    "\n" +
+    "    </table>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "    <h3 class=\"anchor\" id=\"altmetricssource-object\">2.3 AltmetricsSource object</h3>\n" +
+    "    <p>\n" +
+    "        Reports information about events on a DOI from a certain altmetrics\n" +
+    "        <em>source,</em> like Twitter or Reddit.\n" +
+    "    </p>\n" +
+    "<table class=\"api-responses\">\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">journal_name</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                The name of the journal publishing this resource.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                The same journal may have multiple name strings (eg, \"J. Foo\", \"Journal of Foo\", \"JOURNAL OF FOO\", etc). These have not been fully normalized within our database, so use with care.\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">oa_locations</span>\n" +
+    "                <span class=\"name\">events</span>\n" +
     "                <span class=\"type\">List</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                List of all the <a href=\"#oa-location-object\">OA Location</a> objects associated with this resource.\n" +
+    "                List of Event objects.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                This list is unnecessary for the vast majority of use-cases, since you probably just want the <code>best_oa_location</code>. It's included primarily for research purposes.\n" +
+    "                <p>\n" +
+    "\n" +
+    "                </p>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">publisher</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
+    "                <span class=\"name\">events_count</span>\n" +
+    "                <span class=\"type\">Integer</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                The name of this resource's publisher.\n" +
+    "                The number of Event objects.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                Keep in mind that publisher name strings change over time, particularly as publishers are acquired or split up.\n" +
+    "                <p>\n" +
+    "                    Convenience property, same as <code>events.length</code>\n" +
+    "                </p>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
-    "                <span class=\"name\">title</span>\n" +
+    "                <span class=\"name\">events_count_by_day</span>\n" +
+    "                <span class=\"type\">List</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                List of objects describing event counts binned by day.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Each day is represented by its own object, which has two properties:\n" +
+    "                <code>count</code> and <code>date</code> (represented as an\n" +
+    "                <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601 timestamp)</a>.\n" +
+    "                Days with zero events are not included.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">source_id</span>\n" +
     "                <span class=\"type\">String</span>\n" +
     "            </td>\n" +
     "            <td class=\"contents\">\n" +
-    "                The title of this resource.\n" +
+    "                Name of this source.\n" +
     "            </td>\n" +
     "            <td class=\"notes\">\n" +
-    "                It's the title. Pretty straightforward.\n" +
+    "                We use the  names defined by the\n" +
+    "                <a href=\"https://www.eventdata.crossref.org/guide/sources/how-agents-work/\">\n" +
+    "                    Crossref Event Data schema.\n" +
+    "                </a>\n" +
     "            </td>\n" +
     "        </tr>\n" +
     "\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">updated</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Time when the data for this resource was last updated.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                Returned as an <a href=\"https://xkcd.com/1179/\">ISO8601-formatted</a> timestamp. Example: <code>2017-08-17T23:43:27.753663</code>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
     "\n" +
     "\n" +
     "    </table>\n" +
-    "    -->\n" +
     "\n" +
     "\n" +
     "\n" +
@@ -455,47 +448,18 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"hotpaper-object\">API Status object</h3>\n" +
-    "    <p>Documentation coming soon.</p>\n" +
     "\n" +
-    "    <!--\n" +
-    "    <table class=\"api-responses\">\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">documentation_url</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Where you can find documentation for this version.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">msg</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Relevant messages.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "        <tr>\n" +
-    "            <td class=\"key\">\n" +
-    "                <span class=\"name\">version</span>\n" +
-    "                <span class=\"type\">String</span>\n" +
-    "            </td>\n" +
-    "            <td class=\"contents\">\n" +
-    "                Version string.\n" +
-    "            </td>\n" +
-    "            <td class=\"notes\">\n" +
-    "                Example: <code>0.0.1</code>\n" +
-    "            </td>\n" +
-    "        </tr>\n" +
-    "    </table>\n" +
-    "    -->\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "\n" +
     "\n" +
     "\n" +
     "\n" +

@@ -21,7 +21,8 @@
             <ul>
                 <li><a href="#api-status-object">ApiStatus object</a></li>
                 <li><a href="#doi-object">DOI object</a></li>
-                <li><a href="#hotpaper-object">HotPaper object</a></li>
+                <li><a href="#altmetricssource-object">AltmetricsSource object</a></li>
+                <li><a href="#event-object">Event object</a></li>
             </ul>
         </li>
     </ul>
@@ -138,6 +139,7 @@
 
 
 
+    <!--
     <div class="endpoint" id="get-hotpapers">
         <code class="endpoint">GET /v0/hot/:year/:week</code>
         <table class="endpoint">
@@ -176,6 +178,7 @@
         </table>
 
     </div>
+    -->
 
 
 
@@ -194,14 +197,14 @@
 
     --------------------------------------------------------------------------->
 
-    <h2 class="anchor"  id="response-objects">Response objects</h2>
+    <h2 class="anchor"  id="response-objects">2. Response objects</h2>
 
     <p>We're currently writing documentation for these objects.</p>
     <!--
     <p>The API returns three different types of response objects. Really two, since more users won't ever need the API Status object, which just defines the root of the API. The OA Location object describes a place we found an OA copy of an article. There are one or more of these associated with DOI object, which describes a given DOI-assigned resource.</p>
     -->
 
-    <h3 class="anchor" id="api-status-object">API Status object</h3>
+    <h3 class="anchor" id="api-status-object">2.1 API Status object</h3>
     <table class="api-responses">
         <tr>
             <td class="key">
@@ -243,54 +246,39 @@
 
 
 
-    <h3 class="anchor" id="doi-object">DOI object</h3>
-    <p>Documentation coming soon.</p>
-
-    <!--
-    <table class="api-responses">
+    <h3 class="anchor" id="doi-object">2.2 DOI object</h3>
+    <p>This is the main response object for the API, used for reporting the altmetrics
+        and other information about a given DOI.
+    </p>
+<table class="api-responses">
 
         <tr>
             <td class="key">
-                <span class="name">best_oa_location</span>
-                <span class="type">Object|null</span>
+                <span class="name">altmetrics_sources</span>
+                <span class="type">List</span>
             </td>
             <td class="contents">
-                The best <a href="#oa-location-object">OA Location</a> object we could find for this DOI.
+                List of AltmetricsSource objects.
             </td>
             <td class="notes">
                 <p>
-                    The "best" location is determined using an algorithm that prioritizes publisher-hosted content first (eg Hybrid or Gold), then prioritizes versions closer to the version of record (<code>PublishedVersion</code> over <code>AcceptedVersion</code>), then more authoritative repositories (PubMed Central over CiteSeerX).
-                </p>
-                <p>
-                    Returns <code>null</code> if we couldn't find any OA Locations.
+                    Empty list if there are no online impact events for this article.
                 </p>
             </td>
         </tr>
 
         <tr>
             <td class="key">
-                <span class="name">data_standard</span>
-                <span class="type">Integer</span>
+                <span class="name">crossref_event_data_url</span>
+                <span class="type">String</span>
             </td>
             <td class="contents">
-                Indicates the data collection approaches used for this resource.
+                URL you can use to query the Crossref Event Data API for this article.
             </td>
             <td class="notes">
-                <p>Possible values</p>
-                <ul>
-                    <li>
-                        <span class="value"><code>1</code></span>
-                        <span class="notes">
-                            First-generation hybrid detection. Uses only data from the Crossref API to determine hybrid status. Does a good job for Elsevier articles and a few other publishers, but most publishers are not checked for hybrid.
-                        </span>
-                    </li>
-                    <li>
-                        <span class="value"><code>2</code></span>
-                        <span class="notes">
-                            Second-generation hybrid detection. Uses additional sources, checks all publishers for hybrid. Gets about 10x as much hybrid. <code>data_standard==2</code> is the version used in the paper we wrote about oaDOI.
-                        </span>
-                    </li>
-                </ul>
+                <p>This is the query we used to obtain all the altmetrics data in a given
+                    response. So this URL  can be used as part of a provenance chain for the data.
+                </p>
             </td>
         </tr>
 
@@ -306,115 +294,120 @@
                 This is always lowercase.
             </td>
         </tr>
-
         <tr>
             <td class="key">
-                <span class="name">is_oa</span>
-                <span class="type">Boolean</span>
+                <span class="name">metadata</span>
+                <span class="type">Object</span>
             </td>
             <td class="contents">
-                <code>True</code> if there is an OA copy of this resource.
+                DOI metadata as reported by the Crossref  API.
             </td>
             <td class="notes">
-                Convenience attribute; returns <code>true</code> when <code>best_oa_location</code> is not <code>null</code>.
+                Includes title, authors, and so on. The response format is the same as
+                what the Crossref API returns, so see the
+                <a href="https://github.com/CrossRef/rest-api-doc">Crossref API docs</a>
+                for details.
             </td>
         </tr>
 
         <tr>
             <td class="key">
-                <span class="name">journal_is_oa</span>
-                <span class="type">Boolean</span>
+                <span class="name">open_access</span>
+                <span class="type">Object</span>
             </td>
             <td class="contents">
-                Is this resource published in a completely OA journal
+                Open Access information as reported by the
+                <a href="https://oadoi.org">oaDOI</a>
+                API.
             </td>
             <td class="notes">
-                Useful for most definitions of Gold OA. Currently this is based entirely on inclusion in the <a
-                    href="http://doaj.org">DOAJ,</a> but eventually may use additional ways of identifying all-OA journals.
+                Reports any locations where the article can legally be read
+                free of charge. The response format is the same what the oaDOI API
+                returns, so see the
+                <a href="https://oadoi.org/api/v2">oaDOI API docs</a>
+                for more details.
             </td>
         </tr>
 
-        <tr>
-            <td class="key">
-                <span class="name">journal_issns</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                Any ISSNs assigned to the journal publishing this resource.
-            </td>
-            <td class="notes">
-                Separate ISSNs are sometimes assigned to print and electronic versions of the same journal. If there are multiple ISSNs, they are separated by commas. Example: <code>1232-1203,1532-6203</code>
-            </td>
-        </tr>
+
+    </table>
+
+
+
+
+
+
+    <h3 class="anchor" id="altmetricssource-object">2.3 AltmetricsSource object</h3>
+    <p>
+        Reports information about events on a DOI from a certain altmetrics
+        <em>source,</em> like Twitter or Reddit.
+    </p>
+<table class="api-responses">
 
         <tr>
             <td class="key">
-                <span class="name">journal_name</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                The name of the journal publishing this resource.
-            </td>
-            <td class="notes">
-                The same journal may have multiple name strings (eg, "J. Foo", "Journal of Foo", "JOURNAL OF FOO", etc). These have not been fully normalized within our database, so use with care.
-            </td>
-        </tr>
-
-        <tr>
-            <td class="key">
-                <span class="name">oa_locations</span>
+                <span class="name">events</span>
                 <span class="type">List</span>
             </td>
             <td class="contents">
-                List of all the <a href="#oa-location-object">OA Location</a> objects associated with this resource.
+                List of Event objects.
             </td>
             <td class="notes">
-                This list is unnecessary for the vast majority of use-cases, since you probably just want the <code>best_oa_location</code>. It's included primarily for research purposes.
+                <p>
+
+                </p>
             </td>
         </tr>
 
         <tr>
             <td class="key">
-                <span class="name">publisher</span>
-                <span class="type">String</span>
+                <span class="name">events_count</span>
+                <span class="type">Integer</span>
             </td>
             <td class="contents">
-                The name of this resource's publisher.
+                The number of Event objects.
             </td>
             <td class="notes">
-                Keep in mind that publisher name strings change over time, particularly as publishers are acquired or split up.
+                <p>
+                    Convenience property, same as <code>events.length</code>
+                </p>
             </td>
         </tr>
 
         <tr>
             <td class="key">
-                <span class="name">title</span>
+                <span class="name">events_count_by_day</span>
+                <span class="type">List</span>
+            </td>
+            <td class="contents">
+                List of objects describing event counts binned by day.
+            </td>
+            <td class="notes">
+                Each day is represented by its own object, which has two properties:
+                <code>count</code> and <code>date</code> (represented as an
+                <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601 timestamp)</a>.
+                Days with zero events are not included.
+            </td>
+        </tr>
+        <tr>
+            <td class="key">
+                <span class="name">source_id</span>
                 <span class="type">String</span>
             </td>
             <td class="contents">
-                The title of this resource.
+                Name of this source.
             </td>
             <td class="notes">
-                It's the title. Pretty straightforward.
+                We use the  names defined by the
+                <a href="https://www.eventdata.crossref.org/guide/sources/how-agents-work/">
+                    Crossref Event Data schema.
+                </a>
             </td>
         </tr>
 
-        <tr>
-            <td class="key">
-                <span class="name">updated</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                Time when the data for this resource was last updated.
-            </td>
-            <td class="notes">
-                Returned as an <a href="https://xkcd.com/1179/">ISO8601-formatted</a> timestamp. Example: <code>2017-08-17T23:43:27.753663</code>
-            </td>
-        </tr>
 
 
     </table>
-    -->
 
 
 
@@ -422,47 +415,18 @@
 
 
 
-    <h3 class="anchor" id="hotpaper-object">API Status object</h3>
-    <p>Documentation coming soon.</p>
 
-    <!--
-    <table class="api-responses">
-        <tr>
-            <td class="key">
-                <span class="name">documentation_url</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                Where you can find documentation for this version.
-            </td>
-            <td class="notes">
-            </td>
-        </tr>
-        <tr>
-            <td class="key">
-                <span class="name">msg</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                Relevant messages.
-            </td>
-            <td class="notes">
-            </td>
-        </tr>
-        <tr>
-            <td class="key">
-                <span class="name">version</span>
-                <span class="type">String</span>
-            </td>
-            <td class="contents">
-                Version string.
-            </td>
-            <td class="notes">
-                Example: <code>0.0.1</code>
-            </td>
-        </tr>
-    </table>
-    -->
+
+
+
+
+
+
+
+
+
+
+
 
 
 
