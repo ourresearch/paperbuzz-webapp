@@ -1641,7 +1641,7 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "    <div class=\"top-screen\" layout=\"row\" layout-align=\"center center\">\n" +
     "        <div class=\"content\">\n" +
     "            <div class=\"tagline\">\n" +
-    "                <h1>Read the research people are talking about</h1>\n" +
+    "                <h1>See who's talking about your research.</h1>\n" +
     "                <p class=\"subtagline\">\n" +
     "                    Paperbuzz is a free and open way to track the online buzz around\n" +
     "                    scholarly articles.\n" +
@@ -1650,9 +1650,6 @@ angular.module("landing.tpl.html", []).run(["$templateCache", function($template
     "\n" +
     "\n" +
     "            <div class=\"cta\">\n" +
-    "                <a class=\"main-button\" href=\"/hot\">\n" +
-    "                    See this week's top papers\n" +
-    "                </a>\n" +
     "\n" +
     "\n" +
     "            </div>\n" +
