@@ -199,7 +199,7 @@ angular.module('citePage', [
             $scope.publicationYear = resp.metadata.issued['date-parts'][0][0]
 
             var events = []
-            resp.altmetrics.sources.forEach(function(source){
+            resp.altmetrics_sources.forEach(function(source){
                 source.events.forEach(function(event){
                     var myEvent = event
                     myEvent.source_id = source.source_id
@@ -697,31 +697,32 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "        we officially launch in 2017.\n" +
     "    </div>\n" +
     "\n" +
-    "    <ul class=\"toc\">\n" +
-    "        <li><a href=\"#limits\">Limits and authentication</a></li>\n" +
-    "        <li>\n" +
-    "            <a href=\"#endpoints\">Endpoints</a>\n" +
-    "            <ul>\n" +
-    "                <li><a href=\"#get-base\">GET /v0</a></li>\n" +
-    "                <li><a href=\"#get-doi\">GET /v0/:doi</a></li>\n" +
-    "                <li><a href=\"#get-hotpapers\">GET /v0/hot/:year/:week</a></li>\n" +
-    "            </ul>\n" +
-    "        </li>\n" +
-    "        <li>\n" +
-    "            <a href=\"#response-objects\">Response objects</a>\n" +
-    "            <ul>\n" +
-    "                <li><a href=\"#api-status-object\">ApiStatus object</a></li>\n" +
-    "                <li><a href=\"#doi-object\">DOI object</a></li>\n" +
-    "                <li><a href=\"#altmetricssource-object\">AltmetricsSource object</a></li>\n" +
-    "                <li><a href=\"#event-object\">Event object</a></li>\n" +
-    "            </ul>\n" +
-    "        </li>\n" +
-    "    </ul>\n" +
+    "    <div class=\"decimal-ol toc\">\n" +
+    "        <ol>\n" +
+    "            <li><a href=\"#limits\">Limits and authentication</a></li>\n" +
+    "            <li>\n" +
+    "                <a href=\"#endpoints\">Endpoints</a>\n" +
+    "                <ol>\n" +
+    "                    <li>GET /v0</li>\n" +
+    "                    <li>GET /v0/:doi</li>\n" +
+    "                </ol>\n" +
+    "            </li>\n" +
+    "            <li>\n" +
+    "                <a href=\"#response-objects\">Response objects</a>\n" +
+    "                <ol>\n" +
+    "                    <li><a href=\"#api-status-object\">ApiStatus object</a></li>\n" +
+    "                    <li><a href=\"#doi-object\">DOI object</a></li>\n" +
+    "                    <li><a href=\"#altmetricssource-object\">AltmetricsSource object</a></li>\n" +
+    "                    <li><a href=\"#event-object\">Event object</a></li>\n" +
+    "                </ol>\n" +
+    "            </li>\n" +
+    "        </ol>\n" +
+    "    </div>\n" +
     "\n" +
     "\n" +
     "\n" +
     "\n" +
-    "    <h2 class=\"anchor\"  id=\"limits\">Limits and authentication</h2>\n" +
+    "    <h2 class=\"anchor\"  id=\"limits\">1. Limits and authentication</h2>\n" +
     "    <p>\n" +
     "        The REST API gives anyone free, programmatic access to all of our data.\n" +
     "        There's no rate limit, but if you need more than 100k calls/day you\n" +
@@ -741,7 +742,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "    </p>\n" +
     "\n" +
     "\n" +
-    "    <h2 class=\"anchor\"  id=\"endpoints\">Endpoints</h2>\n" +
+    "    <h2 class=\"anchor\"  id=\"endpoints\">2. Endpoints</h2>\n" +
     "\n" +
     "\n" +
     "    <div class=\"endpoint\" id=\"get-base\">\n" +
@@ -792,7 +793,8 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                    Description\n" +
     "                </td>\n" +
     "                <td class=\"v\">\n" +
-    "                    Gets attention metrics, metadata, and open access status for a given DOI.\n" +
+    "                    Gets attention metrics, metadata, and open access status\n" +
+    "                    for a given DOI-assigned resource.\n" +
     "                </td>\n" +
     "            </tr>\n" +
     "            <tr>\n" +
@@ -888,14 +890,14 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "    --------------------------------------------------------------------------->\n" +
     "\n" +
-    "    <h2 class=\"anchor\"  id=\"response-objects\">2. Response objects</h2>\n" +
+    "    <h2 class=\"anchor\"  id=\"response-objects\">3. Response objects</h2>\n" +
     "\n" +
-    "    <p>We're currently writing documentation for these objects.</p>\n" +
-    "    <!--\n" +
-    "    <p>The API returns three different types of response objects. Really two, since more users won't ever need the API Status object, which just defines the root of the API. The OA Location object describes a place we found an OA copy of an article. There are one or more of these associated with DOI object, which describes a given DOI-assigned resource.</p>\n" +
-    "    -->\n" +
+    "    <p>\n" +
+    "        These are the JSON objects returned by the API.\n" +
+    "    </p>\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"api-status-object\">2.1 API Status object</h3>\n" +
+    "    <h3 class=\"anchor\" id=\"api-status-object\">3.1 API Status object</h3>\n" +
+    "    <p>Describes status of this API.</p>\n" +
     "    <table class=\"api-responses\">\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
@@ -937,7 +939,7 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"doi-object\">2.2 DOI object</h3>\n" +
+    "    <h3 class=\"anchor\" id=\"doi-object\">3.2 DOI object</h3>\n" +
     "    <p>This is the main response object for the API, used for reporting the altmetrics\n" +
     "        and other information about a given DOI.\n" +
     "    </p>\n" +
@@ -1028,12 +1030,12 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"altmetricssource-object\">2.3 AltmetricsSource object</h3>\n" +
+    "    <h3 class=\"anchor\" id=\"altmetricssource-object\">3.3 AltmetricsSource object</h3>\n" +
     "    <p>\n" +
-    "        Reports information about events on a DOI from a certain altmetrics\n" +
-    "        <em>source,</em> like Twitter or Reddit.\n" +
+    "        Describes online mentions of a DOI from certain altmetrics\n" +
+    "        source (for example, Twitter or Reddit are both sources).\n" +
     "    </p>\n" +
-    "<table class=\"api-responses\">\n" +
+    "    <table class=\"api-responses\">\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
@@ -1095,9 +1097,67 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                </a>\n" +
     "            </td>\n" +
     "        </tr>\n" +
+    "    </table>\n" +
     "\n" +
     "\n" +
     "\n" +
+    "\n" +
+    "\n" +
+    "    <h3 class=\"anchor\" id=\"event-object\">3.4 Event object</h3>\n" +
+    "    <p>\n" +
+    "        Describes a time when someone interacted with DOI-assigned resource\n" +
+    "        by mentioning it or linking to it online. For example, a tweet is an Event; so is a Reddit post.\n" +
+    "        This Event object is a simplified version\n" +
+    "        of the <a href=\"https://www.eventdata.crossref.org/guide/data/events/\">Event object</a>\n" +
+    "        served by the Crossref Event Data API.\n" +
+    "    </p>\n" +
+    "    <table class=\"api-responses\">\n" +
+    "\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">author</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Name of author.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                <p>\n" +
+    "                    Where possible, this string is a URL. For Twitter, for example,\n" +
+    "                    it's a URL pointing to the author's Twitter profile.\n" +
+    "                </p>\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "\n" +
+    "\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">occurred_at</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Time the event occured.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Represented as an\n" +
+    "                <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601 timestamp</a>.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">url</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Location of the event.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                For example, if this Event is a tweet,\n" +
+    "                this URL  would resolve\n" +
+    "                to the tweet itself. This is the end of the provenance chain for altmetrics counts,\n" +
+    "                since users can see and read the invocation of a given DOI, here at this URL.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
     "    </table>\n" +
     "\n" +
     "\n" +
@@ -1176,7 +1236,7 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "            <div class=\"metrics\">\n" +
     "                <div class=\"sources\">\n" +
     "                    <h3>Filter by source</h3>\n" +
-    "                    <div class=\"source selected-{{ p.selectedSource && p.selectedSource == source }}\" ng-repeat=\"source in apiResp.altmetrics.sources\"\n" +
+    "                    <div class=\"source selected-{{ p.selectedSource && p.selectedSource == source }}\" ng-repeat=\"source in apiResp.altmetrics_sources\"\n" +
     "                            ng-click=\"selectSource(source)\">\n" +
     "                        <span class=\"name\">{{ source.source_id }}: </span>\n" +
     "                        <span class=\"count\">{{ source.events_count }}</span>\n" +

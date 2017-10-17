@@ -21,6 +21,13 @@ body a {
 body a:hover {
   text-decoration: underline;
 }
+body code {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 2px 5px;
+  font-size: 90%;
+  font-family: 'Monaco', 'Consolas', 'Bitstream Vera Sans Mono', monospace;
+}
 body h3 {
   font-weight: 300;
   margin: 0;
@@ -40,6 +47,28 @@ div.loading {
 }
 div.loading span.label {
   display: none;
+}
+.decimal-ol ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+.decimal-ol ol > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+.decimal-ol ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;
+}
+.decimal-ol li ol > li {
+  margin: 0;
+}
+.decimal-ol li ol > li:before {
+  content: counters(item, ".") " ";
 }
 .nav {
   background: repeating-linear-gradient(90deg, #FFF59D, #FFF59D 100px, #fff284 100px, #fff284 200px);
@@ -202,6 +231,10 @@ div.loading span.label {
 .page.api .version-good code {
   background: none;
   border-color: #333;
+}
+.page.api .toc {
+  margin-top: 40px;
+  font-size: 18px;
 }
 .page.api div.endpoint {
   margin-bottom: 40px;

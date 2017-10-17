@@ -48,7 +48,7 @@
             <div class="metrics">
                 <div class="sources">
                     <h3>Filter by source</h3>
-                    <div class="source selected-{{ p.selectedSource && p.selectedSource == source }}" ng-repeat="source in apiResp.altmetrics.sources"
+                    <div class="source selected-{{ p.selectedSource && p.selectedSource == source }}" ng-repeat="source in apiResp.altmetrics_sources"
                             ng-click="selectSource(source)">
                         <span class="name">{{ source.source_id }}: </span>
                         <span class="count">{{ source.events_count }}</span>

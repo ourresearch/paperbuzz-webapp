@@ -35,7 +35,7 @@ angular.module('citePage', [
             $scope.publicationYear = resp.metadata.issued['date-parts'][0][0]
 
             var events = []
-            resp.altmetrics.sources.forEach(function(source){
+            resp.altmetrics_sources.forEach(function(source){
                 source.events.forEach(function(event){
                     var myEvent = event
                     myEvent.source_id = source.source_id
