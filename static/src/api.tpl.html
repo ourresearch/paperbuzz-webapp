@@ -339,14 +339,15 @@
 
 
 
-    <h3 class="anchor" id="altmetricssource-object">3.3 AltmetricsSource object</h3>
+
+<h3 class="anchor" id="altmetricssource-object">3.3 AltmetricsSource object</h3>
     <p>
         Describes online mentions of a DOI from certain altmetrics
         source (for example, Twitter or Reddit are both sources).
     </p>
     <table class="api-responses">
 
-        <tr>
+        <tbody><tr>
             <td class="key">
                 <span class="name">events</span>
                 <span class="type">List</span>
@@ -375,6 +376,19 @@
                 </p>
             </td>
         </tr>
+        <tr>
+            <td class="key">
+                <span class="name">first_event_date</span>
+                <span class="type">String</span>
+            </td>
+            <td class="contents">
+               Date of the first event found.
+            </td>
+            <td class="notes">
+                Represented as an
+                <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601 timestamp</a>.
+            </td>
+        </tr>
 
         <tr>
             <td class="key">
@@ -393,6 +407,36 @@
         </tr>
         <tr>
             <td class="key">
+                <span class="name">events_count_by_month</span>
+                <span class="type">List</span>
+            </td>
+            <td class="contents">
+                List of objects describing event counts binned by month.
+            </td>
+            <td class="notes">
+                Each day is represented by its own object, which has two properties:
+                <code>count</code> and <code>date</code> (represented as an
+                <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601 timestamp)</a>.
+                Months with zero events are not included.
+            </td>
+        </tr>
+        <tr>
+            <td class="key">
+                <span class="name">events_count_by_year</span>
+                <span class="type">List</span>
+            </td>
+            <td class="contents">
+                List of objects describing event counts binned by year.
+            </td>
+            <td class="notes">
+                Each day is represented by its own object, which has two properties:
+                <code>count</code> and <code>date</code> (represented as an
+                <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601 timestamp)</a>.
+                Years with zero events are not included.
+            </td>
+        </tr>
+        <tr>
+            <td class="key">
                 <span class="name">source_id</span>
                 <span class="type">String</span>
             </td>
@@ -402,10 +446,28 @@
             <td class="notes">
                 We use the  names defined by the
                 <a href="https://www.eventdata.crossref.org/guide/sources/how-agents-work/">
-                    Crossref Event Data schema.
-                </a>
+                    Crossref Event Data schema</a>. Also represented in the <code>source</code> object, but maintained here for backwards compability.
             </td>
         </tr>
+        <tr>
+            <td class="key">
+                <span class="name">source</span>
+                <span class="type">List</span>
+            </td>
+            <td class="contents">
+                Source details.
+            </td>
+            <td class="notes">
+                The source object has three properties:<br/>
+                <code>source_id</code> is the name of the source as defined by the <a href="https://www.eventdata.crossref.org/guide/sources/how-agents-work/">
+                    Crossref Event Data schema.
+                </a>.<br/>
+                <code>display_name</code> is a properly formatted source name for display to end users in a client application or GUI.<br/>
+                <code>icon_url</code> returns an image link to the source logo or watermark icon.
+
+            </td>
+        </tr>
+    </tbody>
     </table>
 
 
