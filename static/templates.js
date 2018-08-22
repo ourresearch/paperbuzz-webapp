@@ -33,11 +33,6 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
   $templateCache.put("api.tpl.html",
     "<div class=\"page api\">\n" +
     "    <h1>API Version 0</h1>\n" +
-    "    <div class=\"version-good\">\n" +
-    "        <i class=\"fa fa-flask\"></i>\n" +
-    "        <strong>Early version:</strong> Be prepared for breaking changes when\n" +
-    "        we officially launch in 2017.\n" +
-    "    </div>\n" +
     "\n" +
     "    <div class=\"decimal-ol toc\">\n" +
     "        <ol>\n" +
@@ -372,14 +367,15 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "\n" +
     "\n" +
     "\n" +
-    "    <h3 class=\"anchor\" id=\"altmetricssource-object\">3.3 AltmetricsSource object</h3>\n" +
+    "\n" +
+    "<h3 class=\"anchor\" id=\"altmetricssource-object\">3.3 AltmetricsSource object</h3>\n" +
     "    <p>\n" +
     "        Describes online mentions of a DOI from certain altmetrics\n" +
     "        source (for example, Twitter or Reddit are both sources).\n" +
     "    </p>\n" +
     "    <table class=\"api-responses\">\n" +
     "\n" +
-    "        <tr>\n" +
+    "        <tbody><tr>\n" +
     "            <td class=\"key\">\n" +
     "                <span class=\"name\">events</span>\n" +
     "                <span class=\"type\">List</span>\n" +
@@ -408,6 +404,19 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "                </p>\n" +
     "            </td>\n" +
     "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">first_event_date</span>\n" +
+    "                <span class=\"type\">String</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "               Date of the first event found.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Represented as an\n" +
+    "                <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601 timestamp</a>.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
     "\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
@@ -426,6 +435,36 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "        </tr>\n" +
     "        <tr>\n" +
     "            <td class=\"key\">\n" +
+    "                <span class=\"name\">events_count_by_month</span>\n" +
+    "                <span class=\"type\">List</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                List of objects describing event counts binned by month.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Each day is represented by its own object, which has two properties:\n" +
+    "                <code>count</code> and <code>date</code> (represented as an\n" +
+    "                <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601 timestamp)</a>.\n" +
+    "                Months with zero events are not included.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">events_count_by_year</span>\n" +
+    "                <span class=\"type\">List</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                List of objects describing event counts binned by year.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                Each day is represented by its own object, which has two properties:\n" +
+    "                <code>count</code> and <code>date</code> (represented as an\n" +
+    "                <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601 timestamp)</a>.\n" +
+    "                Years with zero events are not included.\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
     "                <span class=\"name\">source_id</span>\n" +
     "                <span class=\"type\">String</span>\n" +
     "            </td>\n" +
@@ -435,10 +474,28 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
     "            <td class=\"notes\">\n" +
     "                We use the  names defined by the\n" +
     "                <a href=\"https://www.eventdata.crossref.org/guide/sources/how-agents-work/\">\n" +
-    "                    Crossref Event Data schema.\n" +
-    "                </a>\n" +
+    "                    Crossref Event Data schema</a>. Also represented in the <code>source</code> object, but maintained here for backwards compability.\n" +
     "            </td>\n" +
     "        </tr>\n" +
+    "        <tr>\n" +
+    "            <td class=\"key\">\n" +
+    "                <span class=\"name\">source</span>\n" +
+    "                <span class=\"type\">List</span>\n" +
+    "            </td>\n" +
+    "            <td class=\"contents\">\n" +
+    "                Source details.\n" +
+    "            </td>\n" +
+    "            <td class=\"notes\">\n" +
+    "                The source object has three properties:<br/>\n" +
+    "                <code>source_id</code> is the name of the source as defined by the <a href=\"https://www.eventdata.crossref.org/guide/sources/how-agents-work/\">\n" +
+    "                    Crossref Event Data schema.\n" +
+    "                </a>.<br/>\n" +
+    "                <code>display_name</code> is a properly formatted source name for display to end users in a client application or GUI.<br/>\n" +
+    "                <code>icon_url</code> returns an image link to the source logo or watermark icon.\n" +
+    "\n" +
+    "            </td>\n" +
+    "        </tr>\n" +
+    "    </tbody>\n" +
     "    </table>\n" +
     "\n" +
     "\n" +

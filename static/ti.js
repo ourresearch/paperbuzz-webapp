@@ -691,11 +691,6 @@ angular.module("api.tpl.html", []).run(["$templateCache", function($templateCach
   $templateCache.put("api.tpl.html",
     "<div class=\"page api\">\n" +
     "    <h1>API Version 0</h1>\n" +
-    "    <div class=\"version-good\">\n" +
-    "        <i class=\"fa fa-flask\"></i>\n" +
-    "        <strong>Early version:</strong> Be prepared for breaking changes when\n" +
-    "        we officially launch in 2017.\n" +
-    "    </div>\n" +
     "\n" +
     "    <div class=\"decimal-ol toc\">\n" +
     "        <ol>\n" +
