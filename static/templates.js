@@ -20,7 +20,7 @@ angular.module("about.tpl.html", []).run(["$templateCache", function($templateCa
     "                CiteAs is a collaboration between\n" +
     "                <a href=\"http://james.howison.name/\">James Howison</a> at the\n" +
     "                University of Texas-Austin, and\n" +
-    "                <a href=\"http://impactstory.org/about\">Impactstory.</a>\n" +
+    "                <a href=\"http://ourresearch.org/\">Our Research.</a>\n" +
     "            </p>\n" +
     "\n" +
     "\n" +
@@ -760,7 +760,7 @@ angular.module("footer.tpl.html", []).run(["$templateCache", function($templateC
     "\n" +
     "    <div class=\"creators\">\n" +
     "        Built with <i class=\"fa fa-heart-o\"></i> by\n" +
-    "        <a href=\"http://impactstory.org/about\">Impactstory.</a>\n" +
+    "        <a href=\"http://ourresearch.org/\">Our Research.</a>\n" +
     "    </div>\n" +
     "    <div class=\"funders\">\n" +
     "        Made possible by a grant from the\n" +
@@ -769,7 +769,7 @@ angular.module("footer.tpl.html", []).run(["$templateCache", function($templateC
     "</div>\n" +
     "<div class=\"spacer\"></div>\n" +
     "<div class=\"links\">\n" +
-    "    <a href=\"mailto:team@impactstory.org\">\n" +
+    "    <a href=\"mailto:team@ourresearch.org\">\n" +
     "        <i class=\"fa fa-envelope-o\"></i>\n" +
     "        <span class=\"text\">email</span>\n" +
     "    </a>\n" +
