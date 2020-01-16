@@ -7,23 +7,36 @@ angular.module("about.tpl.html", []).run(["$templateCache", function($templateCa
     "        <h2>About</h2>\n" +
     "        <div class=\"text\">\n" +
     "            <p>\n" +
-    "                CiteAs is a way to\n" +
-    "                help get the correct citation for diverse research products,\n" +
-    "                from software and datasets to preprints and articles.\n" +
+    "                Paperbuzz provides a programmatic API showing how often a\n" +
+    "                scholarly article was mentioned around the web.\n" +
     "            </p>\n" +
     "            <p>\n" +
-    "                It's part of a larger grant, funded by the Alfred P. Sloan Foundation,\n" +
-    "                to help scholars who share reusable\n" +
-    "                research software get credit for their work.\n" +
+    "                The primary source of data is the\n" +
+    "                <a href=\"https://www.crossref.org/services/event-data/\" target=\"_blank\">Crossref Event Data</a> API.\n" +
+    "            <p>\n" +
+    "                Paperbuzz downloads data from the API often,\n" +
+    "                consolidating events into a database.\n" +
+    "                <br><br>\n" +
+    "                An example API call used to gather data is:\n" +
+    "                <br><br>\n" +
+    "                <a href=\"https://api.eventdata.crossref.org/v1/events?rows=10000&filter=from-collected-date:1990-01-01,until-collected-date:2099-01-01,obj-id:10.1371/journal.pone.0177707\">\n" +
+    "                    https://api.eventdata.crossref.org/v1/events?rows=10000&filter=from-collected-date:1990-01-01,until-collected-date:2099-01-01,obj-id:10.1371/journal.pone.0177707\n" +
+    "                </a>\n" +
+    "            </p>\n" +
+    "                Metadata comes from oaDOI (Unpaywall) and Crossref, with example metadata calls being:<br>\n" +
+    "                <a href=\"https://api.oadoi.org/v2/10.1371/journal.pone.0177707\">https://api.oadoi.org/v2/10.1371/journal.pone.0177707</a>\n" +
+    "                <a href=\"https://api.crossref.org/works/10.1371/journal.pone.0177707\">https://api.crossref.org/works/10.1371/journal.pone.0177707</a>\n" +
     "            </p>\n" +
     "            <p>\n" +
-    "                CiteAs is a collaboration between\n" +
-    "                <a href=\"http://james.howison.name/\">James Howison</a> at the\n" +
-    "                University of Texas-Austin, and\n" +
-    "                <a href=\"http://ourresearch.org/\">Our Research.</a>\n" +
+    "                You may sometimes see a difference in the amount events between Crossref and Paperbuzz, due to the way Paperbuzz handles Wikipedia events.\n" +
+    "                Paperbuzz handles Wikipedia events differently in two ways.\n" +
+    "                <br><br>\n" +
+    "                First, if a source is cited multiple times on a single page, then that is recognized as a single event in Paperbuzz.\n" +
+    "                Crossref would count that as multiple independent events.<br>\n" +
+    "                Second, is that Paperbuzz does not save events that are on a pages marked as old revisions.\n" +
+    "                <br><br>\n" +
+    "                The way Crossref handles wikipedia events can be found here: https://www.eventdata.crossref.org/guide/sources/wikipedia/.\n" +
     "            </p>\n" +
-    "\n" +
-    "\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>");

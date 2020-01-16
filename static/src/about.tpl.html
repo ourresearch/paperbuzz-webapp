@@ -3,23 +3,36 @@
         <h2>About</h2>
         <div class="text">
             <p>
-                CiteAs is a way to
-                help get the correct citation for diverse research products,
-                from software and datasets to preprints and articles.
+                Paperbuzz provides a programmatic API showing how often a
+                scholarly article was mentioned around the web.
             </p>
             <p>
-                It's part of a larger grant, funded by the Alfred P. Sloan Foundation,
-                to help scholars who share reusable
-                research software get credit for their work.
+                The primary source of data is the
+                <a href="https://www.crossref.org/services/event-data/" target="_blank">Crossref Event Data</a> API.
+            <p>
+                Paperbuzz downloads data from the API often,
+                consolidating events into a database.
+                <br><br>
+                An example API call used to gather data is:
+                <br><br>
+                <a href="https://api.eventdata.crossref.org/v1/events?rows=10000&filter=from-collected-date:1990-01-01,until-collected-date:2099-01-01,obj-id:10.1371/journal.pone.0177707">
+                    https://api.eventdata.crossref.org/v1/events?rows=10000&filter=from-collected-date:1990-01-01,until-collected-date:2099-01-01,obj-id:10.1371/journal.pone.0177707
+                </a>
+            </p>
+                Metadata comes from oaDOI (Unpaywall) and Crossref, with example metadata calls being:<br>
+                <a href="https://api.oadoi.org/v2/10.1371/journal.pone.0177707">https://api.oadoi.org/v2/10.1371/journal.pone.0177707</a>
+                <a href="https://api.crossref.org/works/10.1371/journal.pone.0177707">https://api.crossref.org/works/10.1371/journal.pone.0177707</a>
             </p>
             <p>
-                CiteAs is a collaboration between
-                <a href="http://james.howison.name/">James Howison</a> at the
-                University of Texas-Austin, and
-                <a href="http://ourresearch.org/">Our Research.</a>
+                You may sometimes see a difference in the amount events between Crossref and Paperbuzz, due to the way Paperbuzz handles Wikipedia events.
+                Paperbuzz handles Wikipedia events differently in two ways.
+                <br><br>
+                First, if a source is cited multiple times on a single page, then that is recognized as a single event in Paperbuzz.
+                Crossref would count that as multiple independent events.<br>
+                Second, is that Paperbuzz does not save events that are on a pages marked as old revisions.
+                <br><br>
+                The way Crossref handles wikipedia events can be found here: https://www.eventdata.crossref.org/guide/sources/wikipedia/.
             </p>
-
-
         </div>
     </div>
 </div>
