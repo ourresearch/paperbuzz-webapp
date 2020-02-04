@@ -1,15 +1,6 @@
-from flask import make_response
-from flask import request
-from flask import redirect
-from flask import abort
-from flask import render_template
-from flask import jsonify
-from flask import g
-
-import json
 import os
 import sys
-
+from flask import render_template
 from app import app
 
 
@@ -26,25 +17,7 @@ def add_crossdomain_header(resp):
     return resp
 
 
-@app.before_request
-def do_before_request():
-    pass
-    # if request.url.startswith("http://www.oadoi.org"):
-    #
-    #     new_url = request.url.replace(
-    #         "http://www.oadoi.org",
-    #         "http://oadoi.org"
-    #     )
-    #     return redirect(new_url, 301)  # permanent
-    #
-    # g.use_cache = True
-    # if ('no-cache', u'') in request.args.items():
-    #     g.use_cache = False
-    #     print "NOT USING CACHE"
-
-
-
-@app.route("/<path:page>")  # from http://stackoverflow.com/a/14023930/226013
+@app.route("/<path:page>")
 @app.route("/")
 def index_endpoint(path="index", page=""):
     return render_template(
@@ -54,21 +27,4 @@ def index_endpoint(path="index", page=""):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5010))
-    app.run(host='0.0.0.0', port=port, debug=True, threaded=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    app.run(host='0.0.0.0', port=port, threaded=True)
