@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
 @import "animate.css";
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
+}
 html {
   background: #fff;
 }
@@ -462,7 +467,7 @@ div.loading span.label {
 }
 .page.hot .content .main .results .card .card-footer .bottom-row a img {
   vertical-align: -6px;
-  opacity: .5;
+  opacity: 0.5;
 }
 .page.cite-page {
   min-height: 100vh;
@@ -486,11 +491,9 @@ div.loading span.label {
   margin-left: -3px;
 }
 .page.cite-page .content .metadata .old-article {
-  background: #FFCDD2;
-  padding: 10px 20px;
+  padding: 10px 5px;
   border-radius: 3px;
-  margin: 10px 0;
-  color: #B71C1C;
+  margin: 2px 0;
 }
 .page.cite-page .content .metrics {
   margin-top: 60px;
@@ -519,7 +522,7 @@ div.loading span.label {
 }
 .page.cite-page .content .metrics .sources .source.selected-false {
   text-decoration: line-through;
-  opacity: .1;
+  opacity: 0.1;
 }
 .page.cite-page .content .metrics .events h2 .remove {
   font-size: 14px;

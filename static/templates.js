@@ -636,11 +636,11 @@ angular.module("cite-page.tpl.html", []).run(["$templateCache", function($templa
     "                    </md-button>\n" +
     "\n" +
     "                </div>\n" +
-    "                <div class=\"old-article warning\" ng-show=\"publicationYear < 2017\">\n" +
+    "                <div class=\"old-article\">\n" +
     "                    <i class=\"fa fa-exclamation-triangle\"></i>\n" +
     "                    <span class=\"explanation\">\n" +
-    "                        Paperbuzz data is currently less complete for articles published\n" +
-    "                        before 2017.\n" +
+    "                        Some 2020 results data is incomplete.\n" +
+    "                        Read more <a href=\"https://community.crossref.org/t/completeness-of-event-data-in-2020/1516\" target=\"_blank\">here</a>.\n" +
     "                    </span>\n" +
     "                </div>\n" +
     "\n" +
