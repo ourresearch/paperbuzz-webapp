@@ -773,7 +773,7 @@ angular.module("footer.tpl.html", []).run(["$templateCache", function($templateC
     "\n" +
     "    <div class=\"creators\">\n" +
     "        Built with <i class=\"fa fa-heart-o\"></i> by\n" +
-    "        <a href=\"http://ourresearch.org/\">Our Research.</a>\n" +
+    "        <a href=\"http://ourresearch.org/\">OurResearch.</a>\n" +
     "    </div>\n" +
     "    <div class=\"funders\">\n" +
     "        Made possible by a grant from the\n" +
